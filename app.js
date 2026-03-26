@@ -17,18 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== Load Data (with caching) =====
 function loadData() {
-  // Check cache first
-  const cached = sessionStorage.getItem('datahub-data');
-  if (cached && dataLoaded) {
-    const data = JSON.parse(cached);
-    processLoadedData(data);
-    return;
-  }
-
+  // Always fetch fresh data from server (prevent stale cache)
   fetch('data.json')
     .then(response => response.json())
     .then(data => {
-      // Cache data in session storage
+      // Cache data in session storage for subsequent page navigations
       sessionStorage.setItem('datahub-data', JSON.stringify(data));
       processLoadedData(data);
     })
