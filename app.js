@@ -50,6 +50,11 @@ function navigateToPage(pageName) {
     pageElement.classList.add('active');
     window.scrollTo(0, 0);
 
+    // Sidebar-Navigation: aktiven Link hervorheben
+    document.querySelectorAll('.sidebar-nav-link').forEach(l => l.classList.remove('active-nav'));
+    const activeLink = document.querySelector(`.sidebar-nav-link[data-page="${pageName}"]`);
+    if (activeLink) activeLink.classList.add('active-nav');
+
     // Lazy load visualizations when pages are first visited
     if (pageName === 'breitband' && !mapInitialized && allMunicipalities.length > 0) {
       mapInitialized = true;

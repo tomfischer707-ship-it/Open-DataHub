@@ -1080,7 +1080,7 @@ select:focus {
 /* ===== Navbar: Prominente Suchleiste ===== */
 .search-bar--prominent {
   flex: 1;
-  max-width: 520px;
+  max-width: 640px;
   position: relative;
   order: 2;
 }
@@ -1119,44 +1119,46 @@ select:focus {
   background: rgba(37, 99, 235, 0.18);
 }
 
-/* ===== Dashboard Two-Column Layout ===== */
-.dashboard-layout {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  align-items: start;
-  position: relative;
-  padding: 2rem 0;
+/* ===== Dashboard Layout ===== */
+#dashboard-page {
+  display: flex !important;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: calc(100vh - 64px);
 }
 
-.dashboard-layout.sidebar-collapsed {
-  grid-template-columns: 1fr 0;
-  gap: 0;
+.dashboard-page-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.dashboard-layout {
+  padding: 2rem 0;
 }
 
 .dashboard-main {
   min-width: 0;
 }
 
-/* ===== Dashboard Sidebar ===== */
+/* ===== Dashboard Sidebar (links) ===== */
 .dashboard-sidebar {
   background: var(--blue-800);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  border-radius: var(--radius-md);
+  border-right: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 0;
   position: sticky;
-  top: 80px;
-  max-height: calc(100vh - 100px);
+  top: 64px;
+  height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: width 0.25s ease, border 0.25s ease, opacity 0.25s ease;
-  width: 300px;
+  transition: width 0.25s ease, opacity 0.25s ease;
+  width: 280px;
+  flex-shrink: 0;
+  z-index: 50;
 }
 
 .dashboard-sidebar.collapsed {
   width: 0;
-  border: none;
-  padding: 0;
   overflow: hidden;
   opacity: 0;
 }
@@ -1223,17 +1225,17 @@ select:focus {
   border-radius: 4px;
 }
 
-/* ===== Floating Open Button ===== */
+/* ===== Floating Open Button (links) ===== */
 .sidebar-open-btn {
   position: fixed;
-  right: 0;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 200;
   background: var(--blue-700);
   border: 1px solid rgba(59, 130, 246, 0.3);
-  border-right: none;
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  border-left: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   color: var(--blue-300);
   padding: 0.85rem 0.65rem;
   cursor: pointer;
@@ -1444,6 +1446,54 @@ select:focus {
   margin-bottom: 0.4rem;
 }
 
+/* ===== Sidebar Navigation ===== */
+.sidebar-nav {
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  cursor: pointer;
+  margin-bottom: 0.1rem;
+  text-decoration: none;
+}
+
+.sidebar-nav-link:hover {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--white);
+}
+
+.sidebar-nav-link.active-nav {
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--blue-300);
+  font-weight: 600;
+}
+
+.sidebar-nav-link i {
+  width: 16px;
+  text-align: center;
+  color: var(--blue-400);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-link.active-nav i {
+  color: var(--blue-300);
+}
+
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid rgba(59, 130, 246, 0.12);
+  margin: 0.75rem 0 1rem;
+}
+
 /* ===== Theme Switch ===== */
 .sidebar-theme-switch {
   margin-top: 1.5rem;
@@ -1582,15 +1632,16 @@ body.light-mode {
 
 /* ===== Responsive: Dashboard Layout ===== */
 @media (max-width: 1024px) {
-  .dashboard-layout,
-  .dashboard-layout.sidebar-collapsed {
-    grid-template-columns: 1fr;
+  #dashboard-page {
+    flex-direction: column;
   }
 
   .dashboard-sidebar {
     position: static;
     width: 100% !important;
-    max-height: none;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
     opacity: 1 !important;
   }
 

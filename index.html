@@ -18,14 +18,7 @@
         <span class="brand-icon">&#128061;</span>
         <span class="brand-name">Open DataHub Gießen</span>
       </div>
-      <ul class="nav-links">
-        <li><a href="#" data-page="dashboard">Dashboard</a></li>
-        <li><a href="#" data-page="explore">Explore</a></li>
-        <li><a href="#" data-page="breitband">Breitbandausbau</a></li>
-        <li><a href="#" data-page="demografie">Demografie</a></li>
-        <li><a href="#" data-page="about">Info</a></li>
-      </ul>
-      <div class="search-bar search-bar--prominent">
+<div class="search-bar search-bar--prominent">
         <i class="fas fa-search search-bar__icon"></i>
         <input
           type="text"
@@ -43,10 +36,139 @@
 
     <!-- DASHBOARD PAGE -->
     <section id="dashboard-page" class="page active">
+
+      <!-- SIDEBAR LINKS -->
+      <aside class="dashboard-sidebar" id="dashboardSidebar">
+        <div class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleDashboardSidebar()">
+          <i class="fas fa-sliders-h"></i>
+          <span class="sidebar-toggle-label">Filter &amp; Analyse</span>
+          <i class="fas fa-chevron-left sidebar-chevron" id="sidebarChevron"></i>
+        </div>
+        <div class="sidebar-content" id="sidebarContent">
+          <!-- Navigation -->
+          <div class="sidebar-nav">
+            <p class="filter-subheader">Navigation</p>
+            <a href="#" data-page="dashboard" class="sidebar-nav-link active-nav">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#" data-page="explore" class="sidebar-nav-link">
+              <i class="fas fa-compass"></i> Explore
+            </a>
+            <a href="#" data-page="breitband" class="sidebar-nav-link">
+              <i class="fas fa-wifi"></i> Breitbandausbau
+            </a>
+            <a href="#" data-page="demografie" class="sidebar-nav-link">
+              <i class="fas fa-chart-line"></i> Demografie
+            </a>
+            <a href="#" data-page="about" class="sidebar-nav-link">
+              <i class="fas fa-info-circle"></i> Info
+            </a>
+          </div>
+          <hr class="sidebar-divider" />
+          <!-- Zeitraum -->
+          <div class="filter-group collapsible-group">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4><i class="fas fa-calendar-alt"></i> Zeitraum</h4>
+              <i class="fas fa-chevron-down collapsible-chevron"></i>
+            </div>
+            <div class="collapsible-body">
+              <div class="slider-wrapper">
+                <input type="range" id="yearSlider" min="2015" max="2024" value="2024"
+                       class="year-slider" oninput="updateYearLabel(this.value)">
+                <div class="slider-label">Jahr: <span id="yearLabel">2024</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- Räume -->
+          <div class="filter-group collapsible-group">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4><i class="fas fa-map-marker-alt"></i> Räume</h4>
+              <i class="fas fa-chevron-down collapsible-chevron"></i>
+            </div>
+            <div class="collapsible-body">
+              <select class="sidebar-select" id="raumSelect">
+                <option value="">Landkreis Gießen (gesamt)</option>
+                <option value="giessen">Gießen (Stadt)</option>
+                <option value="buseck">Buseck</option>
+                <option value="linden">Linden</option>
+                <option value="wettenberg">Wettenberg</option>
+                <option value="hungen">Hungen</option>
+                <option value="gruenberg">Grünberg</option>
+                <option value="pohlheim">Pohlheim</option>
+                <option value="staufenberg">Staufenberg</option>
+              </select>
+            </div>
+          </div>
+          <!-- Zielgruppen -->
+          <div class="filter-group collapsible-group">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4><i class="fas fa-users"></i> Zielgruppen</h4>
+              <i class="fas fa-chevron-down collapsible-chevron"></i>
+            </div>
+            <div class="collapsible-body">
+              <p class="filter-subheader">Staatsangehörigkeit</p>
+              <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Staatsangehörigkeiten</label>
+              <label><input type="checkbox" class="dash-zielgruppe"> Deutsche</label>
+              <label><input type="checkbox" class="dash-zielgruppe"> Ausländisch</label>
+              <p class="filter-subheader">Altersgruppe</p>
+              <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Alter</label>
+              <label><input type="checkbox" class="dash-zielgruppe"> 15–25 J.</label>
+              <label><input type="checkbox" class="dash-zielgruppe"> 25–50 J.</label>
+              <label><input type="checkbox" class="dash-zielgruppe"> 50+ J.</label>
+            </div>
+          </div>
+          <!-- Handlungsfelder -->
+          <div class="filter-group collapsible-group">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4><i class="fas fa-layer-group"></i> Handlungsfelder</h4>
+              <i class="fas fa-chevron-down collapsible-chevron"></i>
+            </div>
+            <div class="collapsible-body">
+              <label><input type="checkbox" checked class="dash-handlung"> Arbeitsmarkt</label>
+              <label><input type="checkbox" class="dash-handlung"> Bildung</label>
+              <label><input type="checkbox" class="dash-handlung"> Soziales</label>
+              <label><input type="checkbox" class="dash-handlung"> Infrastruktur</label>
+            </div>
+          </div>
+          <!-- Diagramme / Tabellen -->
+          <div class="filter-group collapsible-group">
+            <div class="collapsible-header" onclick="toggleCollapsible(this)">
+              <h4><i class="fas fa-chart-bar"></i> Diagramme / Tabellen</h4>
+              <i class="fas fa-chevron-down collapsible-chevron"></i>
+            </div>
+            <div class="collapsible-body">
+              <div class="sidebar-tabs">
+                <button class="sidebar-tab active" onclick="switchSidebarTab(this, 'tab-chart')">Diagramm</button>
+                <button class="sidebar-tab" onclick="switchSidebarTab(this, 'tab-table')">Tabelle</button>
+              </div>
+              <div class="sidebar-tab-content" id="tab-chart">
+                <div class="chart-placeholder-sm">
+                  <i class="fas fa-chart-bar"></i>
+                  <p>Diagramm erscheint hier</p>
+                </div>
+              </div>
+              <div class="sidebar-tab-content" id="tab-table" style="display:none;">
+                <div class="chart-placeholder-sm">
+                  <i class="fas fa-table"></i>
+                  <p>Tabelle erscheint hier</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Theme Switch -->
+          <div class="sidebar-theme-switch">
+            <button class="btn-secondary theme-switch-btn" id="themeSwitchBtn" onclick="toggleTheme()">
+              <i class="fas fa-moon" id="themeIcon"></i>
+              <span id="themeLabel">Light Mode</span>
+            </button>
+          </div>
+        </div><!-- end .sidebar-content -->
+      </aside>
+
+      <!-- HAUPTINHALT RECHTS -->
+      <div class="dashboard-page-content">
       <div class="container">
         <div class="dashboard-layout" id="dashboardLayout">
-
-          <!-- MAIN CONTENT: 3 Sections only -->
           <div class="dashboard-main">
 
             <!-- 1. KPI Cards -->
@@ -178,134 +300,15 @@
             </section>
 
           </div><!-- end .dashboard-main -->
-
-          <!-- COLLAPSIBLE SIDEBAR (rechts) -->
-          <aside class="dashboard-sidebar" id="dashboardSidebar">
-
-            <!-- Sticky Toggle-Button -->
-            <div class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleDashboardSidebar()">
-              <i class="fas fa-sliders-h"></i>
-              <span class="sidebar-toggle-label">Filter &amp; Analyse</span>
-              <i class="fas fa-chevron-left sidebar-chevron" id="sidebarChevron"></i>
-            </div>
-
-            <!-- Scrollbarer Inhalt -->
-            <div class="sidebar-content" id="sidebarContent">
-
-              <!-- 1. Zeitraum Slider -->
-              <div class="filter-group collapsible-group">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                  <h4><i class="fas fa-calendar-alt"></i> Zeitraum</h4>
-                  <i class="fas fa-chevron-down collapsible-chevron"></i>
-                </div>
-                <div class="collapsible-body">
-                  <div class="slider-wrapper">
-                    <input type="range" id="yearSlider" min="2015" max="2024" value="2024"
-                           class="year-slider" oninput="updateYearLabel(this.value)">
-                    <div class="slider-label">Jahr: <span id="yearLabel">2024</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 2. Räume -->
-              <div class="filter-group collapsible-group">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                  <h4><i class="fas fa-map-marker-alt"></i> Räume</h4>
-                  <i class="fas fa-chevron-down collapsible-chevron"></i>
-                </div>
-                <div class="collapsible-body">
-                  <select class="sidebar-select" id="raumSelect">
-                    <option value="">Landkreis Gießen (gesamt)</option>
-                    <option value="giessen">Gießen (Stadt)</option>
-                    <option value="buseck">Buseck</option>
-                    <option value="linden">Linden</option>
-                    <option value="wettenberg">Wettenberg</option>
-                    <option value="hungen">Hungen</option>
-                    <option value="gruenberg">Grünberg</option>
-                    <option value="pohlheim">Pohlheim</option>
-                    <option value="staufenberg">Staufenberg</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- 3. Zielgruppen -->
-              <div class="filter-group collapsible-group">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                  <h4><i class="fas fa-users"></i> Zielgruppen</h4>
-                  <i class="fas fa-chevron-down collapsible-chevron"></i>
-                </div>
-                <div class="collapsible-body">
-                  <p class="filter-subheader">Staatsangehörigkeit</p>
-                  <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Staatsangehörigkeiten</label>
-                  <label><input type="checkbox" class="dash-zielgruppe"> Deutsche</label>
-                  <label><input type="checkbox" class="dash-zielgruppe"> Ausländisch</label>
-                  <p class="filter-subheader">Altersgruppe</p>
-                  <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Alter</label>
-                  <label><input type="checkbox" class="dash-zielgruppe"> 15–25 J.</label>
-                  <label><input type="checkbox" class="dash-zielgruppe"> 25–50 J.</label>
-                  <label><input type="checkbox" class="dash-zielgruppe"> 50+ J.</label>
-                </div>
-              </div>
-
-              <!-- 4. Handlungsfelder -->
-              <div class="filter-group collapsible-group">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                  <h4><i class="fas fa-layer-group"></i> Handlungsfelder</h4>
-                  <i class="fas fa-chevron-down collapsible-chevron"></i>
-                </div>
-                <div class="collapsible-body">
-                  <label><input type="checkbox" checked class="dash-handlung"> Arbeitsmarkt</label>
-                  <label><input type="checkbox" class="dash-handlung"> Bildung</label>
-                  <label><input type="checkbox" class="dash-handlung"> Soziales</label>
-                  <label><input type="checkbox" class="dash-handlung"> Infrastruktur</label>
-                </div>
-              </div>
-
-              <!-- 5. Diagramme / Tabellen -->
-              <div class="filter-group collapsible-group">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                  <h4><i class="fas fa-chart-bar"></i> Diagramme / Tabellen</h4>
-                  <i class="fas fa-chevron-down collapsible-chevron"></i>
-                </div>
-                <div class="collapsible-body">
-                  <div class="sidebar-tabs">
-                    <button class="sidebar-tab active" onclick="switchSidebarTab(this, 'tab-chart')">Diagramm</button>
-                    <button class="sidebar-tab" onclick="switchSidebarTab(this, 'tab-table')">Tabelle</button>
-                  </div>
-                  <div class="sidebar-tab-content" id="tab-chart">
-                    <div class="chart-placeholder-sm">
-                      <i class="fas fa-chart-bar"></i>
-                      <p>Diagramm erscheint hier</p>
-                    </div>
-                  </div>
-                  <div class="sidebar-tab-content" id="tab-table" style="display:none;">
-                    <div class="chart-placeholder-sm">
-                      <i class="fas fa-table"></i>
-                      <p>Tabelle erscheint hier</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 6. Theme Switch -->
-              <div class="sidebar-theme-switch">
-                <button class="btn-secondary theme-switch-btn" id="themeSwitchBtn" onclick="toggleTheme()">
-                  <i class="fas fa-moon" id="themeIcon"></i>
-                  <span id="themeLabel">Light Mode</span>
-                </button>
-              </div>
-
-            </div><!-- end .sidebar-content -->
-
-          </aside><!-- end .dashboard-sidebar -->
-
-          <!-- Floating Open Button (sichtbar nur wenn Sidebar collapsed) -->
-          <button class="sidebar-open-btn" id="sidebarOpenBtn" onclick="openSidebar()" style="display:none;">
-            <i class="fas fa-sliders-h"></i>
-          </button>
-
         </div><!-- end .dashboard-layout -->
       </div><!-- end .container -->
+      </div><!-- end .dashboard-page-content -->
+
+      <!-- Floating Open Button (links, sichtbar wenn Sidebar collapsed) -->
+      <button class="sidebar-open-btn" id="sidebarOpenBtn" onclick="openSidebar()" style="display:none;">
+        <i class="fas fa-sliders-h"></i>
+      </button>
+
     </section>
 
     <!-- EXPLORE PAGE -->
