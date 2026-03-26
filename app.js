@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
   setupEventListeners();
   initializeMunicipalitySelects();
+  initTimeSlider();
 });
 
 // ===== Load Data =====
@@ -87,6 +88,16 @@ function setupEventListeners() {
   // Municipality comparisons
   document.getElementById('municipality-compare-1')?.addEventListener('change', compareeMunicipalities);
   document.getElementById('municipality-compare-2')?.addEventListener('change', compareMunicipalities);
+
+  // Sidebar: Escape-Taste schließt Sidebar
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const sidebar = document.getElementById('dashboardSidebar');
+      if (sidebar && !sidebar.classList.contains('collapsed')) {
+        toggleDashboardSidebar();
+      }
+    }
+  });
 }
 
 // ===== Filter & Search =====
@@ -291,4 +302,86 @@ function compareMunicipalities() {
   } else {
     resultDiv.innerHTML = '';
   }
+}
+
+// ===== Dashboard Sidebar =====
+
+function toggleDashboardSidebar() {
+  const sidebar  = document.getElementById('dashboardSidebar');
+  const layout   = document.getElementById('dashboardLayout');
+  const chevron  = document.getElementById('sidebarChevron');
+  const openBtn  = document.getElementById('sidebarOpenBtn');
+
+  if (!sidebar) return;
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  layout.classList.toggle('sidebar-collapsed', isCollapsed);
+
+  if (chevron) chevron.style.transform = isCollapsed ? 'rotate(180deg)' : '';
+  if (openBtn) openBtn.style.display = isCollapsed ? 'block' : 'none';
+}
+
+function openSidebar() {
+  const sidebar = document.getElementById('dashboardSidebar');
+  const layout  = document.getElementById('dashboardLayout');
+  const chevron = document.getElementById('sidebarChevron');
+  const openBtn = document.getElementById('sidebarOpenBtn');
+
+  if (!sidebar || !sidebar.classList.contains('collapsed')) return;
+  sidebar.classList.remove('collapsed');
+  if (layout) layout.classList.remove('sidebar-collapsed');
+  if (chevron) chevron.style.transform = '';
+  if (openBtn) openBtn.style.display = 'none';
+}
+
+function toggleCollapsible(headerEl) {
+  const group = headerEl.closest('.collapsible-group');
+  if (group) group.classList.toggle('is-collapsed');
+}
+
+function updateYearLabel(value) {
+  const label = document.getElementById('yearLabel');
+  if (label) label.textContent = value;
+
+  const slider = document.getElementById('yearSlider');
+  if (slider) {
+    const min = parseInt(slider.min, 10);
+    const max = parseInt(slider.max, 10);
+    const pct = ((value - min) / (max - min)) * 100;
+    slider.style.setProperty('--slider-pct', pct + '%');
+  }
+}
+
+function initTimeSlider() {
+  const slider = document.getElementById('yearSlider');
+  if (!slider) return;
+  updateYearLabel(slider.value);
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  const icon  = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+
+  if (icon) {
+    if (isLight) {
+      icon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+      icon.classList.replace('fa-sun', 'fa-moon');
+    }
+  }
+  if (label) label.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+}
+
+function switchSidebarTab(tabEl, targetId) {
+  const tabsContainer = tabEl.closest('.sidebar-tabs');
+  if (!tabsContainer) return;
+
+  tabsContainer.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+
+  const contentParent = tabsContainer.parentElement;
+  contentParent.querySelectorAll('.sidebar-tab-content').forEach(p => p.style.display = 'none');
+
+  const target = document.getElementById(targetId);
+  if (target) target.style.display = 'block';
 }

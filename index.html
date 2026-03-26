@@ -22,12 +22,13 @@
         <li><a href="#" data-page="demografie">Demografie</a></li>
         <li><a href="#" data-page="about">Info</a></li>
       </ul>
-      <div class="search-bar">
+      <div class="search-bar search-bar--prominent">
+        <i class="fas fa-search search-bar__icon"></i>
         <input
           type="text"
           id="globalSearch"
-          class="search-input"
-          placeholder="Daten suchen..."
+          class="search-input search-input--prominent"
+          placeholder="Suche KPIs, Datensätze oder Filter..."
         />
       </div>
     </nav>
@@ -38,101 +39,269 @@
 
     <!-- DASHBOARD PAGE -->
     <section id="dashboard-page" class="page active">
-      <div class="hero-section">
-        <div class="hero-content">
-          <h1>Open Data Hub Landkreis Gießen</h1>
-          <p>Daten für Verwaltung, Politik und Bürger:innen – transparent und offen.</p>
-          <button class="btn-primary" onclick="navigateToPage('explore')">Daten durchsuchen</button>
-        </div>
-      </div>
-
       <div class="container">
-        <!-- KPI Cards -->
-        <section class="kpi-section">
-          <h2>Aktuelle Kennzahlen</h2>
-          <div class="kpi-grid">
-            <div class="kpi-card">
-              <div class="kpi-icon">📊</div>
-              <div class="kpi-value">256.000</div>
-              <div class="kpi-label">Einwohner</div>
-              <div class="kpi-change">+1,2% seit 2020</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-icon">🌐</div>
-              <div class="kpi-value">48%</div>
-              <div class="kpi-label">FTTH-Abdeckung</div>
-              <div class="kpi-change">↑ +8% in 2024</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-icon">📈</div>
-              <div class="kpi-value">44,5</div>
-              <div class="kpi-label">Durchschnittsalter</div>
-              <div class="kpi-change">↑ Leicht ansteigend</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-icon">📦</div>
-              <div class="kpi-value">6</div>
-              <div class="kpi-label">Datensätze verfügbar</div>
-              <div class="kpi-change">Kontinuierlich aktualisiert</div>
-            </div>
-          </div>
-        </section>
+        <div class="dashboard-layout" id="dashboardLayout">
 
-        <!-- Featured Datasets -->
-        <section class="featured-section">
-          <h2>Beliebte Datensätze</h2>
-          <div class="dataset-grid">
-            <div class="dataset-card" onclick="navigateToDataset('breitband-001')">
-              <div class="dataset-badge">Aktuell</div>
-              <h3>Breitbandverfügbarkeit 2024</h3>
-              <p>Aktuelle Verfügbarkeitskarten auf Gemeindeebene</p>
-              <div class="dataset-meta">
-                <span class="source-badge breitband">BürgerGIS</span>
-                <span class="update-date">vor 5 Tagen aktualisiert</span>
+          <!-- MAIN CONTENT: 3 Sections only -->
+          <div class="dashboard-main">
+
+            <!-- 1. KPI Cards -->
+            <section class="kpi-section">
+              <h2>Aktuelle Kennzahlen</h2>
+              <div class="kpi-grid">
+
+                <div class="kpi-card kpi-card--compact">
+                  <div class="kpi-icon"><i class="fas fa-briefcase"></i></div>
+                  <div class="kpi-value">5,2%</div>
+                  <div class="kpi-label">Arbeitslosenquote</div>
+                  <div class="kpi-change positive"><i class="fas fa-arrow-down"></i> -0,3% ggü. Vorjahr</div>
+                </div>
+
+                <div class="kpi-card kpi-card--compact">
+                  <div class="kpi-icon"><i class="fas fa-sign-out-alt"></i></div>
+                  <div class="kpi-value">1.247</div>
+                  <div class="kpi-label">SGB-II-Abgänge</div>
+                  <div class="kpi-change negative"><i class="fas fa-arrow-up"></i> +3,1% ggü. Vorjahr</div>
+                </div>
+
+                <div class="kpi-card kpi-card--compact">
+                  <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                  <div class="kpi-value">+0,8%</div>
+                  <div class="kpi-label">Bevölkerungswachstum</div>
+                  <div class="kpi-change warning"><i class="fas fa-arrow-down"></i> -0,2% ggü. Vorjahr</div>
+                </div>
+
+                <div class="kpi-card kpi-card--compact">
+                  <div class="kpi-icon"><i class="fas fa-graduation-cap"></i></div>
+                  <div class="kpi-value">4,1%</div>
+                  <div class="kpi-label">Schulabgänger ohne Abschluss</div>
+                  <div class="kpi-change positive"><i class="fas fa-arrow-down"></i> -0,5% ggü. Vorjahr</div>
+                </div>
+
               </div>
-            </div>
+            </section>
 
-            <div class="dataset-card" onclick="navigateToDataset('bevoelkerung-001')">
-              <div class="dataset-badge">Trend</div>
-              <h3>Bevölkerungsentwicklung</h3>
-              <p>Daten von 1990 bis 2024 mit Prognosen</p>
-              <div class="dataset-meta">
-                <span class="source-badge stat">Statistisches Landesamt</span>
-                <span class="update-date">vor 2 Monaten aktualisiert</span>
+            <!-- 2. Beliebte Datensätze mit SVG-Thumbnail -->
+            <section class="featured-section">
+              <h2>Beliebte Datensätze</h2>
+              <div class="dataset-grid">
+
+                <div class="dataset-card dataset-card--with-thumbnail" onclick="navigateToDataset('zuwanderung-001')">
+                  <div class="dataset-badge">Zeitreihe</div>
+                  <div class="dataset-thumbnail">
+                    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="5"  y="32" width="14" height="26" fill="#3b82f6" opacity="0.7"/>
+                      <rect x="25" y="24" width="14" height="34" fill="#3b82f6" opacity="0.7"/>
+                      <rect x="45" y="18" width="14" height="40" fill="#3b82f6" opacity="0.7"/>
+                      <rect x="65" y="26" width="14" height="32" fill="#3b82f6" opacity="0.7"/>
+                      <rect x="85" y="14" width="14" height="44" fill="#60a5fa" opacity="0.9"/>
+                      <rect x="105" y="10" width="12" height="48" fill="#60a5fa" opacity="0.9"/>
+                    </svg>
+                  </div>
+                  <h3>Abgänge SGB-II nach Staatsangehörigkeit</h3>
+                  <div class="dataset-meta">
+                    <span class="source-badge stat">Bundesagentur f. Arbeit</span>
+                    <span class="update-date">vor 2 Wochen aktualisiert</span>
+                  </div>
+                </div>
+
+                <div class="dataset-card dataset-card--with-thumbnail" onclick="navigateToDataset('bevoelkerung-001')">
+                  <div class="dataset-badge">Trend</div>
+                  <div class="dataset-thumbnail">
+                    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                      <polyline
+                        points="5,50 25,42 45,36 65,38 85,28 105,20"
+                        fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle cx="105" cy="20" r="3.5" fill="#60a5fa"/>
+                    </svg>
+                  </div>
+                  <h3>Erwerbstätigkeit Teilräume</h3>
+                  <div class="dataset-meta">
+                    <span class="source-badge stat">HSL</span>
+                    <span class="update-date">vor 1 Monat aktualisiert</span>
+                  </div>
+                </div>
+
+                <div class="dataset-card dataset-card--with-thumbnail" onclick="navigateToDataset('bevoelkerung-001')">
+                  <div class="dataset-badge">Aktuell</div>
+                  <div class="dataset-thumbnail">
+                    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id="dashAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%"   stop-color="#3b82f6" stop-opacity="0.45"/>
+                          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.04"/>
+                        </linearGradient>
+                      </defs>
+                      <polygon
+                        points="5,58 5,46 25,41 45,37 65,33 85,29 105,25 105,58"
+                        fill="url(#dashAreaGrad)"/>
+                      <polyline
+                        points="5,46 25,41 45,37 65,33 85,29 105,25"
+                        fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <h3>Bevölkerungsentwicklung 1990–2024</h3>
+                  <div class="dataset-meta">
+                    <span class="source-badge stat">Statistisches Landesamt</span>
+                    <span class="update-date">vor 2 Monaten aktualisiert</span>
+                  </div>
+                </div>
+
               </div>
-            </div>
+            </section>
 
-            <div class="dataset-card" onclick="navigateToDataset('ftth-001')">
-              <div class="dataset-badge">Zeitreihe</div>
-              <h3>FTTH-Ausbaufortschritt</h3>
-              <p>Glasfaserausbau 2020-2024 nach Gemeinde</p>
-              <div class="dataset-meta">
-                <span class="source-badge breitband">INGRADA</span>
-                <span class="update-date">vor 3 Wochen aktualisiert</span>
+            <!-- 3. Schnellzugriff -->
+            <section class="quick-access">
+              <h2>Schnellzugriff</h2>
+              <div class="quick-access-grid">
+
+                <button class="quick-access-btn" onclick="navigateToPage('explore')">
+                  <i class="fas fa-compass"></i>
+                  <span>Explore Handlungsfelder</span>
+                </button>
+
+                <button class="quick-access-btn" onclick="navigateToPage('breitband')">
+                  <i class="fas fa-map-marked-alt"></i>
+                  <span>Teilräume-Karte</span>
+                </button>
+
+                <button class="quick-access-btn" onclick="openSidebar()">
+                  <i class="fas fa-sliders-h"></i>
+                  <span>Zielgruppen-Filter</span>
+                </button>
+
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <!-- Quick Links -->
-        <section class="quick-links">
-          <h2>Schnellzugriff</h2>
-          <div class="links-grid">
-            <a href="#" onclick="navigateToPage('breitband')" class="quick-link">
-              <i class="fas fa-wifi"></i> Breitbandausbau erkunden
-            </a>
-            <a href="#" onclick="navigateToPage('demografie')" class="quick-link">
-              <i class="fas fa-users"></i> Demografische Daten
-            </a>
-            <a href="#" onclick="navigateToPage('explore')" class="quick-link">
-              <i class="fas fa-search"></i> Erweiterte Suche
-            </a>
-            <a href="#" class="quick-link">
-              <i class="fas fa-download"></i> Alle Downloads
-            </a>
-          </div>
-        </section>
-      </div>
+          </div><!-- end .dashboard-main -->
+
+          <!-- COLLAPSIBLE SIDEBAR (rechts) -->
+          <aside class="dashboard-sidebar" id="dashboardSidebar">
+
+            <!-- Sticky Toggle-Button -->
+            <div class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleDashboardSidebar()">
+              <i class="fas fa-sliders-h"></i>
+              <span class="sidebar-toggle-label">Filter &amp; Analyse</span>
+              <i class="fas fa-chevron-left sidebar-chevron" id="sidebarChevron"></i>
+            </div>
+
+            <!-- Scrollbarer Inhalt -->
+            <div class="sidebar-content" id="sidebarContent">
+
+              <!-- 1. Zeitraum Slider -->
+              <div class="filter-group collapsible-group">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                  <h4><i class="fas fa-calendar-alt"></i> Zeitraum</h4>
+                  <i class="fas fa-chevron-down collapsible-chevron"></i>
+                </div>
+                <div class="collapsible-body">
+                  <div class="slider-wrapper">
+                    <input type="range" id="yearSlider" min="2015" max="2024" value="2024"
+                           class="year-slider" oninput="updateYearLabel(this.value)">
+                    <div class="slider-label">Jahr: <span id="yearLabel">2024</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Räume -->
+              <div class="filter-group collapsible-group">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                  <h4><i class="fas fa-map-marker-alt"></i> Räume</h4>
+                  <i class="fas fa-chevron-down collapsible-chevron"></i>
+                </div>
+                <div class="collapsible-body">
+                  <select class="sidebar-select" id="raumSelect">
+                    <option value="">Landkreis Gießen (gesamt)</option>
+                    <option value="giessen">Gießen (Stadt)</option>
+                    <option value="buseck">Buseck</option>
+                    <option value="linden">Linden</option>
+                    <option value="wettenberg">Wettenberg</option>
+                    <option value="hungen">Hungen</option>
+                    <option value="gruenberg">Grünberg</option>
+                    <option value="pohlheim">Pohlheim</option>
+                    <option value="staufenberg">Staufenberg</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- 3. Zielgruppen -->
+              <div class="filter-group collapsible-group">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                  <h4><i class="fas fa-users"></i> Zielgruppen</h4>
+                  <i class="fas fa-chevron-down collapsible-chevron"></i>
+                </div>
+                <div class="collapsible-body">
+                  <p class="filter-subheader">Staatsangehörigkeit</p>
+                  <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Staatsangehörigkeiten</label>
+                  <label><input type="checkbox" class="dash-zielgruppe"> Deutsche</label>
+                  <label><input type="checkbox" class="dash-zielgruppe"> Ausländisch</label>
+                  <p class="filter-subheader">Altersgruppe</p>
+                  <label><input type="checkbox" checked class="dash-zielgruppe"> Alle Alter</label>
+                  <label><input type="checkbox" class="dash-zielgruppe"> 15–25 J.</label>
+                  <label><input type="checkbox" class="dash-zielgruppe"> 25–50 J.</label>
+                  <label><input type="checkbox" class="dash-zielgruppe"> 50+ J.</label>
+                </div>
+              </div>
+
+              <!-- 4. Handlungsfelder -->
+              <div class="filter-group collapsible-group">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                  <h4><i class="fas fa-layer-group"></i> Handlungsfelder</h4>
+                  <i class="fas fa-chevron-down collapsible-chevron"></i>
+                </div>
+                <div class="collapsible-body">
+                  <label><input type="checkbox" checked class="dash-handlung"> Arbeitsmarkt</label>
+                  <label><input type="checkbox" class="dash-handlung"> Bildung</label>
+                  <label><input type="checkbox" class="dash-handlung"> Soziales</label>
+                  <label><input type="checkbox" class="dash-handlung"> Infrastruktur</label>
+                </div>
+              </div>
+
+              <!-- 5. Diagramme / Tabellen -->
+              <div class="filter-group collapsible-group">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                  <h4><i class="fas fa-chart-bar"></i> Diagramme / Tabellen</h4>
+                  <i class="fas fa-chevron-down collapsible-chevron"></i>
+                </div>
+                <div class="collapsible-body">
+                  <div class="sidebar-tabs">
+                    <button class="sidebar-tab active" onclick="switchSidebarTab(this, 'tab-chart')">Diagramm</button>
+                    <button class="sidebar-tab" onclick="switchSidebarTab(this, 'tab-table')">Tabelle</button>
+                  </div>
+                  <div class="sidebar-tab-content" id="tab-chart">
+                    <div class="chart-placeholder-sm">
+                      <i class="fas fa-chart-bar"></i>
+                      <p>Diagramm erscheint hier</p>
+                    </div>
+                  </div>
+                  <div class="sidebar-tab-content" id="tab-table" style="display:none;">
+                    <div class="chart-placeholder-sm">
+                      <i class="fas fa-table"></i>
+                      <p>Tabelle erscheint hier</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. Theme Switch -->
+              <div class="sidebar-theme-switch">
+                <button class="btn-secondary theme-switch-btn" id="themeSwitchBtn" onclick="toggleTheme()">
+                  <i class="fas fa-moon" id="themeIcon"></i>
+                  <span id="themeLabel">Light Mode</span>
+                </button>
+              </div>
+
+            </div><!-- end .sidebar-content -->
+
+          </aside><!-- end .dashboard-sidebar -->
+
+          <!-- Floating Open Button (sichtbar nur wenn Sidebar collapsed) -->
+          <button class="sidebar-open-btn" id="sidebarOpenBtn" onclick="openSidebar()" style="display:none;">
+            <i class="fas fa-sliders-h"></i>
+          </button>
+
+        </div><!-- end .dashboard-layout -->
+      </div><!-- end .container -->
     </section>
 
     <!-- EXPLORE PAGE -->
