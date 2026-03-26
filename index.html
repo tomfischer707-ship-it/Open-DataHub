@@ -6,6 +6,9 @@
   <title>Open Data Hub Landkreis Gießen</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
   <!-- NAVIGATION -->
@@ -29,6 +32,7 @@
           id="globalSearch"
           class="search-input search-input--prominent"
           placeholder="Suche KPIs, Datensätze oder Filter..."
+          aria-label="Globale Suche nach Datensätzen"
         />
       </div>
     </nav>
@@ -316,8 +320,9 @@
             id="exploreSearch"
             class="search-input-large"
             placeholder="Suchbegriff eingeben..."
+            aria-label="Datensätze durchsuchen"
           />
-          <button class="btn-secondary" onclick="resetFilters()">Filter zurücksetzen</button>
+          <button class="btn-secondary" onclick="resetFilters()" aria-label="Alle Filter zurücksetzen">Filter zurücksetzen</button>
         </div>
 
         <!-- Filters & Results Layout -->
@@ -330,6 +335,7 @@
               <h4>Themenbereich</h4>
               <label><input type="checkbox" value="Breitbandausbau" class="theme-filter"> Breitbandausbau</label>
               <label><input type="checkbox" value="Demografie" class="theme-filter"> Demografie</label>
+              <label><input type="checkbox" value="Mobilität & Verkehr" class="theme-filter"> Mobilität & Verkehr</label>
             </div>
 
             <div class="filter-group">
@@ -339,6 +345,9 @@
               <label><input type="checkbox" value="The Things Network" class="source-filter"> The Things Network</label>
               <label><input type="checkbox" value="Hessisches Statistisches Landesamt" class="source-filter"> HSL</label>
               <label><input type="checkbox" value="Ausländerbehörde" class="source-filter"> Ausländerbehörde</label>
+              <label><input type="checkbox" value="Census-Daten" class="source-filter"> Census-Daten</label>
+              <label><input type="checkbox" value="Straßenverkehrsbehörde Landkreis Gießen" class="source-filter"> Straßenverkehrsbehörde</label>
+              <label><input type="checkbox" value="Verkehrsgemeinschaft Gießen (VGG)" class="source-filter"> VGG</label>
             </div>
 
             <div class="filter-group">
@@ -373,13 +382,7 @@
         <div class="theme-layout">
           <!-- Map & Stats -->
           <div class="theme-main">
-            <div class="map-placeholder">
-              <div class="placeholder-text">
-                <i class="fas fa-map"></i>
-                <p>Interaktive Karte: Breitbandverfügbarkeit nach Gemeinde</p>
-                <small>(Visualisierung mit Leaflet.js)</small>
-              </div>
-            </div>
+            <div id="breitband-map" class="breitband-map" aria-label="Interaktive Karte mit FTTH-Abdeckung nach Gemeinde"></div>
 
             <!-- Municipality Stats -->
             <div class="municipality-stats">
@@ -415,7 +418,7 @@
 
             <div class="filter-box">
               <h3>Nach Gemeinde filtern</h3>
-              <select id="municipality-select">
+              <select id="municipality-select" aria-label="Gemeinde filtern">
                 <option value="">-- Alle Gemeinden --</option>
               </select>
             </div>
@@ -442,22 +445,25 @@
         <div class="theme-layout">
           <!-- Charts & Stats -->
           <div class="theme-main">
-            <div class="chart-placeholder">
-              <div class="placeholder-text">
-                <i class="fas fa-chart-line"></i>
-                <p>Bevölkerungsentwicklung 1990-2024</p>
-                <small>(Interaktive Grafik mit Chart.js)</small>
+            <div class="charts-container">
+              <div class="chart-wrapper">
+                <h3>Bevölkerungstrend (Gießen 2015-2024)</h3>
+                <canvas id="population-chart" aria-label="Linienchart mit Bevölkerungstrend der Stadt Gießen von 2015 bis 2024"></canvas>
+              </div>
+              <div class="chart-wrapper">
+                <h3>Altersstruktur (Gießen)</h3>
+                <canvas id="age-chart" aria-label="Balkendiagramm mit Altersverteilung der Bevölkerung in Gießen"></canvas>
               </div>
             </div>
 
             <div class="comparison-box">
               <h3>Gemeinde-Vergleich</h3>
               <div class="comparison-controls">
-                <select id="municipality-compare-1">
+                <select id="municipality-compare-1" aria-label="Erste Gemeinde zum Vergleich w\u00e4hlen">
                   <option value="">Gemeinde 1 wählen...</option>
                 </select>
                 <span>vs.</span>
-                <select id="municipality-compare-2">
+                <select id="municipality-compare-2" aria-label="Zweite Gemeinde zum Vergleich w\u00e4hlen">
                   <option value="">Gemeinde 2 wählen...</option>
                 </select>
               </div>

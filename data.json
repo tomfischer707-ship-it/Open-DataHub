@@ -7,20 +7,67 @@
       "theme": "Breitbandausbau",
       "source": "BürgerGIS",
       "type": "geospatial",
-      "level": ["kreis", "gemeinde"],
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
       "updated": "2024-03-15",
       "period": "2020–2024",
       "frequency": "monatlich",
       "license": "CC-BY-4.0",
-      "download": ["GeoJSON", "Shapefile", "CSV"],
-      "tags": ["Breitband", "Infrastruktur", "Verfügbarkeit", "Karte"],
+      "download": [
+        "GeoJSON",
+        "Shapefile",
+        "CSV"
+      ],
+      "tags": [
+        "Breitband",
+        "Infrastruktur",
+        "Verfügbarkeit",
+        "Karte"
+      ],
       "contact": "geodaten@landkreis-giessen.de",
       "previewRows": [
-        {"Gemeinde": "Gießen", "FTTH_%": 95, "Kabel_%": 88, "DSL_%": 99, "LTE_%": 97, "Stand": "2024-01"},
-        {"Gemeinde": "Buseck", "FTTH_%": 70, "Kabel_%": 52, "DSL_%": 95, "LTE_%": 91, "Stand": "2024-01"},
-        {"Gemeinde": "Linden", "FTTH_%": 65, "Kabel_%": 48, "DSL_%": 92, "LTE_%": 89, "Stand": "2024-01"},
-        {"Gemeinde": "Wettenberg", "FTTH_%": 72, "Kabel_%": 55, "DSL_%": 96, "LTE_%": 93, "Stand": "2024-01"},
-        {"Gemeinde": "Hungen", "FTTH_%": 28, "Kabel_%": 10, "DSL_%": 78, "LTE_%": 72, "Stand": "2024-01"}
+        {
+          "Gemeinde": "Gießen",
+          "FTTH_%": 95,
+          "Kabel_%": 88,
+          "DSL_%": 99,
+          "LTE_%": 97,
+          "Stand": "2024-01"
+        },
+        {
+          "Gemeinde": "Buseck",
+          "FTTH_%": 70,
+          "Kabel_%": 52,
+          "DSL_%": 95,
+          "LTE_%": 91,
+          "Stand": "2024-01"
+        },
+        {
+          "Gemeinde": "Linden",
+          "FTTH_%": 65,
+          "Kabel_%": 48,
+          "DSL_%": 92,
+          "LTE_%": 89,
+          "Stand": "2024-01"
+        },
+        {
+          "Gemeinde": "Wettenberg",
+          "FTTH_%": 72,
+          "Kabel_%": 55,
+          "DSL_%": 96,
+          "LTE_%": 93,
+          "Stand": "2024-01"
+        },
+        {
+          "Gemeinde": "Hungen",
+          "FTTH_%": 28,
+          "Kabel_%": 10,
+          "DSL_%": 78,
+          "LTE_%": 72,
+          "Stand": "2024-01"
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/breitband-001",
       "grafanaLink": "https://grafana.landkreis-giessen.de/d/breitband"
@@ -32,20 +79,61 @@
       "theme": "Breitbandausbau",
       "source": "INGRADA",
       "type": "timeseries",
-      "level": ["kreis", "gemeinde"],
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
       "updated": "2024-02-28",
       "period": "2020–2024",
       "frequency": "quartalsweise",
       "license": "CC-BY-4.0",
-      "download": ["CSV", "JSON"],
-      "tags": ["FTTH", "Glasfaser", "Ausbau", "Trend"],
+      "download": [
+        "CSV",
+        "JSON"
+      ],
+      "tags": [
+        "FTTH",
+        "Glasfaser",
+        "Ausbau",
+        "Trend"
+      ],
       "contact": "netzausbau@landkreis-giessen.de",
       "previewRows": [
-        {"Jahr": 2020, "Quartal": "Q1", "Gemeinde": "Gießen", "FTTH_%": 62, "neu_erschlossen": 1240},
-        {"Jahr": 2020, "Quartal": "Q3", "Gemeinde": "Gießen", "FTTH_%": 71, "neu_erschlossen": 1820},
-        {"Jahr": 2022, "Quartal": "Q1", "Gemeinde": "Gießen", "FTTH_%": 82, "neu_erschlossen": 2200},
-        {"Jahr": 2023, "Quartal": "Q2", "Gemeinde": "Gießen", "FTTH_%": 89, "neu_erschlossen": 1450},
-        {"Jahr": 2024, "Quartal": "Q1", "Gemeinde": "Gießen", "FTTH_%": 95, "neu_erschlossen": 1230}
+        {
+          "Jahr": 2020,
+          "Quartal": "Q1",
+          "Gemeinde": "Gießen",
+          "FTTH_%": 62,
+          "neu_erschlossen": 1240
+        },
+        {
+          "Jahr": 2020,
+          "Quartal": "Q3",
+          "Gemeinde": "Gießen",
+          "FTTH_%": 71,
+          "neu_erschlossen": 1820
+        },
+        {
+          "Jahr": 2022,
+          "Quartal": "Q1",
+          "Gemeinde": "Gießen",
+          "FTTH_%": 82,
+          "neu_erschlossen": 2200
+        },
+        {
+          "Jahr": 2023,
+          "Quartal": "Q2",
+          "Gemeinde": "Gießen",
+          "FTTH_%": 89,
+          "neu_erschlossen": 1450
+        },
+        {
+          "Jahr": 2024,
+          "Quartal": "Q1",
+          "Gemeinde": "Gießen",
+          "FTTH_%": 95,
+          "neu_erschlossen": 1230
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/ftth-001",
       "grafanaLink": "https://grafana.landkreis-giessen.de/d/ftth-ausbau"
@@ -57,19 +145,49 @@
       "theme": "Breitbandausbau",
       "source": "The Things Network",
       "type": "heatmap",
-      "level": ["kreis"],
+      "level": [
+        "kreis"
+      ],
       "updated": "2024-03-20",
       "period": "2023–2024",
       "frequency": "täglich",
       "license": "ODbL",
-      "download": ["GeoJSON", "CSV"],
-      "tags": ["Mobilfunk", "LTE", "5G", "Abdeckung"],
+      "download": [
+        "GeoJSON",
+        "CSV"
+      ],
+      "tags": [
+        "Mobilfunk",
+        "LTE",
+        "5G",
+        "Abdeckung"
+      ],
       "contact": "ttn@landkreis-giessen.de",
       "previewRows": [
-        {"Betreiber": "Telekom", "Technologie": "5G", "Abdeckung_%": 68, "Haushalte": 174080},
-        {"Betreiber": "Vodafone", "Technologie": "LTE", "Abdeckung_%": 91, "Haushalte": 232960},
-        {"Betreiber": "O2", "Technologie": "LTE", "Abdeckung_%": 85, "Haushalte": 217600},
-        {"Betreiber": "1&1", "Technologie": "5G", "Abdeckung_%": 12, "Haushalte": 30720}
+        {
+          "Betreiber": "Telekom",
+          "Technologie": "5G",
+          "Abdeckung_%": 68,
+          "Haushalte": 174080
+        },
+        {
+          "Betreiber": "Vodafone",
+          "Technologie": "LTE",
+          "Abdeckung_%": 91,
+          "Haushalte": 232960
+        },
+        {
+          "Betreiber": "O2",
+          "Technologie": "LTE",
+          "Abdeckung_%": 85,
+          "Haushalte": 217600
+        },
+        {
+          "Betreiber": "1&1",
+          "Technologie": "5G",
+          "Abdeckung_%": 12,
+          "Haushalte": 30720
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/mobilfunk-001"
     },
@@ -80,20 +198,71 @@
       "theme": "Demografie",
       "source": "Hessisches Statistisches Landesamt",
       "type": "timeseries",
-      "level": ["kreis", "gemeinde"],
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
       "updated": "2024-02-01",
       "period": "1990–2024",
       "frequency": "jährlich",
       "license": "CC-BY-4.0",
-      "download": ["CSV", "JSON"],
-      "tags": ["Bevölkerung", "Demografie", "Trend", "Statistik"],
+      "download": [
+        "CSV",
+        "JSON"
+      ],
+      "tags": [
+        "Bevölkerung",
+        "Demografie",
+        "Trend",
+        "Statistik"
+      ],
       "contact": "statistik@landkreis-giessen.de",
       "previewRows": [
-        {"Jahr": 2015, "Gemeinde": "Gießen", "Einwohner": 83240, "Geburten": 812, "Sterbefälle": 745, "Zuzug": 6820, "Fortzug": 6140},
-        {"Jahr": 2018, "Gemeinde": "Gießen", "Einwohner": 85910, "Geburten": 848, "Sterbefälle": 762, "Zuzug": 7120, "Fortzug": 6480},
-        {"Jahr": 2020, "Gemeinde": "Gießen", "Einwohner": 86430, "Geburten": 835, "Sterbefälle": 789, "Zuzug": 6940, "Fortzug": 6310},
-        {"Jahr": 2022, "Gemeinde": "Gießen", "Einwohner": 87100, "Geburten": 821, "Sterbefälle": 801, "Zuzug": 7380, "Fortzug": 6650},
-        {"Jahr": 2024, "Gemeinde": "Gießen", "Einwohner": 87400, "Geburten": 815, "Sterbefälle": 812, "Zuzug": 7500, "Fortzug": 6650}
+        {
+          "Jahr": 2015,
+          "Gemeinde": "Gießen",
+          "Einwohner": 83240,
+          "Geburten": 812,
+          "Sterbefälle": 745,
+          "Zuzug": 6820,
+          "Fortzug": 6140
+        },
+        {
+          "Jahr": 2018,
+          "Gemeinde": "Gießen",
+          "Einwohner": 85910,
+          "Geburten": 848,
+          "Sterbefälle": 762,
+          "Zuzug": 7120,
+          "Fortzug": 6480
+        },
+        {
+          "Jahr": 2020,
+          "Gemeinde": "Gießen",
+          "Einwohner": 86430,
+          "Geburten": 835,
+          "Sterbefälle": 789,
+          "Zuzug": 6940,
+          "Fortzug": 6310
+        },
+        {
+          "Jahr": 2022,
+          "Gemeinde": "Gießen",
+          "Einwohner": 87100,
+          "Geburten": 821,
+          "Sterbefälle": 801,
+          "Zuzug": 7380,
+          "Fortzug": 6650
+        },
+        {
+          "Jahr": 2024,
+          "Gemeinde": "Gießen",
+          "Einwohner": 87400,
+          "Geburten": 815,
+          "Sterbefälle": 812,
+          "Zuzug": 7500,
+          "Fortzug": 6650
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/bevoelkerung-001",
       "grafanaLink": "https://grafana.landkreis-giessen.de/d/bevoelkerung"
@@ -105,19 +274,61 @@
       "theme": "Demografie",
       "source": "Census-Daten",
       "type": "structure",
-      "level": ["kreis", "gemeinde"],
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
       "updated": "2023-12-15",
       "period": "2015–2023",
       "frequency": "jährlich",
       "license": "CC0",
-      "download": ["JSON", "CSV"],
-      "tags": ["Altersstruktur", "Pyramide", "Demografie"],
+      "download": [
+        "JSON",
+        "CSV"
+      ],
+      "tags": [
+        "Altersstruktur",
+        "Pyramide",
+        "Demografie"
+      ],
       "contact": "demografie@landkreis-giessen.de",
       "previewRows": [
-        {"Gemeinde": "Gießen", "0–17": 15.2, "18–29": 22.8, "30–49": 24.1, "50–64": 18.9, "65+": 19.0, "Ø_Alter": 42.1},
-        {"Gemeinde": "Buseck", "0–17": 17.8, "18–29": 14.2, "30–49": 26.4, "50–64": 21.1, "65+": 20.5, "Ø_Alter": 45.2},
-        {"Gemeinde": "Reiskirchen", "0–17": 16.1, "18–29": 13.5, "30–49": 25.2, "50–64": 22.4, "65+": 22.8, "Ø_Alter": 46.8},
-        {"Gemeinde": "Allendorf", "0–17": 14.9, "18–29": 12.1, "30–49": 23.8, "50–64": 23.5, "65+": 25.7, "Ø_Alter": 48.3}
+        {
+          "Gemeinde": "Gießen",
+          "0–17": 15.2,
+          "18–29": 22.8,
+          "30–49": 24.1,
+          "50–64": 18.9,
+          "65+": 19.0,
+          "Ø_Alter": 42.1
+        },
+        {
+          "Gemeinde": "Buseck",
+          "0–17": 17.8,
+          "18–29": 14.2,
+          "30–49": 26.4,
+          "50–64": 21.1,
+          "65+": 20.5,
+          "Ø_Alter": 45.2
+        },
+        {
+          "Gemeinde": "Reiskirchen",
+          "0–17": 16.1,
+          "18–29": 13.5,
+          "30–49": 25.2,
+          "50–64": 22.4,
+          "65+": 22.8,
+          "Ø_Alter": 46.8
+        },
+        {
+          "Gemeinde": "Allendorf",
+          "0–17": 14.9,
+          "18–29": 12.1,
+          "30–49": 23.8,
+          "50–64": 23.5,
+          "65+": 25.7,
+          "Ø_Alter": 48.3
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/altersstruktur-001"
     },
@@ -128,440 +339,1055 @@
       "theme": "Demografie",
       "source": "Ausländerbehörde",
       "type": "statistics",
-      "level": ["kreis", "gemeinde"],
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
       "updated": "2024-01-31",
       "period": "2018–2024",
       "frequency": "monatlich",
       "license": "CC-BY-4.0",
-      "download": ["CSV", "JSON"],
-      "tags": ["Migration", "Zuwanderung", "Demografie", "Statistik"],
+      "download": [
+        "CSV",
+        "JSON"
+      ],
+      "tags": [
+        "Migration",
+        "Zuwanderung",
+        "Demografie",
+        "Statistik"
+      ],
       "contact": "auslaender@landkreis-giessen.de",
       "previewRows": [
-        {"Jahr": 2022, "Gemeinde": "Gießen", "Zuzug_gesamt": 7380, "davon_Ausland": 3920, "Fortzug_gesamt": 6650, "Saldo": 730},
-        {"Jahr": 2022, "Gemeinde": "Buseck", "Zuzug_gesamt": 420, "davon_Ausland": 145, "Fortzug_gesamt": 380, "Saldo": 40},
-        {"Jahr": 2023, "Gemeinde": "Gießen", "Zuzug_gesamt": 7500, "davon_Ausland": 4100, "Fortzug_gesamt": 6780, "Saldo": 720}
+        {
+          "Jahr": 2022,
+          "Gemeinde": "Gießen",
+          "Zuzug_gesamt": 7380,
+          "davon_Ausland": 3920,
+          "Fortzug_gesamt": 6650,
+          "Saldo": 730
+        },
+        {
+          "Jahr": 2022,
+          "Gemeinde": "Buseck",
+          "Zuzug_gesamt": 420,
+          "davon_Ausland": 145,
+          "Fortzug_gesamt": 380,
+          "Saldo": 40
+        },
+        {
+          "Jahr": 2023,
+          "Gemeinde": "Gießen",
+          "Zuzug_gesamt": 7500,
+          "davon_Ausland": 4100,
+          "Fortzug_gesamt": 6780,
+          "Saldo": 720
+        }
       ],
       "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/zuwanderung-001"
+    },
+    {
+      "id": "verkehr-001",
+      "title": "Verkehrsinfrastruktur Landkreis Gießen",
+      "description": "Straßenverkehrsmeldungen, Baustellen und Sperrungen nach Gemeinde. Aktuelle Verkehrssituation und Infrastruktur-Status im Landkreis Gießen.",
+      "theme": "Mobilität & Verkehr",
+      "source": "Straßenverkehrsbehörde Landkreis Gießen",
+      "type": "geospatial",
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
+      "updated": "2024-03-24",
+      "period": "2024",
+      "frequency": "täglich",
+      "license": "CC-BY-4.0",
+      "download": [
+        "GeoJSON",
+        "CSV"
+      ],
+      "tags": [
+        "Verkehr",
+        "Infrastruktur",
+        "Baustellen",
+        "Straße"
+      ],
+      "contact": "verkehr@landkreis-giessen.de",
+      "previewRows": [
+        {
+          "Gemeinde": "Gießen",
+          "Baustellen": 8,
+          "Sperrungen": 1,
+          "Verkehrsindex": 65,
+          "Status": "Moderat"
+        },
+        {
+          "Gemeinde": "Buseck",
+          "Baustellen": 2,
+          "Sperrungen": 0,
+          "Verkehrsindex": 34,
+          "Status": "Gering"
+        },
+        {
+          "Gemeinde": "Linden",
+          "Baustellen": 1,
+          "Sperrungen": 0,
+          "Verkehrsindex": 28,
+          "Status": "Gering"
+        },
+        {
+          "Gemeinde": "Dillenburg",
+          "Baustellen": 5,
+          "Sperrungen": 1,
+          "Verkehrsindex": 52,
+          "Status": "Moderat"
+        }
+      ],
+      "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/verkehr-001"
+    },
+    {
+      "id": "oepnv-001",
+      "title": "Öffentliche Verkehrsmittel (ÖPNV) Netzabdeckung Landkreis Gießen",
+      "description": "ÖPNV-Linien, Haltestellen-Netzwerk und Erreichbarkeit nach Gemeinde. Fahrgastzahlen und Netzausbau 2019-2024 im Landkreis Gießen.",
+      "theme": "Mobilität & Verkehr",
+      "source": "Verkehrsgemeinschaft Gießen (VGG)",
+      "type": "geospatial",
+      "level": [
+        "kreis",
+        "gemeinde"
+      ],
+      "updated": "2024-03-10",
+      "period": "2019–2024",
+      "frequency": "monatlich",
+      "license": "CC-BY-4.0",
+      "download": [
+        "GeoJSON",
+        "CSV",
+        "JSON"
+      ],
+      "tags": [
+        "ÖPNV",
+        "Bus",
+        "Bahn",
+        "Haltestellen",
+        "Erreichbarkeit"
+      ],
+      "contact": "oepnv@landkreis-giessen.de",
+      "previewRows": [
+        {
+          "Gemeinde": "Gießen",
+          "Buslinien": 28,
+          "Haltestellen": 142,
+          "Erreichbarkeit_%": 89,
+          "Fahrgäste_2024": 18500000
+        },
+        {
+          "Gemeinde": "Dillenburg",
+          "Buslinien": 12,
+          "Haltestellen": 45,
+          "Erreichbarkeit_%": 76,
+          "Fahrgäste_2024": 2840000
+        },
+        {
+          "Gemeinde": "Herborn",
+          "Buslinien": 10,
+          "Haltestellen": 38,
+          "Erreichbarkeit_%": 72,
+          "Fahrgäste_2024": 1920000
+        },
+        {
+          "Gemeinde": "Buseck",
+          "Buslinien": 6,
+          "Haltestellen": 22,
+          "Erreichbarkeit_%": 65,
+          "Fahrgäste_2024": 480000
+        }
+      ],
+      "apiEndpoint": "https://api.open-datahub-giessen.de/v1/datasets/oepnv-001",
+      "grafanaLink": "https://grafana.landkreis-giessen.de/d/oepnv"
     }
   ],
   "municipalities": [
     {
-      "id": "allendorf",
-      "name": "Allendorf (Lumda)",
-      "population": 2800,
+      "population": 8000,
       "fiberCoverage": 35,
-      "coordinates": [50.571, 8.835],
-      "broadbandByTech": {"ftth": 35, "cable": 0, "dsl": 78, "lte": 82},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 12}, {"year": 2021, "coverage": 18},
-        {"year": 2022, "coverage": 22}, {"year": 2023, "coverage": 28}, {"year": 2024, "coverage": 35}
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 15, "age18to29": 11, "age30to49": 23, "age50to64": 24, "over65": 27},
-      "populationHistory": [
-        {"year": 2015, "pop": 2950}, {"year": 2016, "pop": 2920}, {"year": 2017, "pop": 2900},
-        {"year": 2018, "pop": 2880}, {"year": 2019, "pop": 2860}, {"year": 2020, "pop": 2840},
-        {"year": 2021, "pop": 2820}, {"year": 2022, "pop": 2810}, {"year": 2023, "pop": 2805}, {"year": 2024, "pop": 2800}
-      ],
-      "populationChange": -3.8,
-      "birthDeathBalance": -4.2,
-      "migrationSaldo": -1.8,
-      "avgAge": 48.3
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Allendorf (Lumda)"
     },
     {
-      "id": "amoeneburg",
-      "name": "Amöneburg",
-      "population": 3200,
-      "fiberCoverage": 42,
-      "coordinates": [50.730, 8.935],
-      "broadbandByTech": {"ftth": 42, "cable": 5, "dsl": 82, "lte": 85},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 15}, {"year": 2021, "coverage": 22},
-        {"year": 2022, "coverage": 28}, {"year": 2023, "coverage": 35}, {"year": 2024, "coverage": 42}
-      ],
-      "ageGroups": {"under18": 16, "age18to29": 12, "age30to49": 24, "age50to64": 23, "over65": 25},
-      "populationHistory": [
-        {"year": 2015, "pop": 3180}, {"year": 2016, "pop": 3185}, {"year": 2017, "pop": 3190},
-        {"year": 2018, "pop": 3195}, {"year": 2019, "pop": 3198}, {"year": 2020, "pop": 3200},
-        {"year": 2021, "pop": 3202}, {"year": 2022, "pop": 3205}, {"year": 2023, "pop": 3202}, {"year": 2024, "pop": 3200}
-      ],
-      "populationChange": 0.6,
-      "birthDeathBalance": -1.2,
-      "migrationSaldo": 1.8,
-      "avgAge": 46.1
-    },
-    {
-      "id": "anzhausen",
-      "name": "Anzhausen",
-      "population": 1900,
-      "fiberCoverage": 25,
-      "coordinates": [50.660, 8.440],
-      "broadbandByTech": {"ftth": 25, "cable": 0, "dsl": 68, "lte": 74},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 8}, {"year": 2021, "coverage": 12},
-        {"year": 2022, "coverage": 16}, {"year": 2023, "coverage": 20}, {"year": 2024, "coverage": 25}
-      ],
-      "ageGroups": {"under18": 14, "age18to29": 10, "age30to49": 22, "age50to64": 25, "over65": 29},
-      "populationHistory": [
-        {"year": 2015, "pop": 2050}, {"year": 2016, "pop": 2020}, {"year": 2017, "pop": 1995},
-        {"year": 2018, "pop": 1970}, {"year": 2019, "pop": 1950}, {"year": 2020, "pop": 1935},
-        {"year": 2021, "pop": 1925}, {"year": 2022, "pop": 1915}, {"year": 2023, "pop": 1908}, {"year": 2024, "pop": 1900}
-      ],
-      "populationChange": -7.3,
-      "birthDeathBalance": -6.8,
-      "migrationSaldo": -3.1,
-      "avgAge": 50.1
-    },
-    {
-      "id": "asslar",
-      "name": "Aßlar",
-      "population": 15400,
-      "fiberCoverage": 60,
-      "coordinates": [50.619, 8.484],
-      "broadbandByTech": {"ftth": 60, "cable": 38, "dsl": 91, "lte": 94},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 28}, {"year": 2021, "coverage": 35},
-        {"year": 2022, "coverage": 44}, {"year": 2023, "coverage": 52}, {"year": 2024, "coverage": 60}
-      ],
-      "ageGroups": {"under18": 17, "age18to29": 14, "age30to49": 27, "age50to64": 22, "over65": 20},
-      "populationHistory": [
-        {"year": 2015, "pop": 14900}, {"year": 2016, "pop": 14980}, {"year": 2017, "pop": 15050},
-        {"year": 2018, "pop": 15120}, {"year": 2019, "pop": 15180}, {"year": 2020, "pop": 15220},
-        {"year": 2021, "pop": 15280}, {"year": 2022, "pop": 15340}, {"year": 2023, "pop": 15380}, {"year": 2024, "pop": 15400}
-      ],
-      "populationChange": 3.4,
-      "birthDeathBalance": 1.2,
-      "migrationSaldo": 4.1,
-      "avgAge": 43.8
-    },
-    {
-      "id": "bad-endbach",
-      "name": "Bad Endbach",
-      "population": 7100,
-      "fiberCoverage": 50,
-      "coordinates": [50.768, 8.566],
-      "broadbandByTech": {"ftth": 50, "cable": 15, "dsl": 88, "lte": 90},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 18}, {"year": 2021, "coverage": 26},
-        {"year": 2022, "coverage": 34}, {"year": 2023, "coverage": 42}, {"year": 2024, "coverage": 50}
-      ],
-      "ageGroups": {"under18": 16, "age18to29": 12, "age30to49": 25, "age50to64": 24, "over65": 23},
-      "populationHistory": [
-        {"year": 2015, "pop": 7050}, {"year": 2016, "pop": 7060}, {"year": 2017, "pop": 7065},
-        {"year": 2018, "pop": 7070}, {"year": 2019, "pop": 7075}, {"year": 2020, "pop": 7078},
-        {"year": 2021, "pop": 7082}, {"year": 2022, "pop": 7090}, {"year": 2023, "pop": 7096}, {"year": 2024, "pop": 7100}
-      ],
-      "populationChange": 0.7,
-      "birthDeathBalance": -0.8,
-      "migrationSaldo": 2.1,
-      "avgAge": 45.5
-    },
-    {
-      "id": "breidenbach",
-      "name": "Breidenbach",
-      "population": 5200,
+      "population": 9200,
       "fiberCoverage": 45,
-      "coordinates": [50.871, 8.459],
-      "broadbandByTech": {"ftth": 45, "cable": 8, "dsl": 85, "lte": 87},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 15}, {"year": 2021, "coverage": 22},
-        {"year": 2022, "coverage": 30}, {"year": 2023, "coverage": 38}, {"year": 2024, "coverage": 45}
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 16, "age18to29": 12, "age30to49": 24, "age50to64": 24, "over65": 24},
-      "populationHistory": [
-        {"year": 2015, "pop": 5350}, {"year": 2016, "pop": 5320}, {"year": 2017, "pop": 5300},
-        {"year": 2018, "pop": 5280}, {"year": 2019, "pop": 5260}, {"year": 2020, "pop": 5240},
-        {"year": 2021, "pop": 5230}, {"year": 2022, "pop": 5220}, {"year": 2023, "pop": 5210}, {"year": 2024, "pop": 5200}
-      ],
-      "populationChange": -2.8,
-      "birthDeathBalance": -3.2,
-      "migrationSaldo": -0.9,
-      "avgAge": 46.9
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Biebertal"
     },
     {
-      "id": "bischoffen",
-      "name": "Bischoffen",
-      "population": 8900,
+      "population": 10400,
       "fiberCoverage": 55,
-      "coordinates": [50.690, 8.397],
-      "broadbandByTech": {"ftth": 55, "cable": 20, "dsl": 90, "lte": 92},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 22}, {"year": 2021, "coverage": 30},
-        {"year": 2022, "coverage": 38}, {"year": 2023, "coverage": 46}, {"year": 2024, "coverage": 55}
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 17, "age18to29": 13, "age30to49": 26, "age50to64": 23, "over65": 21},
-      "populationHistory": [
-        {"year": 2015, "pop": 8720}, {"year": 2016, "pop": 8740}, {"year": 2017, "pop": 8760},
-        {"year": 2018, "pop": 8790}, {"year": 2019, "pop": 8820}, {"year": 2020, "pop": 8840},
-        {"year": 2021, "pop": 8860}, {"year": 2022, "pop": 8875}, {"year": 2023, "pop": 8890}, {"year": 2024, "pop": 8900}
-      ],
-      "populationChange": 2.1,
-      "birthDeathBalance": 0.5,
-      "migrationSaldo": 2.8,
-      "avgAge": 44.2
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Buseck"
     },
     {
-      "id": "buseck",
-      "name": "Buseck",
-      "population": 9800,
-      "fiberCoverage": 70,
-      "coordinates": [50.613, 8.718],
-      "broadbandByTech": {"ftth": 70, "cable": 42, "dsl": 94, "lte": 95},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 35}, {"year": 2021, "coverage": 45},
-        {"year": 2022, "coverage": 54}, {"year": 2023, "coverage": 62}, {"year": 2024, "coverage": 70}
+      "population": 11600,
+      "fiberCoverage": 65,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 18, "age18to29": 14, "age30to49": 27, "age50to64": 22, "over65": 19},
-      "populationHistory": [
-        {"year": 2015, "pop": 9540}, {"year": 2016, "pop": 9580}, {"year": 2017, "pop": 9620},
-        {"year": 2018, "pop": 9660}, {"year": 2019, "pop": 9700}, {"year": 2020, "pop": 9720},
-        {"year": 2021, "pop": 9748}, {"year": 2022, "pop": 9768}, {"year": 2023, "pop": 9785}, {"year": 2024, "pop": 9800}
-      ],
-      "populationChange": 2.7,
-      "birthDeathBalance": 1.8,
-      "migrationSaldo": 3.2,
-      "avgAge": 43.1
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Fernwald"
     },
     {
-      "id": "dannenroth",
-      "name": "Dannenroth",
-      "population": 2100,
-      "fiberCoverage": 20,
-      "coordinates": [50.493, 9.005],
-      "broadbandByTech": {"ftth": 20, "cable": 0, "dsl": 62, "lte": 68},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 5}, {"year": 2021, "coverage": 8},
-        {"year": 2022, "coverage": 11}, {"year": 2023, "coverage": 15}, {"year": 2024, "coverage": 20}
+      "population": 12800,
+      "fiberCoverage": 75,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 13, "age18to29": 10, "age30to49": 21, "age50to64": 26, "over65": 30},
-      "populationHistory": [
-        {"year": 2015, "pop": 2280}, {"year": 2016, "pop": 2250}, {"year": 2017, "pop": 2225},
-        {"year": 2018, "pop": 2200}, {"year": 2019, "pop": 2175}, {"year": 2020, "pop": 2155},
-        {"year": 2021, "pop": 2138}, {"year": 2022, "pop": 2124}, {"year": 2023, "pop": 2112}, {"year": 2024, "pop": 2100}
-      ],
-      "populationChange": -7.9,
-      "birthDeathBalance": -7.1,
-      "migrationSaldo": -4.2,
-      "avgAge": 51.2
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Gießen"
     },
     {
-      "id": "dillenburg",
-      "name": "Dillenburg",
-      "population": 23500,
-      "fiberCoverage": 85,
-      "coordinates": [50.739, 8.286],
-      "broadbandByTech": {"ftth": 85, "cable": 62, "dsl": 97, "lte": 98},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 52}, {"year": 2021, "coverage": 62},
-        {"year": 2022, "coverage": 70}, {"year": 2023, "coverage": 78}, {"year": 2024, "coverage": 85}
-      ],
-      "ageGroups": {"under18": 17, "age18to29": 15, "age30to49": 26, "age50to64": 22, "over65": 20},
-      "populationHistory": [
-        {"year": 2015, "pop": 22900}, {"year": 2016, "pop": 23000}, {"year": 2017, "pop": 23100},
-        {"year": 2018, "pop": 23200}, {"year": 2019, "pop": 23280}, {"year": 2020, "pop": 23320},
-        {"year": 2021, "pop": 23380}, {"year": 2022, "pop": 23430}, {"year": 2023, "pop": 23470}, {"year": 2024, "pop": 23500}
-      ],
-      "populationChange": 2.6,
-      "birthDeathBalance": 0.9,
-      "migrationSaldo": 3.4,
-      "avgAge": 44.0
-    },
-    {
-      "id": "giessen",
-      "name": "Gießen",
-      "population": 87400,
-      "fiberCoverage": 95,
-      "coordinates": [50.584, 8.675],
-      "broadbandByTech": {"ftth": 95, "cable": 88, "dsl": 99, "lte": 97},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 62}, {"year": 2021, "coverage": 72},
-        {"year": 2022, "coverage": 82}, {"year": 2023, "coverage": 89}, {"year": 2024, "coverage": 95}
-      ],
-      "ageGroups": {"under18": 15, "age18to29": 23, "age30to49": 24, "age50to64": 19, "over65": 19},
-      "populationHistory": [
-        {"year": 2015, "pop": 83240}, {"year": 2016, "pop": 84100}, {"year": 2017, "pop": 84800},
-        {"year": 2018, "pop": 85500}, {"year": 2019, "pop": 86100}, {"year": 2020, "pop": 86430},
-        {"year": 2021, "pop": 86700}, {"year": 2022, "pop": 87000}, {"year": 2023, "pop": 87200}, {"year": 2024, "pop": 87400}
-      ],
-      "populationChange": 2.3,
-      "birthDeathBalance": 0.4,
-      "migrationSaldo": 8.2,
-      "avgAge": 42.1
-    },
-    {
-      "id": "gladenbach",
-      "name": "Gladenbach",
-      "population": 5600,
-      "fiberCoverage": 40,
-      "coordinates": [50.771, 8.585],
-      "broadbandByTech": {"ftth": 40, "cable": 10, "dsl": 82, "lte": 85},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 12}, {"year": 2021, "coverage": 18},
-        {"year": 2022, "coverage": 25}, {"year": 2023, "coverage": 33}, {"year": 2024, "coverage": 40}
-      ],
-      "ageGroups": {"under18": 16, "age18to29": 12, "age30to49": 24, "age50to64": 24, "over65": 24},
-      "populationHistory": [
-        {"year": 2015, "pop": 5680}, {"year": 2016, "pop": 5665}, {"year": 2017, "pop": 5648},
-        {"year": 2018, "pop": 5635}, {"year": 2019, "pop": 5625}, {"year": 2020, "pop": 5618},
-        {"year": 2021, "pop": 5612}, {"year": 2022, "pop": 5608}, {"year": 2023, "pop": 5604}, {"year": 2024, "pop": 5600}
-      ],
-      "populationChange": -1.4,
-      "birthDeathBalance": -2.1,
-      "migrationSaldo": 0.8,
-      "avgAge": 46.2
-    },
-    {
-      "id": "haigerseelbach",
-      "name": "Haigerseelbach",
-      "population": 2800,
-      "fiberCoverage": 15,
-      "coordinates": [50.771, 8.214],
-      "broadbandByTech": {"ftth": 15, "cable": 0, "dsl": 58, "lte": 65},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 4}, {"year": 2021, "coverage": 6},
-        {"year": 2022, "coverage": 8}, {"year": 2023, "coverage": 11}, {"year": 2024, "coverage": 15}
-      ],
-      "ageGroups": {"under18": 14, "age18to29": 10, "age30to49": 22, "age50to64": 25, "over65": 29},
-      "populationHistory": [
-        {"year": 2015, "pop": 3050}, {"year": 2016, "pop": 3010}, {"year": 2017, "pop": 2980},
-        {"year": 2018, "pop": 2950}, {"year": 2019, "pop": 2920}, {"year": 2020, "pop": 2895},
-        {"year": 2021, "pop": 2870}, {"year": 2022, "pop": 2850}, {"year": 2023, "pop": 2825}, {"year": 2024, "pop": 2800}
-      ],
-      "populationChange": -8.2,
-      "birthDeathBalance": -7.5,
-      "migrationSaldo": -4.8,
-      "avgAge": 50.8
-    },
-    {
-      "id": "haina",
-      "name": "Haina (Kloster)",
-      "population": 3900,
-      "fiberCoverage": 30,
-      "coordinates": [51.011, 8.760],
-      "broadbandByTech": {"ftth": 30, "cable": 0, "dsl": 72, "lte": 78},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 10}, {"year": 2021, "coverage": 14},
-        {"year": 2022, "coverage": 18}, {"year": 2023, "coverage": 24}, {"year": 2024, "coverage": 30}
-      ],
-      "ageGroups": {"under18": 15, "age18to29": 11, "age30to49": 23, "age50to64": 25, "over65": 26},
-      "populationHistory": [
-        {"year": 2015, "pop": 4050}, {"year": 2016, "pop": 4020}, {"year": 2017, "pop": 3995},
-        {"year": 2018, "pop": 3970}, {"year": 2019, "pop": 3950}, {"year": 2020, "pop": 3935},
-        {"year": 2021, "pop": 3925}, {"year": 2022, "pop": 3915}, {"year": 2023, "pop": 3908}, {"year": 2024, "pop": 3900}
-      ],
-      "populationChange": -3.7,
-      "birthDeathBalance": -3.8,
-      "migrationSaldo": -1.2,
-      "avgAge": 47.5
-    },
-    {
-      "id": "herborn",
-      "name": "Herborn",
-      "population": 20900,
-      "fiberCoverage": 80,
-      "coordinates": [50.680, 8.305],
-      "broadbandByTech": {"ftth": 80, "cable": 55, "dsl": 96, "lte": 97},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 45}, {"year": 2021, "coverage": 55},
-        {"year": 2022, "coverage": 63}, {"year": 2023, "coverage": 72}, {"year": 2024, "coverage": 80}
-      ],
-      "ageGroups": {"under18": 17, "age18to29": 15, "age30to49": 26, "age50to64": 22, "over65": 20},
-      "populationHistory": [
-        {"year": 2015, "pop": 20400}, {"year": 2016, "pop": 20480}, {"year": 2017, "pop": 20550},
-        {"year": 2018, "pop": 20620}, {"year": 2019, "pop": 20680}, {"year": 2020, "pop": 20720},
-        {"year": 2021, "pop": 20770}, {"year": 2022, "pop": 20820}, {"year": 2023, "pop": 20860}, {"year": 2024, "pop": 20900}
-      ],
-      "populationChange": 2.5,
-      "birthDeathBalance": 0.8,
-      "migrationSaldo": 3.0,
-      "avgAge": 43.5
-    },
-    {
-      "id": "hessisch-lichtenau",
-      "name": "Hessisch Lichtenau",
-      "population": 2200,
-      "fiberCoverage": 10,
-      "coordinates": [51.200, 9.730],
-      "broadbandByTech": {"ftth": 10, "cable": 0, "dsl": 52, "lte": 60},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 3}, {"year": 2021, "coverage": 4},
-        {"year": 2022, "coverage": 5}, {"year": 2023, "coverage": 7}, {"year": 2024, "coverage": 10}
-      ],
-      "ageGroups": {"under18": 13, "age18to29": 9, "age30to49": 20, "age50to64": 27, "over65": 31},
-      "populationHistory": [
-        {"year": 2015, "pop": 2420}, {"year": 2016, "pop": 2390}, {"year": 2017, "pop": 2360},
-        {"year": 2018, "pop": 2330}, {"year": 2019, "pop": 2305}, {"year": 2020, "pop": 2280},
-        {"year": 2021, "pop": 2258}, {"year": 2022, "pop": 2238}, {"year": 2023, "pop": 2220}, {"year": 2024, "pop": 2200}
-      ],
-      "populationChange": -9.1,
-      "birthDeathBalance": -8.5,
-      "migrationSaldo": -5.2,
-      "avgAge": 52.1
-    },
-    {
-      "id": "homberg",
-      "name": "Homberg (Ohm)",
-      "population": 4300,
+      "population": 14000,
       "fiberCoverage": 35,
-      "coordinates": [50.730, 9.000],
-      "broadbandByTech": {"ftth": 35, "cable": 5, "dsl": 78, "lte": 80},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 12}, {"year": 2021, "coverage": 18},
-        {"year": 2022, "coverage": 22}, {"year": 2023, "coverage": 28}, {"year": 2024, "coverage": 35}
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 15, "age18to29": 11, "age30to49": 23, "age50to64": 25, "over65": 26},
-      "populationHistory": [
-        {"year": 2015, "pop": 4480}, {"year": 2016, "pop": 4455}, {"year": 2017, "pop": 4430},
-        {"year": 2018, "pop": 4405}, {"year": 2019, "pop": 4382}, {"year": 2020, "pop": 4362},
-        {"year": 2021, "pop": 4345}, {"year": 2022, "pop": 4330}, {"year": 2023, "pop": 4315}, {"year": 2024, "pop": 4300}
-      ],
-      "populationChange": -4.0,
-      "birthDeathBalance": -4.5,
-      "migrationSaldo": -1.5,
-      "avgAge": 48.0
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Grünberg"
     },
     {
-      "id": "hohenahr",
-      "name": "Hohenahr",
-      "population": 7800,
-      "fiberCoverage": 50,
-      "coordinates": [50.650, 8.450],
-      "broadbandByTech": {"ftth": 50, "cable": 18, "dsl": 88, "lte": 90},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 20}, {"year": 2021, "coverage": 28},
-        {"year": 2022, "coverage": 36}, {"year": 2023, "coverage": 43}, {"year": 2024, "coverage": 50}
+      "population": 15200,
+      "fiberCoverage": 45,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 17, "age18to29": 13, "age30to49": 25, "age50to64": 23, "over65": 22},
-      "populationHistory": [
-        {"year": 2015, "pop": 7650}, {"year": 2016, "pop": 7670}, {"year": 2017, "pop": 7695},
-        {"year": 2018, "pop": 7715}, {"year": 2019, "pop": 7730}, {"year": 2020, "pop": 7742},
-        {"year": 2021, "pop": 7756}, {"year": 2022, "pop": 7768}, {"year": 2023, "pop": 7782}, {"year": 2024, "pop": 7800}
-      ],
-      "populationChange": 1.9,
-      "birthDeathBalance": 0.2,
-      "migrationSaldo": 2.5,
-      "avgAge": 44.7
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Heuchelheim"
     },
     {
-      "id": "mittenaar",
-      "name": "Mittenaar",
-      "population": 5900,
-      "fiberCoverage": 48,
-      "coordinates": [50.813, 8.407],
-      "broadbandByTech": {"ftth": 48, "cable": 12, "dsl": 86, "lte": 88},
-      "broadbandHistory": [
-        {"year": 2020, "coverage": 18}, {"year": 2021, "coverage": 25},
-        {"year": 2022, "coverage": 33}, {"year": 2023, "coverage": 40}, {"year": 2024, "coverage": 48}
+      "population": 16400,
+      "fiberCoverage": 55,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "ageGroups": {"under18": 16, "age18to29": 12, "age30to49": 25, "age50to64": 24, "over65": 23},
-      "populationHistory": [
-        {"year": 2015, "pop": 5920}, {"year": 2016, "pop": 5915}, {"year": 2017, "pop": 5912},
-        {"year": 2018, "pop": 5910}, {"year": 2019, "pop": 5908}, {"year": 2020, "pop": 5906},
-        {"year": 2021, "pop": 5904}, {"year": 2022, "pop": 5903}, {"year": 2023, "pop": 5902}, {"year": 2024, "pop": 5900}
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Hungen"
+    },
+    {
+      "population": 17600,
+      "fiberCoverage": 65,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
       ],
-      "populationChange": -0.3,
-      "birthDeathBalance": -1.5,
-      "migrationSaldo": 1.2,
-      "avgAge": 45.8
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Langgöns"
+    },
+    {
+      "population": 18800,
+      "fiberCoverage": 75,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Laubach"
+    },
+    {
+      "population": 20000,
+      "fiberCoverage": 35,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Lich"
+    },
+    {
+      "population": 21200,
+      "fiberCoverage": 45,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Linden"
+    },
+    {
+      "population": 22400,
+      "fiberCoverage": 55,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Lollar"
+    },
+    {
+      "population": 23600,
+      "fiberCoverage": 65,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Pohlheim"
+    },
+    {
+      "population": 24800,
+      "fiberCoverage": 75,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Rabenau"
+    },
+    {
+      "population": 26000,
+      "fiberCoverage": 35,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Reiskirchen"
+    },
+    {
+      "population": 27200,
+      "fiberCoverage": 45,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Staufenberg"
+    },
+    {
+      "population": 28400,
+      "fiberCoverage": 55,
+      "oepnv": {
+        "busLinien": 3,
+        "haltestellen": 8,
+        "erreichbarkeit": 50
+      },
+      "verkehr": {
+        "baustellen": 0,
+        "sperrungen": 0,
+        "verkehrsindex": 25
+      },
+      "population_trend": [
+        {
+          "year": 2020,
+          "population": 14500
+        },
+        {
+          "year": 2021,
+          "population": 14800
+        },
+        {
+          "year": 2022,
+          "population": 15000
+        },
+        {
+          "year": 2023,
+          "population": 15200
+        },
+        {
+          "year": 2024,
+          "population": 15400
+        }
+      ],
+      "age_distribution": {
+        "0-18": 15,
+        "19-35": 25,
+        "36-50": 28,
+        "51-65": 20,
+        "65+": 12
+      },
+      "migration": {
+        "inbound": 250,
+        "outbound": 180,
+        "balance": 70
+      },
+      "name": "Wettenberg"
     }
   ],
   "statistics": {
