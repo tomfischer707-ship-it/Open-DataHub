@@ -1,6 +1,9 @@
 // ===== Global Data =====
 let allDatasets = [];
 let currentDataset = null;
+let allMunicipalities = [];
+let populationChart = null;
+let ageChart = null;
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +18,10 @@ function loadData() {
     .then(response => response.json())
     .then(data => {
       allDatasets = data.datasets;
+      allMunicipalities = data.municipalities;
       populateMunicipalityStats(data.municipalities);
+      initializeBreitbandMap(data.municipalities);
+      initializeDemographyCharts(data.municipalities);
     })
     .catch(err => console.error('Error loading data:', err));
 }
@@ -291,4 +297,195 @@ function compareMunicipalities() {
   } else {
     resultDiv.innerHTML = '';
   }
+}
+
+// ===== Leaflet.js Map (Breitband) =====
+function initializeBreitbandMap(municipalities) {
+  const mapElement = document.getElementById('breitband-map');
+  if (!mapElement || !window.L) return;
+
+  const center = [50.65, 8.65];
+  const map = L.map('breitband-map').setView(center, 10);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  municipalities.forEach(m => {
+    if (!m.coordinates) return;
+
+    const coverage = m.fiberCoverage;
+    const color = getCoverageColor(coverage);
+
+    const circle = L.circleMarker([m.coordinates[0], m.coordinates[1]], {
+      radius: Math.max(8, coverage / 5),
+      fillColor: color,
+      color: color,
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.7
+    }).addTo(map);
+
+    circle.bindPopup(`
+      <div style="font-size: 0.9rem;">
+        <strong>${m.name}</strong><br/>
+        FTTH-Abdeckung: <strong>${coverage}%</strong><br/>
+        Bevölkerung: ${m.population.toLocaleString('de-DE')}<br/>
+        <small>FTTH: ${m.broadbandByTech.ftth}% | Kabel: ${m.broadbandByTech.cable}% | DSL: ${m.broadbandByTech.dsl}%</small>
+      </div>
+    `);
+  });
+
+  // Legend
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'leaflet-control-legend');
+    div.style.background = 'rgba(13, 27, 46, 0.9)';
+    div.style.padding = '10px';
+    div.style.borderRadius = '4px';
+    div.style.color = '#94a3b8';
+    div.style.fontSize = '0.85rem';
+    div.style.border = '1px solid rgba(59, 130, 246, 0.2)';
+    div.innerHTML = `
+      <div style="margin-bottom: 5px;"><strong>FTTH-Abdeckung</strong></div>
+      <div style="margin-bottom: 3px;"><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:50%;margin-right:5px;"></span>75-100%</div>
+      <div style="margin-bottom: 3px;"><span style="display:inline-block;width:12px;height:12px;background:#eab308;border-radius:50%;margin-right:5px;"></span>50-75%</div>
+      <div style="margin-bottom: 3px;"><span style="display:inline-block;width:12px;height:12px;background:#f97316;border-radius:50%;margin-right:5px;"></span>25-50%</div>
+      <div><span style="display:inline-block;width:12px;height:12px;background:#ef4444;border-radius:50%;margin-right:5px;"></span>&lt;25%</div>
+    `;
+    return div;
+  };
+  legend.addTo(map);
+}
+
+function getCoverageColor(coverage) {
+  if (coverage >= 75) return '#10b981';
+  if (coverage >= 50) return '#eab308';
+  if (coverage >= 25) return '#f97316';
+  return '#ef4444';
+}
+
+// ===== Chart.js Charts (Demografie) =====
+function initializeDemographyCharts(municipalities) {
+  if (!window.Chart) return;
+
+  initializePopulationChart(municipalities);
+  initializeAgeChart(municipalities);
+}
+
+function initializePopulationChart(municipalities) {
+  const ctx = document.getElementById('population-chart');
+  if (!ctx) return;
+
+  const giessenData = municipalities.find(m => m.name === 'Gießen');
+  if (!giessenData) return;
+
+  const years = giessenData.populationHistory.map(h => h.year);
+  const population = giessenData.populationHistory.map(h => h.pop);
+
+  populationChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Gießen - Bevölkerung',
+        data: population,
+        borderColor: '#2563eb',
+        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#60a5fa',
+        pointBorderColor: '#2563eb',
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          labels: { color: '#e2e8f0', font: { size: 12 } }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          ticks: { color: '#94a3b8' },
+          grid: { color: 'rgba(59, 130, 246, 0.1)' },
+          title: { display: true, text: 'Bevölkerung', color: '#e2e8f0' }
+        },
+        x: {
+          ticks: { color: '#94a3b8' },
+          grid: { color: 'rgba(59, 130, 246, 0.1)' },
+          title: { display: true, text: 'Jahr', color: '#e2e8f0' }
+        }
+      }
+    }
+  });
+}
+
+function initializeAgeChart(municipalities) {
+  const ctx = document.getElementById('age-chart');
+  if (!ctx) return;
+
+  const giessenData = municipalities.find(m => m.name === 'Gießen');
+  if (!giessenData) return;
+
+  const ageGroups = giessenData.ageGroups;
+
+  ageChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['0-18 Jahre', '18-29 Jahre', '30-49 Jahre', '50-64 Jahre', '65+ Jahre'],
+      datasets: [{
+        label: 'Altersverteilung (%) - Gießen',
+        data: [
+          ageGroups.under18,
+          ageGroups.age18to29,
+          ageGroups.age30to49,
+          ageGroups.age50to64,
+          ageGroups.over65
+        ],
+        backgroundColor: [
+          'rgba(37, 99, 235, 0.6)',
+          'rgba(59, 130, 246, 0.6)',
+          'rgba(96, 165, 250, 0.6)',
+          'rgba(16, 185, 129, 0.6)',
+          'rgba(249, 115, 22, 0.6)'
+        ],
+        borderColor: [
+          '#2563eb',
+          '#3b82f6',
+          '#60a5fa',
+          '#10b981',
+          '#f97316'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      indexAxis: 'x',
+      plugins: {
+        legend: {
+          labels: { color: '#e2e8f0', font: { size: 12 } }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 30,
+          ticks: { color: '#94a3b8' },
+          grid: { color: 'rgba(59, 130, 246, 0.1)' },
+          title: { display: true, text: 'Prozentanteil (%)', color: '#e2e8f0' }
+        },
+        x: {
+          ticks: { color: '#94a3b8' },
+          grid: { color: 'rgba(59, 130, 246, 0.1)' }
+        }
+      }
+    }
+  });
 }
