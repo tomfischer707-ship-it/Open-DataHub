@@ -118,8 +118,11 @@ function setupEventListeners() {
   });
 
   // Municipality comparisons
-  document.getElementById('municipality-compare-1')?.addEventListener('change', compareeMunicipalities);
+  document.getElementById('municipality-compare-1')?.addEventListener('change', compareMunicipalities);
   document.getElementById('municipality-compare-2')?.addEventListener('change', compareMunicipalities);
+
+  // Breitband municipality filter
+  document.getElementById('municipality-select')?.addEventListener('change', filterMunicipalityStats);
 }
 
 // ===== Filter & Search =====
@@ -268,6 +271,10 @@ function populateDatasetDetail(dataset) {
 
 // ===== Municipality Stats =====
 function populateMunicipalityStats(municipalities) {
+  displayMunicipalityTable(municipalities);
+}
+
+function displayMunicipalityTable(municipalities) {
   const tbody = document.getElementById('municipality-tbody');
   if (!tbody) return;
 
@@ -277,10 +284,25 @@ function populateMunicipalityStats(municipalities) {
       <td>${m.population.toLocaleString('de-DE')}</td>
       <td>${m.fiberCoverage}%</td>
       <td>
-        <div style="background: linear-gradient(90deg, #2563eb ${m.fiberCoverage}%, rgba(37,99,235,0.2) ${m.fiberCoverage}%); width: 100%; height: 20px; border-radius: 4px;"></div>
+        <div style="background: linear-gradient(90deg, ${getCoverageColor(m.fiberCoverage)} ${m.fiberCoverage}%, rgba(37,99,235,0.2) ${m.fiberCoverage}%); width: 100%; height: 20px; border-radius: 4px;"></div>
       </td>
     </tr>
   `).join('');
+}
+
+function filterMunicipalityStats() {
+  const select = document.getElementById('municipality-select');
+  if (!select) return;
+
+  const selectedName = select.value;
+
+  if (!selectedName) {
+    displayMunicipalityTable(allMunicipalities);
+    return;
+  }
+
+  const filtered = allMunicipalities.filter(m => m.name === selectedName);
+  displayMunicipalityTable(filtered);
 }
 
 function initializeMunicipalitySelects() {
@@ -321,17 +343,45 @@ function compareMunicipalities() {
 
   if (!select1 || !select2 || !resultDiv) return;
 
-  const m1 = select1.value;
-  const m2 = select2.value;
+  const m1Name = select1.value;
+  const m2Name = select2.value;
 
-  if (m1 && m2) {
-    resultDiv.innerHTML = `
-      <strong>${m1}</strong> vs. <strong>${m2}</strong><br/>
-      Detaillierter Vergleich der demografischen Daten folgt hier...
-    `;
-  } else {
+  if (!m1Name || !m2Name) {
     resultDiv.innerHTML = '';
+    return;
   }
+
+  const m1 = allMunicipalities.find(m => m.name === m1Name);
+  const m2 = allMunicipalities.find(m => m.name === m2Name);
+
+  if (!m1 || !m2) return;
+
+  const popChange1 = m1.populationChange;
+  const popChange2 = m2.populationChange;
+  const trend1 = popChange1 > 0 ? '↑ wachsend' : '↓ schrumpfend';
+  const trend2 = popChange2 > 0 ? '↑ wachsend' : '↓ schrumpfend';
+
+  const avgAge1 = m1.avgAge;
+  const avgAge2 = m2.avgAge;
+  const aging1 = avgAge1 > 45 ? '(Überalterung)' : '(Jüngere Bevölkerung)';
+  const aging2 = avgAge2 > 45 ? '(Überalterung)' : '(Jüngere Bevölkerung)';
+
+  resultDiv.innerHTML = `
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <div>
+        <strong style="color: var(--blue-300);">${m1.name}</strong><br/>
+        Bevölkerung: <strong>${m1.population.toLocaleString('de-DE')}</strong><br/>
+        Entwicklung: ${popChange1.toFixed(1)}% ${trend1}<br/>
+        Ø Alter: ${avgAge1} Jahre ${aging1}
+      </div>
+      <div>
+        <strong style="color: var(--blue-300);">${m2.name}</strong><br/>
+        Bevölkerung: <strong>${m2.population.toLocaleString('de-DE')}</strong><br/>
+        Entwicklung: ${popChange2.toFixed(1)}% ${trend2}<br/>
+        Ø Alter: ${avgAge2} Jahre ${aging2}
+      </div>
+    </div>
+  `;
 }
 
 // ===== Leaflet.js Map (Breitband) =====
