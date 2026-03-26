@@ -306,34 +306,45 @@ function filterMunicipalityStats() {
 }
 
 function initializeMunicipalitySelects() {
+  // Use cached data if available
+  const cached = sessionStorage.getItem('datahub-data');
+  if (cached && dataLoaded) {
+    const data = JSON.parse(cached);
+    populateSelectOptions(data.municipalities);
+    return;
+  }
+
   fetch('data.json')
     .then(r => r.json())
     .then(data => {
-      const municipalities = data.municipalities;
+      populateSelectOptions(data.municipalities);
+    })
+    .catch(err => console.error('Error loading municipalities:', err));
+}
 
-      // Breitband page
-      const breitbandSelect = document.getElementById('municipality-select');
-      if (breitbandSelect) {
-        municipalities.forEach(m => {
-          const option = document.createElement('option');
-          option.value = m.name;
-          option.textContent = m.name;
-          breitbandSelect.appendChild(option);
-        });
-      }
-
-      // Demografie comparison
-      [document.getElementById('municipality-compare-1'), document.getElementById('municipality-compare-2')].forEach(select => {
-        if (select) {
-          municipalities.forEach(m => {
-            const option = document.createElement('option');
-            option.value = m.name;
-            option.textContent = m.name;
-            select.appendChild(option);
-          });
-        }
-      });
+function populateSelectOptions(municipalities) {
+  // Breitband page
+  const breitbandSelect = document.getElementById('municipality-select');
+  if (breitbandSelect) {
+    municipalities.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m.name;
+      option.textContent = m.name;
+      breitbandSelect.appendChild(option);
     });
+  }
+
+  // Demografie comparison
+  [document.getElementById('municipality-compare-1'), document.getElementById('municipality-compare-2')].forEach(select => {
+    if (select) {
+      municipalities.forEach(m => {
+        const option = document.createElement('option');
+        option.value = m.name;
+        option.textContent = m.name;
+        select.appendChild(option);
+      });
+    }
+  });
 }
 
 function compareMunicipalities() {
