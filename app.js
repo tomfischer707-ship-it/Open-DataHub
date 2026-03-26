@@ -145,6 +145,8 @@ function displayDatasets(datasets) {
 
   // Info text
   infoContainer.textContent = `${datasets.length} Datensatz(e) gefunden`;
+  infoContainer.setAttribute('role', 'status');
+  infoContainer.setAttribute('aria-live', 'polite');
 
   // Clear results
   resultsContainer.innerHTML = '';
@@ -192,6 +194,12 @@ function resetFilters() {
   });
   document.getElementById('exploreSearch').value = '';
   displayDatasets(allDatasets);
+  // Announce to screen readers
+  const resultsInfo = document.getElementById('results-info');
+  if (resultsInfo) {
+    resultsInfo.setAttribute('role', 'status');
+    resultsInfo.setAttribute('aria-live', 'polite');
+  }
 }
 
 // ===== Dataset Detail Page =====

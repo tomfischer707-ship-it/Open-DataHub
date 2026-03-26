@@ -31,6 +31,7 @@
           id="globalSearch"
           class="search-input"
           placeholder="Daten suchen..."
+          aria-label="Globale Suche nach Datensätzen"
         />
       </div>
     </nav>
@@ -150,8 +151,9 @@
             id="exploreSearch"
             class="search-input-large"
             placeholder="Suchbegriff eingeben..."
+            aria-label="Datensätze durchsuchen"
           />
-          <button class="btn-secondary" onclick="resetFilters()">Filter zurücksetzen</button>
+          <button class="btn-secondary" onclick="resetFilters()" aria-label="Alle Filter zurücksetzen">Filter zurücksetzen</button>
         </div>
 
         <!-- Filters & Results Layout -->
@@ -243,7 +245,7 @@
 
             <div class="filter-box">
               <h3>Nach Gemeinde filtern</h3>
-              <select id="municipality-select">
+              <select id="municipality-select" aria-label="Gemeinde filtern">
                 <option value="">-- Alle Gemeinden --</option>
               </select>
             </div>
@@ -284,11 +286,11 @@
             <div class="comparison-box">
               <h3>Gemeinde-Vergleich</h3>
               <div class="comparison-controls">
-                <select id="municipality-compare-1">
+                <select id="municipality-compare-1" aria-label="Erste Gemeinde zum Vergleich w\u00e4hlen">
                   <option value="">Gemeinde 1 wählen...</option>
                 </select>
                 <span>vs.</span>
-                <select id="municipality-compare-2">
+                <select id="municipality-compare-2" aria-label="Zweite Gemeinde zum Vergleich w\u00e4hlen">
                   <option value="">Gemeinde 2 wählen...</option>
                 </select>
               </div>

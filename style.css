@@ -946,4 +946,116 @@ footer {
   .charts-container {
     grid-template-columns: 1fr;
   }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .comparison-controls {
+    flex-direction: column;
+  }
+
+  .comparison-controls span {
+    display: none;
+  }
+}
+
+/* ===== Tablet (mid-range mobile) ===== */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-brand {
+    font-size: 0.95rem;
+  }
+
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .search-bar {
+    display: none;
+  }
+
+  .breitband-map {
+    height: 300px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .kpi-value {
+    font-size: 1.5rem;
+  }
+
+  .kpi-label {
+    font-size: 0.85rem;
+  }
+
+  .dataset-grid,
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-table {
+    font-size: 0.85rem;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 8px;
+  }
+}
+
+/* ===== Accessibility & Focus States ===== */
+*:focus {
+  outline: 2px solid var(--blue-400);
+  outline-offset: 2px;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus {
+  outline: 2px solid var(--blue-400);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    --blue-500: #0050d8;
+    --blue-300: #0080ff;
+    --green-500: #009900;
+    --gray-400: #666666;
+  }
+
+  body {
+    background-color: var(--gray-900);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
