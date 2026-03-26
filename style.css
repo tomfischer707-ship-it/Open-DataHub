@@ -33,6 +33,7 @@
   --shadow:   0 4px 24px rgba(0, 0, 0, 0.25);
   --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.1);
   --transition: 0.2s ease;
+  --transition-fast: 0.1s ease;
 }
 
 html {
@@ -150,7 +151,8 @@ header {
 
 .page {
   display: none;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.2s ease;
+  will-change: opacity;
 }
 
 .page.active {
@@ -158,8 +160,15 @@ header {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* GPU-accelerated transitions */
+.kpi-card,
+.dataset-card,
+.quick-link {
+  will-change: transform;
 }
 
 /* ===== Hero Section ===== */

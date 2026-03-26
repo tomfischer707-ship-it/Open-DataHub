@@ -4,6 +4,9 @@ let currentDataset = null;
 let allMunicipalities = [];
 let populationChart = null;
 let ageChart = null;
+let dataLoaded = false;
+let chartsInitialized = false;
+let mapInitialized = false;
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,21 +15,35 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeMunicipalitySelects();
 });
 
-// ===== Load Data =====
+// ===== Load Data (with caching) =====
 function loadData() {
+  // Check cache first
+  const cached = sessionStorage.getItem('datahub-data');
+  if (cached && dataLoaded) {
+    const data = JSON.parse(cached);
+    processLoadedData(data);
+    return;
+  }
+
   fetch('data.json')
     .then(response => response.json())
     .then(data => {
-      allDatasets = data.datasets;
-      allMunicipalities = data.municipalities;
-      populateMunicipalityStats(data.municipalities);
-      initializeBreitbandMap(data.municipalities);
-      initializeDemographyCharts(data.municipalities);
+      // Cache data in session storage
+      sessionStorage.setItem('datahub-data', JSON.stringify(data));
+      processLoadedData(data);
     })
     .catch(err => console.error('Error loading data:', err));
 }
 
-// ===== Navigation =====
+function processLoadedData(data) {
+  allDatasets = data.datasets;
+  allMunicipalities = data.municipalities;
+  dataLoaded = true;
+  populateMunicipalityStats(data.municipalities);
+  // Lazy load visualizations only when pages are navigated to
+}
+
+// ===== Navigation (with lazy loading) =====
 function navigateToPage(pageName) {
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
@@ -38,6 +55,16 @@ function navigateToPage(pageName) {
   if (pageElement) {
     pageElement.classList.add('active');
     window.scrollTo(0, 0);
+
+    // Lazy load visualizations when pages are first visited
+    if (pageName === 'breitband' && !mapInitialized && allMunicipalities.length > 0) {
+      mapInitialized = true;
+      requestAnimationFrame(() => initializeBreitbandMap(allMunicipalities));
+    }
+    if (pageName === 'demografie' && !chartsInitialized && allMunicipalities.length > 0) {
+      chartsInitialized = true;
+      requestAnimationFrame(() => initializeDemographyCharts(allMunicipalities));
+    }
   }
 }
 
