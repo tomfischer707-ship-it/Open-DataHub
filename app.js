@@ -114,6 +114,33 @@ function renderHomePage() {
   const container = document.getElementById('featured-datasets');
 
   container.innerHTML = featured.map(ds => createDatasetCard(ds)).join('');
+
+  // Calculate and display KPIs
+  calculateKPIs();
+}
+
+// ===== Calculate KPIs =====
+function calculateKPIs() {
+  // Total population
+  const totalPop = allMunicipalities.reduce((sum, m) => sum + m.population, 0);
+  const popElement = document.getElementById('total-population');
+  if (popElement) {
+    popElement.textContent = (totalPop / 1000).toFixed(0) + 'k';
+  }
+
+  // Average fiber coverage
+  const avgFiber = allMunicipalities.reduce((sum, m) => sum + m.fiberCoverage, 0) / allMunicipalities.length;
+  const fiberElement = document.getElementById('avg-fiber');
+  if (fiberElement) {
+    fiberElement.textContent = avgFiber.toFixed(0) + '%';
+  }
+
+  // Largest municipality
+  const largest = allMunicipalities.reduce((max, m) => m.population > max.population ? m : max);
+  const largestElement = document.getElementById('largest-municipality');
+  if (largestElement) {
+    largestElement.textContent = largest.name.split(' ')[0];
+  }
 }
 
 // ===== EXPLORE PAGE =====
