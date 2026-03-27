@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Data Hub - Landkreis Gießen</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet für GIS-Karte -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <!-- Chart.js für Grafiken -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
   <!-- SIDEBAR -->
@@ -99,18 +104,24 @@
             <div id="breitband-datasets" class="dataset-grid"></div>
           </div>
           <div class="theme-content">
-            <h3>Gemeinden</h3>
-            <table class="municipalities-table">
-              <thead>
-                <tr>
-                  <th>Gemeinde</th>
-                  <th>Einwohner</th>
-                  <th>Glasfaser %</th>
-                  <th>Fortschritt</th>
-                </tr>
-              </thead>
-              <tbody id="breitband-table"></tbody>
-            </table>
+            <div class="chart-container">
+              <h3>Glasfaser-Abdeckung nach Gemeinde</h3>
+              <div id="breitband-map" class="gis-map"></div>
+            </div>
+            <div class="chart-container" style="margin-top: 2rem;">
+              <h3>Gemeinden Übersicht</h3>
+              <table class="municipalities-table">
+                <thead>
+                  <tr>
+                    <th>Gemeinde</th>
+                    <th>Einwohner</th>
+                    <th>Glasfaser %</th>
+                    <th>Fortschritt</th>
+                  </tr>
+                </thead>
+                <tbody id="breitband-table"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -125,18 +136,26 @@
             <div id="demografie-datasets" class="dataset-grid"></div>
           </div>
           <div class="theme-content">
-            <h3>Gemeinden</h3>
-            <table class="municipalities-table">
-              <thead>
-                <tr>
-                  <th>Gemeinde</th>
-                  <th>Einwohner</th>
-                  <th>Trend</th>
-                  <th>Anteil</th>
-                </tr>
-              </thead>
-              <tbody id="demografie-table"></tbody>
-            </table>
+            <div class="chart-container">
+              <h3>Bevölkerung nach Gemeinde</h3>
+              <div style="position: relative; height: 400px;">
+                <canvas id="population-chart"></canvas>
+              </div>
+            </div>
+            <div class="chart-container" style="margin-top: 2rem;">
+              <h3>Gemeinden Übersicht</h3>
+              <table class="municipalities-table">
+                <thead>
+                  <tr>
+                    <th>Gemeinde</th>
+                    <th>Einwohner</th>
+                    <th>Trend</th>
+                    <th>Anteil</th>
+                  </tr>
+                </thead>
+                <tbody id="demografie-table"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

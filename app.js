@@ -2,6 +2,8 @@
 let allDatasets = [];
 let allMunicipalities = [];
 let dataLoaded = false;
+let populationChart = null;
+let breitbandMap = null;
 
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,11 +103,13 @@ function renderExplorePage() {
 function renderBroadbandPage() {
   const datasets = allDatasets.filter(d => d.theme === 'Breitbandausbau');
   renderThemePage('breitband', datasets);
+  setTimeout(() => renderBreitbandMap(), 100);
 }
 
 function renderDemographyPage() {
   const datasets = allDatasets.filter(d => d.theme === 'Demografie');
   renderThemePage('demografie', datasets);
+  setTimeout(() => renderPopulationChart(), 100);
 }
 
 function renderMobilityPage() {
@@ -166,4 +170,158 @@ function applyFilters() {
 
   infoEl.textContent = `${filtered.length} Datensatz(e) gefunden`;
   container.innerHTML = filtered.map(ds => createDatasetCard(ds)).join('');
+}
+
+// ===== BREITBAND MAP =====
+function renderBreitbandMap() {
+  const mapEl = document.getElementById('breitband-map');
+  if (!mapEl || !window.L) return;
+
+  // Destroy existing map
+  if (breitbandMap) {
+    breitbandMap.remove();
+  }
+
+  // Center: Landkreis Gießen (approximately)
+  const center = [50.65, 8.65];
+
+  // Create map
+  breitbandMap = L.map('breitband-map').setView(center, 10);
+
+  // Add tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(breitbandMap);
+
+  // Add markers for each municipality
+  allMunicipalities.forEach(m => {
+    if (!m.coordinates) {
+      // Generate approximate coordinates for demo
+      const lat = 50.5 + Math.random() * 0.4;
+      const lon = 8.5 + Math.random() * 0.6;
+      m.coordinates = [lat, lon];
+    }
+
+    const coverage = m.fiberCoverage;
+    const color = getCoverageColor(coverage);
+
+    // Add circle marker
+    const marker = L.circleMarker([m.coordinates[0], m.coordinates[1]], {
+      radius: Math.max(10, coverage / 4),
+      fillColor: color,
+      color: color,
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.7
+    }).addTo(breitbandMap);
+
+    // Add popup
+    marker.bindPopup(`
+      <div style="font-weight: 600; margin-bottom: 0.5rem;">${m.name}</div>
+      <div>FTTH-Abdeckung: <strong>${coverage}%</strong></div>
+      <div style="color: var(--gray-600); font-size: 0.9rem;">Einwohner: ${m.population.toLocaleString('de-DE')}</div>
+    `);
+  });
+
+  // Add legend
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'map-legend');
+    div.style.background = 'white';
+    div.style.padding = '12px';
+    div.style.borderRadius = '6px';
+    div.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    div.style.fontSize = '0.85rem';
+    div.innerHTML = `
+      <div style="font-weight: 600; margin-bottom: 0.5rem;">FTTH-Abdeckung</div>
+      <div style="margin-bottom: 0.25rem;"><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:50%;margin-right:5px;"></span>75-100%</div>
+      <div style="margin-bottom: 0.25rem;"><span style="display:inline-block;width:12px;height:12px;background:#eab308;border-radius:50%;margin-right:5px;"></span>50-75%</div>
+      <div style="margin-bottom: 0.25rem;"><span style="display:inline-block;width:12px;height:12px;background:#f97316;border-radius:50%;margin-right:5px;"></span>25-50%</div>
+      <div><span style="display:inline-block;width:12px;height:12px;background:#ef4444;border-radius:50%;margin-right:5px;"></span>&lt;25%</div>
+    `;
+    return div;
+  };
+  legend.addTo(breitbandMap);
+}
+
+function getCoverageColor(coverage) {
+  if (coverage >= 75) return '#10b981';
+  if (coverage >= 50) return '#eab308';
+  if (coverage >= 25) return '#f97316';
+  return '#ef4444';
+}
+
+// ===== POPULATION CHART =====
+function renderPopulationChart() {
+  const ctx = document.getElementById('population-chart');
+  if (!ctx || !window.Chart) return;
+
+  // Destroy existing chart
+  if (populationChart) {
+    populationChart.destroy();
+  }
+
+  // Sort municipalities by population
+  const sorted = [...allMunicipalities].sort((a, b) => b.population - a.population);
+
+  // Create chart
+  populationChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(m => m.name),
+      datasets: [{
+        label: 'Bevölkerung',
+        data: sorted.map(m => m.population),
+        backgroundColor: 'rgba(37, 99, 235, 0.6)',
+        borderColor: '#2563eb',
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            font: { size: 12, weight: '600' },
+            color: '#374151',
+            padding: 15
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#6b7280',
+            font: { size: 11 },
+            callback: function(value) {
+              return value.toLocaleString('de-DE');
+            }
+          },
+          grid: {
+            color: 'rgba(219, 234, 254, 0.5)',
+            drawBorder: false
+          },
+          title: {
+            display: true,
+            text: 'Einwohner'
+          }
+        },
+        x: {
+          ticks: {
+            color: '#6b7280',
+            font: { size: 10 }
+          },
+          grid: {
+            display: false,
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
 }
