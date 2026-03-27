@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Data Hub - Landkreis Gießen</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-icon">📊</span>
+      <span class="sidebar-title">DataHub</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-page="home">Startseite</a>
+      <a href="#" class="nav-link" data-page="explore">Datensätze</a>
+      <a href="#" class="nav-link" data-page="breitband">Breitband</a>
+      <a href="#" class="nav-link" data-page="demografie">Demografie</a>
+      <a href="#" class="nav-link" data-page="mobilität">Mobilität</a>
+      <a href="#" class="nav-link" data-page="about">Über</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- HEADER -->
+    <header class="header">
+      <h1>Open Data Hub</h1>
+      <input type="text" id="globalSearch" class="search-input" placeholder="Datensätze durchsuchen..." />
+    </header>
+
+    <!-- PAGES CONTAINER -->
+    <div class="pages-container">
+      <!-- HOME PAGE -->
+      <div class="page active" id="home-page">
+        <section class="hero">
+          <h2>Willkommen im Open Data Hub</h2>
+          <p>Entdecken Sie Offene Daten des Landkreises Gießen</p>
+        </section>
+
+        <section class="kpi-section">
+          <h3>Überblick</h3>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-number">18</div>
+              <div class="kpi-label">Gemeinden</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-number">8</div>
+              <div class="kpi-label">Datensätze</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-number">3</div>
+              <div class="kpi-label">Themenbereiche</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-number">365</div>
+              <div class="kpi-label">Tage aktuell</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="featured-section">
+          <h3>Empfohlene Datensätze</h3>
+          <div class="dataset-grid" id="featured-datasets"></div>
+        </section>
+      </div>
+
+      <!-- EXPLORE PAGE -->
+      <div class="page" id="explore-page">
+        <div class="explore-header">
+          <h2>Alle Datensätze</h2>
+          <div class="filters">
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Breitbandausbau" /> Breitbandausbau
+            </label>
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Demografie" /> Demografie
+            </label>
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Mobilität & Verkehr" /> Mobilität & Verkehr
+            </label>
+          </div>
+        </div>
+        <input type="text" id="exploreSearch" class="search-input" placeholder="Nach Name oder Beschreibung suchen..." />
+        <div id="results-info" class="results-info"></div>
+        <div class="dataset-grid" id="datasets-results"></div>
+      </div>
+
+      <!-- BREITBAND PAGE -->
+      <div class="page" id="breitband-page">
+        <h2>Breitbandausbau</h2>
+        <p>Übersicht zum Ausbaustand von Breitbandinfrastruktur in den Gemeinden des Landkreises Gießen</p>
+        <div class="theme-layout">
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="breitband-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <h3>Gemeinden</h3>
+            <table class="municipalities-table">
+              <thead>
+                <tr>
+                  <th>Gemeinde</th>
+                  <th>Einwohner</th>
+                  <th>Glasfaser %</th>
+                  <th>Fortschritt</th>
+                </tr>
+              </thead>
+              <tbody id="breitband-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEMOGRAFIE PAGE -->
+      <div class="page" id="demografie-page">
+        <h2>Demografie</h2>
+        <p>Demografische Entwicklungen und Bevölkerungsstatistiken</p>
+        <div class="theme-layout">
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="demografie-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <h3>Gemeinden</h3>
+            <table class="municipalities-table">
+              <thead>
+                <tr>
+                  <th>Gemeinde</th>
+                  <th>Einwohner</th>
+                  <th>Trend</th>
+                  <th>Anteil</th>
+                </tr>
+              </thead>
+              <tbody id="demografie-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILITÄT PAGE -->
+      <div class="page" id="mobilität-page">
+        <h2>Mobilität & Verkehr</h2>
+        <p>Verkehrsinfrastruktur und Öffentliche Verkehrsmittel</p>
+        <div class="theme-layout">
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="mobilität-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <h3>Gemeinden</h3>
+            <table class="municipalities-table">
+              <thead>
+                <tr>
+                  <th>Gemeinde</th>
+                  <th>Einwohner</th>
+                  <th>ÖPNV Verbindungen</th>
+                  <th>Erreichbarkeit</th>
+                </tr>
+              </thead>
+              <tbody id="mobilität-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT PAGE -->
+      <div class="page" id="about-page">
+        <h2>Über diesen Hub</h2>
+        <div class="about-content">
+          <h3>Was ist der Open Data Hub?</h3>
+          <p>Der Open Data Hub des Landkreises Gießen macht öffentliche Daten zentral zugänglich und trägt zur Transparenz und Teilhabe bei.</p>
+
+          <h3>Thematische Bereiche</h3>
+          <ul>
+            <li><strong>Breitbandausbau:</strong> Aktuelle Informationen zur Glasfaser- und Mobilfunkabdeckung</li>
+            <li><strong>Demografie:</strong> Bevölkerungsstatistiken und Entwicklungstrends</li>
+            <li><strong>Mobilität & Verkehr:</strong> Verkehrsinfrastruktur und öffentliche Verkehrsmittel</li>
+          </ul>
+
+          <h3>Kontakt</h3>
+          <p>E-Mail: <a href="mailto:datahub@landkreis-giessen.de">datahub@landkreis-giessen.de</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "title": "Open Data Hub Landkreis Gießen",
+    "description": "Zentrale Plattform für offene Daten des Landkreises Gießen",
+    "region": "Landkreis Gießen",
+    "lastUpdated": "2026-03-27"
+  },
+  "municipalities": [
+    { "name": "Allendorf (Lumda)", "population": 6800, "fiberCoverage": 85, "oepnvConnections": 12 },
+    { "name": "Biebertal", "population": 8200, "fiberCoverage": 72, "oepnvConnections": 8 },
+    { "name": "Buseck", "population": 7900, "fiberCoverage": 68, "oepnvConnections": 6 },
+    { "name": "Fernwald", "population": 5600, "fiberCoverage": 45, "oepnvConnections": 4 },
+    { "name": "Gießen", "population": 88500, "fiberCoverage": 95, "oepnvConnections": 35 },
+    { "name": "Grünberg", "population": 9100, "fiberCoverage": 78, "oepnvConnections": 10 },
+    { "name": "Heuchelheim", "population": 12300, "fiberCoverage": 88, "oepnvConnections": 14 },
+    { "name": "Hungen", "population": 11200, "fiberCoverage": 75, "oepnvConnections": 11 },
+    { "name": "Langgöns", "population": 10800, "fiberCoverage": 82, "oepnvConnections": 9 },
+    { "name": "Laubach", "population": 5400, "fiberCoverage": 52, "oepnvConnections": 5 },
+    { "name": "Lich", "population": 13200, "fiberCoverage": 86, "oepnvConnections": 12 },
+    { "name": "Linden", "population": 8900, "fiberCoverage": 79, "oepnvConnections": 7 },
+    { "name": "Lollar", "population": 16200, "fiberCoverage": 91, "oepnvConnections": 16 },
+    { "name": "Pohlheim", "population": 19500, "fiberCoverage": 93, "oepnvConnections": 18 },
+    { "name": "Rabenau", "population": 7100, "fiberCoverage": 65, "oepnvConnections": 6 },
+    { "name": "Reiskirchen", "population": 6900, "fiberCoverage": 58, "oepnvConnections": 5 },
+    { "name": "Staufenberg", "population": 9800, "fiberCoverage": 76, "oepnvConnections": 8 },
+    { "name": "Wettenberg", "population": 10400, "fiberCoverage": 84, "oepnvConnections": 10 }
+  ],
+  "datasets": [
+    {
+      "id": "breitband-001",
+      "title": "Breitbandausbau im Landkreis",
+      "description": "Übersicht zum Ausbaustand von Breitbandinfrastruktur in allen Gemeinden",
+      "theme": "Breitbandausbau",
+      "source": "Landkreis Gießen",
+      "type": "tabular",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "🌐"
+    },
+    {
+      "id": "ftth-001",
+      "title": "FTTH-Verfügbarkeit (Fiber to the Home)",
+      "description": "Detaillierte Daten zur Verfügbarkeit von Glasfaser-Anschlüssen",
+      "theme": "Breitbandausbau",
+      "source": "Landkreis Gießen",
+      "type": "geospatial",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "📡"
+    },
+    {
+      "id": "mobilfunk-001",
+      "title": "Mobilfunkabdeckung",
+      "description": "Netzabdeckung der Mobilfunkanbieter im Landkreis",
+      "theme": "Breitbandausbau",
+      "source": "Bundesnetzagentur",
+      "type": "geospatial",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "📱"
+    },
+    {
+      "id": "bevoelkerung-001",
+      "title": "Bevölkerungsdaten",
+      "description": "Aktuelle Bevölkerungsstatistiken und Entwicklungen der Gemeinden",
+      "theme": "Demografie",
+      "source": "Hessisches Statistisches Landesamt",
+      "type": "tabular",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "👥"
+    },
+    {
+      "id": "altersstruktur-001",
+      "title": "Altersstruktur",
+      "description": "Demografische Zusammensetzung nach Altersgruppen",
+      "theme": "Demografie",
+      "source": "Hessisches Statistisches Landesamt",
+      "type": "tabular",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "📊"
+    },
+    {
+      "id": "zuwanderung-001",
+      "title": "Zuwanderung & Integration",
+      "description": "Daten zu Migrationsbewegungen und Integrationsindikatoren",
+      "theme": "Demografie",
+      "source": "Ausländerbehörde",
+      "type": "timeseries",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "🌍"
+    },
+    {
+      "id": "verkehr-001",
+      "title": "Verkehrsinfrastruktur",
+      "description": "Straßennetz, Bahnanbindung und Straßenverkehrszählungen",
+      "theme": "Mobilität & Verkehr",
+      "source": "Hessisches Verkehrsministerium",
+      "type": "geospatial",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "🚗"
+    },
+    {
+      "id": "oepnv-001",
+      "title": "Öffentlicher Personennahverkehr",
+      "description": "Fahrpläne, Haltestellen und Verbindungsdaten des ÖPNV",
+      "theme": "Mobilität & Verkehr",
+      "source": "Verkehrsunternehmen",
+      "type": "tabular",
+      "updated": "März 2026",
+      "contact": "datahub@landkreis-giessen.de",
+      "icon": "🚌"
+    }
+  ]
+}
