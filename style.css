@@ -59,6 +59,7 @@ body {
   height: 100vh;
   overflow-y: auto;
   z-index: 100;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1), border 0.4s ease;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -106,28 +107,42 @@ body {
   color: var(--gray-600);
   cursor: pointer;
   padding: 0.5rem;
-  transition: color var(--transition);
+  transition: color 0.3s ease, transform 0.3s ease;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-toggle:hover {
   color: var(--primary);
+  transform: scale(1.1);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.95);
 }
 
 .sidebar.collapsed {
-  width: 80px;
-  padding: 1rem 0;
+  width: 70px;
+  padding: 1.5rem 0;
   border-right: 1px solid var(--gray-200);
   overflow: visible;
 }
 
 .sidebar.collapsed .sidebar-header {
-  padding: 0 0.5rem 1rem;
+  padding: 0 0.5rem 1.5rem;
   justify-content: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.sidebar.collapsed .sidebar-icon {
+  font-size: 1.5rem;
 }
 
 .sidebar.collapsed .sidebar-title {
   display: none;
+  flex: 0;
 }
 
 .sidebar.collapsed .sidebar-nav {
@@ -171,11 +186,11 @@ body {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  transition: margin-left var(--transition);
+  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.sidebar-closed .main-content {
-  margin-left: 80px;
+  margin-left: 70px;
 }
 
 /* ===== HEADER ===== */
@@ -199,8 +214,18 @@ body.sidebar-closed .main-content {
   color: var(--gray-600);
   cursor: pointer;
   padding: 0.5rem;
-  transition: color var(--transition);
+  transition: color 0.3s ease, transform 0.3s ease;
   line-height: 1;
+  flex-shrink: 0;
+}
+
+.menu-toggle:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
 }
 
 .header h1 {
@@ -615,7 +640,7 @@ body.sidebar-closed .main-content {
 
   .sidebar {
     width: 100%;
-    height: auto;
+    height: 100vh;
     position: fixed;
     left: 0;
     top: 0;
@@ -627,7 +652,9 @@ body.sidebar-closed .main-content {
     padding: 2rem 0;
     background: white;
     transform: translateX(0);
-    transition: transform var(--transition);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
   }
 
   .sidebar.collapsed {
