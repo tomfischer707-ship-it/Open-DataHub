@@ -93,16 +93,23 @@ function openSidebar() {
 
 // ===== Navigation =====
 function navigateToPage(pageName) {
+  console.log('📖 navigateToPage aufgerufen mit:', pageName);
+
   // Deactivate all pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
 
   // Activate selected page
-  const pageEl = document.getElementById(pageName + '-page');
+  const pageId = pageName + '-page';
+  const pageEl = document.getElementById(pageId);
   const linkEl = document.querySelector(`[data-page="${pageName}"]`);
+
+  console.log(`  Suche nach Seite: #${pageId}`);
+  console.log(`  Seite existiert: ${!!pageEl}`);
 
   if (pageEl) {
     pageEl.classList.add('active');
+    console.log(`  ✅ Seite ${pageName} aktiviert`);
     window.scrollTo(0, 0);
 
     // Render appropriate content
@@ -112,11 +119,18 @@ function navigateToPage(pageName) {
     else if (pageName === 'demografie') renderDemographyPage();
     else if (pageName === 'mobilität') renderMobilityPage();
     else if (pageName === 'dataset-detail') {
-      // Content already populated in showDatasetDetail()
+      console.log('  ℹ️  Dataset-Detail-Seite aktiviert (Content bereits populiert)');
     }
+  } else {
+    console.error(`  ❌ Seite mit ID '${pageId}' nicht gefunden!`);
   }
 
-  if (linkEl) linkEl.classList.add('active');
+  if (linkEl) {
+    linkEl.classList.add('active');
+    console.log(`  ✅ Nav-Link aktiviert`);
+  }
+
+  console.log('  ✅ navigateToPage abgeschlossen\n');
 }
 
 // ===== DATASET DETAIL VIEW =====
@@ -135,23 +149,41 @@ function formatType(type) {
 }
 
 function showDatasetDetail(dataset) {
+  console.log('🎯 showDatasetDetail aufgerufen mit:', dataset);
+
   currentDetailDataset = dataset;
   previousPage = getCurrentActivePage();
+  console.log('  Zurück zu:', previousPage);
 
-  // Update content
-  document.getElementById('detail-title').textContent = `${dataset.icon} ${dataset.title}`;
-  document.getElementById('detail-description').textContent = dataset.description;
-  document.getElementById('detail-type').textContent = formatType(dataset.type);
-  document.getElementById('detail-source').textContent = dataset.source;
-  document.getElementById('detail-updated').textContent = dataset.updated;
-  document.getElementById('detail-theme').textContent = dataset.theme;
-  document.getElementById('detail-contact').textContent = dataset.contact || '—';
+  // Update content mit Fehlerbehandlung
+  const elements = {
+    'detail-title': `${dataset.icon} ${dataset.title}`,
+    'detail-description': dataset.description,
+    'detail-type': formatType(dataset.type),
+    'detail-source': dataset.source,
+    'detail-updated': dataset.updated,
+    'detail-theme': dataset.theme,
+    'detail-contact': dataset.contact || '—'
+  };
+
+  for (const [id, content] of Object.entries(elements)) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = content;
+      console.log(`  ✅ ${id} aktualisiert`);
+    } else {
+      console.warn(`  ❌ Element mit ID '${id}' nicht gefunden!`);
+    }
+  }
 
   // Render related datasets
+  console.log('  Rendere verwandte Datensätze für Theme:', dataset.theme);
   renderRelatedDatasets(dataset.theme);
 
   // Navigate to detail page
+  console.log('  Navigiere zu dataset-detail Seite');
   navigateToPage('dataset-detail');
+  console.log('  ✅ showDatasetDetail abgeschlossen');
 }
 
 function renderRelatedDatasets(theme) {
@@ -204,19 +236,32 @@ function renderHomePage() {
 
 // ===== Attach Dataset Card Listeners =====
 function attachDatasetCardListeners() {
-  document.querySelectorAll('.dataset-card').forEach(card => {
+  console.log('📌 attachDatasetCardListeners wurde aufgerufen');
+  console.log('📊 Anzahl Dataset-Karten:', document.querySelectorAll('.dataset-card').length);
+
+  document.querySelectorAll('.dataset-card').forEach((card, idx) => {
+    const datasetId = card.dataset.datasetId;
+    console.log(`  Karte ${idx}: ID=${datasetId}`);
+
     card.style.cursor = 'pointer';
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      const datasetId = card.dataset.datasetId;
-      console.log('Card clicked with ID:', datasetId);
+    card.addEventListener('click', function cardClickHandler(e) {
+      console.log('🔗 KLICK auf Datensatz-Karte!');
+      console.log('  Dataset ID:', datasetId);
+      console.log('  Alle Datensätze:', allDatasets.length);
+
       const dataset = allDatasets.find(ds => ds.id === datasetId);
-      console.log('Found dataset:', dataset);
+      console.log('  Gefundener Datensatz:', dataset);
+
       if (dataset) {
+        console.log('  ✅ showDatasetDetail wird aufgerufen');
         showDatasetDetail(dataset);
+      } else {
+        console.log('  ❌ Datensatz nicht gefunden!');
       }
     });
   });
+
+  console.log('✅ Event-Listener registriert für alle Karten');
 }
 
 // ===== Calculate KPIs =====
