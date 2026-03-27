@@ -31,8 +31,15 @@ function setupEventListeners() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       navigateToPage(link.dataset.page);
+      // Close sidebar on mobile after clicking
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
     });
   });
+
+  // Sidebar toggle
+  document.getElementById('sidebar-toggle')?.addEventListener('click', toggleSidebar);
 
   // Event delegation for filters
   document.addEventListener('change', (e) => {
@@ -53,6 +60,25 @@ function setupEventListeners() {
   });
 
   document.getElementById('exploreSearch')?.addEventListener('keyup', applyFilters);
+}
+
+// ===== Sidebar Toggle =====
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('collapsed');
+  document.body.classList.toggle('sidebar-closed');
+}
+
+function closeSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.add('collapsed');
+  document.body.classList.add('sidebar-closed');
+}
+
+function openSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.remove('collapsed');
+  document.body.classList.remove('sidebar-closed');
 }
 
 // ===== Navigation =====
