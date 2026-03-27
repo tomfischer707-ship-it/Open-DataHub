@@ -218,6 +218,51 @@
           <p>E-Mail: <a href="mailto:datahub@landkreis-giessen.de">datahub@landkreis-giessen.de</a></p>
         </div>
       </div>
+
+      <!-- DATASET DETAIL PAGE -->
+      <div class="page" id="dataset-detail-page">
+        <div class="dataset-detail-header">
+          <button id="back-to-previous" class="back-button">
+            ← Zurück
+          </button>
+          <h2 id="detail-title">Datensatz-Title</h2>
+        </div>
+
+        <div class="dataset-detail-layout">
+          <!-- Main Content -->
+          <div class="dataset-detail-content">
+            <section class="detail-section">
+              <h3>Beschreibung</h3>
+              <p id="detail-description">—</p>
+            </section>
+
+            <section class="detail-section">
+              <h3>Informationen</h3>
+              <dl class="detail-info">
+                <dt>Typ:</dt>
+                <dd id="detail-type">—</dd>
+                <dt>Quelle:</dt>
+                <dd id="detail-source">—</dd>
+                <dt>Aktualisiert:</dt>
+                <dd id="detail-updated">—</dd>
+                <dt>Thema:</dt>
+                <dd id="detail-theme">—</dd>
+              </dl>
+            </section>
+
+            <section class="detail-section">
+              <h3>Kontakt</h3>
+              <p id="detail-contact">—</p>
+            </section>
+          </div>
+
+          <!-- Sidebar: Related Datasets -->
+          <aside class="detail-sidebar">
+            <h3>Verwandte Datensätze</h3>
+            <div id="related-datasets" class="related-grid"></div>
+          </aside>
+        </div>
+      </div>
     </div>
   </main>
 

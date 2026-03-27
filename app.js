@@ -4,6 +4,8 @@ let allMunicipalities = [];
 let dataLoaded = false;
 let populationChart = null;
 let breitbandMap = null;
+let currentDetailDataset = null;
+let previousPage = null;
 
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,6 +65,23 @@ function setupEventListeners() {
   });
 
   document.getElementById('exploreSearch')?.addEventListener('keyup', applyFilters);
+
+  // Event delegation for dataset cards
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.dataset-card');
+    if (card && card.dataset.datasetId) {
+      const datasetId = card.dataset.datasetId;
+      const dataset = allDatasets.find(ds => ds.id === datasetId);
+      if (dataset) {
+        showDatasetDetail(dataset);
+      }
+    }
+  });
+
+  // Back button handler
+  document.getElementById('back-to-previous')?.addEventListener('click', () => {
+    navigateToPage(previousPage || 'home');
+  });
 }
 
 // ===== Sidebar Toggle =====
@@ -104,9 +123,79 @@ function navigateToPage(pageName) {
     else if (pageName === 'breitband') renderBroadbandPage();
     else if (pageName === 'demografie') renderDemographyPage();
     else if (pageName === 'mobilität') renderMobilityPage();
+    else if (pageName === 'dataset-detail') {
+      // Content already populated in showDatasetDetail()
+    }
   }
 
   if (linkEl) linkEl.classList.add('active');
+}
+
+// ===== DATASET DETAIL VIEW =====
+function getCurrentActivePage() {
+  const active = document.querySelector('.page.active');
+  return active ? active.id.replace('-page', '') : 'home';
+}
+
+function formatType(type) {
+  const types = {
+    'tabular': 'Tabellare Daten',
+    'geospatial': 'Geografische Daten',
+    'timeseries': 'Zeitreihen'
+  };
+  return types[type] || type;
+}
+
+function showDatasetDetail(dataset) {
+  currentDetailDataset = dataset;
+  previousPage = getCurrentActivePage();
+
+  // Update content
+  document.getElementById('detail-title').textContent = `${dataset.icon} ${dataset.title}`;
+  document.getElementById('detail-description').textContent = dataset.description;
+  document.getElementById('detail-type').textContent = formatType(dataset.type);
+  document.getElementById('detail-source').textContent = dataset.source;
+  document.getElementById('detail-updated').textContent = dataset.updated;
+  document.getElementById('detail-theme').textContent = dataset.theme;
+  document.getElementById('detail-contact').textContent = dataset.contact || '—';
+
+  // Render related datasets
+  renderRelatedDatasets(dataset.theme);
+
+  // Navigate to detail page
+  navigateToPage('dataset-detail');
+}
+
+function renderRelatedDatasets(theme) {
+  const related = allDatasets.filter(ds => ds.theme === theme && ds.id !== currentDetailDataset.id);
+  const container = document.getElementById('related-datasets');
+
+  if (related.length === 0) {
+    container.innerHTML = '<p style="color: var(--gray-500); font-size: 0.9rem;">Keine verwandten Datensätze</p>';
+    return;
+  }
+
+  container.innerHTML = related.map(ds => createRelatedDatasetCard(ds)).join('');
+
+  // Add click handlers for related datasets
+  container.querySelectorAll('.related-dataset-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const relatedId = card.dataset.datasetId;
+      const relatedDataset = allDatasets.find(ds => ds.id === relatedId);
+      if (relatedDataset) {
+        showDatasetDetail(relatedDataset);
+      }
+    });
+  });
+}
+
+function createRelatedDatasetCard(dataset) {
+  return `
+    <div class="related-dataset-card" data-dataset-id="${dataset.id}">
+      <h4>${dataset.icon} ${dataset.title}</h4>
+      <p>${dataset.description.substring(0, 80)}...</p>
+    </div>
+  `;
 }
 
 // ===== HOME PAGE =====
@@ -198,7 +287,7 @@ function renderThemePage(theme, datasets) {
 // ===== DATASET CARD =====
 function createDatasetCard(dataset) {
   return `
-    <div class="dataset-card">
+    <div class="dataset-card" data-dataset-id="${dataset.id}">
       <h3>${dataset.icon} ${dataset.title}</h3>
       <p>${dataset.description}</p>
       <div class="dataset-meta">
