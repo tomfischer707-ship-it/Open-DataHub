@@ -66,18 +66,6 @@ function setupEventListeners() {
 
   document.getElementById('exploreSearch')?.addEventListener('keyup', applyFilters);
 
-  // Event delegation for dataset cards
-  document.addEventListener('click', (e) => {
-    const card = e.target.closest('.dataset-card');
-    if (card && card.dataset.datasetId) {
-      const datasetId = card.dataset.datasetId;
-      const dataset = allDatasets.find(ds => ds.id === datasetId);
-      if (dataset) {
-        showDatasetDetail(dataset);
-      }
-    }
-  });
-
   // Back button handler
   document.getElementById('back-to-previous')?.addEventListener('click', () => {
     navigateToPage(previousPage || 'home');
@@ -207,8 +195,28 @@ function renderHomePage() {
 
   container.innerHTML = featured.map(ds => createDatasetCard(ds)).join('');
 
+  // Add click listeners to dataset cards
+  attachDatasetCardListeners();
+
   // Calculate and display KPIs
   calculateKPIs();
+}
+
+// ===== Attach Dataset Card Listeners =====
+function attachDatasetCardListeners() {
+  document.querySelectorAll('.dataset-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const datasetId = card.dataset.datasetId;
+      console.log('Card clicked with ID:', datasetId);
+      const dataset = allDatasets.find(ds => ds.id === datasetId);
+      console.log('Found dataset:', dataset);
+      if (dataset) {
+        showDatasetDetail(dataset);
+      }
+    });
+  });
 }
 
 // ===== Calculate KPIs =====
@@ -242,6 +250,9 @@ function renderExplorePage() {
 
   infoEl.textContent = `${allDatasets.length} Datensätze gefunden`;
   container.innerHTML = allDatasets.map(ds => createDatasetCard(ds)).join('');
+
+  // Add click listeners to dataset cards
+  attachDatasetCardListeners();
 }
 
 // ===== THEME PAGES =====
@@ -268,6 +279,9 @@ function renderThemePage(theme, datasets) {
 
   // Render datasets
   container.innerHTML = datasets.map(ds => createDatasetCard(ds)).join('');
+
+  // Add click listeners to dataset cards
+  attachDatasetCardListeners();
 
   // Render municipality table
   tbody.innerHTML = allMunicipalities.map(m => `
@@ -315,6 +329,9 @@ function applyFilters() {
 
   infoEl.textContent = `${filtered.length} Datensatz(e) gefunden`;
   container.innerHTML = filtered.map(ds => createDatasetCard(ds)).join('');
+
+  // Add click listeners to dataset cards
+  attachDatasetCardListeners();
 }
 
 // ===== BREITBAND MAP =====
