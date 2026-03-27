@@ -510,7 +510,7 @@ header {
 /* ===== Theme Pages Layout ===== */
 .theme-layout {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 300px 1fr;
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -705,7 +705,7 @@ header {
 
 .dataset-content-layout {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 300px 1fr;
   gap: 2rem;
 }
 

@@ -211,32 +211,7 @@
         <h1>Breitbandausbau im Landkreis Gießen</h1>
 
         <div class="theme-layout">
-          <!-- Map & Stats -->
-          <div class="theme-main">
-            <div id="breitband-map" class="breitband-map" aria-label="Interaktive Karte mit FTTH-Abdeckung nach Gemeinde"></div>
-
-            <!-- Municipality Stats -->
-            <div class="municipality-stats">
-              <h3>FTTH-Abdeckung nach Gemeinde</h3>
-              <div class="stats-table-wrapper">
-                <table class="stats-table">
-                  <thead>
-                    <tr>
-                      <th>Gemeinde</th>
-                      <th>Einwohner</th>
-                      <th>FTTH-Abdeckung</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="municipality-tbody">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Sidebar -->
+          <!-- Left Sidebar -->
           <aside class="theme-sidebar">
             <div class="info-box">
               <h3>Übersicht</h3>
@@ -264,6 +239,31 @@
               </ul>
             </div>
           </aside>
+
+          <!-- Map & Stats -->
+          <div class="theme-main">
+            <div id="breitband-map" class="breitband-map" aria-label="Interaktive Karte mit FTTH-Abdeckung nach Gemeinde"></div>
+
+            <!-- Municipality Stats -->
+            <div class="municipality-stats">
+              <h3>FTTH-Abdeckung nach Gemeinde</h3>
+              <div class="stats-table-wrapper">
+                <table class="stats-table">
+                  <thead>
+                    <tr>
+                      <th>Gemeinde</th>
+                      <th>Einwohner</th>
+                      <th>FTTH-Abdeckung</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="municipality-tbody">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -274,6 +274,27 @@
         <h1>Demografische Entwicklung</h1>
 
         <div class="theme-layout">
+          <!-- Left Sidebar -->
+          <aside class="theme-sidebar">
+            <div class="info-box">
+              <h3>Landkreis-Kennzahlen</h3>
+              <ul>
+                <li><strong>Bevölkerung:</strong> 256.000</li>
+                <li><strong>Durchschnittsalter:</strong> 44,5 Jahre</li>
+                <li><strong>Veränderung:</strong> +1,2% seit 2020</li>
+                <li><strong>Progr. 2030:</strong> -2%</li>
+              </ul>
+            </div>
+
+            <div class="filter-box">
+              <h3>Altersgruppen</h3>
+              <label><input type="checkbox" checked> 0-20 Jahre</label>
+              <label><input type="checkbox" checked> 20-40 Jahre</label>
+              <label><input type="checkbox" checked> 40-65 Jahre</label>
+              <label><input type="checkbox" checked> 65+ Jahre</label>
+            </div>
+          </aside>
+
           <!-- Charts & Stats -->
           <div class="theme-main">
             <div class="charts-container">
@@ -303,27 +324,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Right Sidebar -->
-          <aside class="theme-sidebar">
-            <div class="info-box">
-              <h3>Landkreis-Kennzahlen</h3>
-              <ul>
-                <li><strong>Bevölkerung:</strong> 256.000</li>
-                <li><strong>Durchschnittsalter:</strong> 44,5 Jahre</li>
-                <li><strong>Veränderung:</strong> +1,2% seit 2020</li>
-                <li><strong>Progr. 2030:</strong> -2%</li>
-              </ul>
-            </div>
-
-            <div class="filter-box">
-              <h3>Altersgruppen</h3>
-              <label><input type="checkbox" checked> 0-20 Jahre</label>
-              <label><input type="checkbox" checked> 20-40 Jahre</label>
-              <label><input type="checkbox" checked> 40-65 Jahre</label>
-              <label><input type="checkbox" checked> 65+ Jahre</label>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
@@ -342,6 +342,30 @@
         </div>
 
         <div class="dataset-content-layout">
+          <!-- Left Sidebar -->
+          <aside class="dataset-sidebar">
+            <div class="info-box">
+              <h3>Informationen</h3>
+              <ul>
+                <li><strong>Typ:</strong> <span id="detail-info-type"></span></li>
+                <li><strong>Ebene:</strong> <span id="detail-info-level"></span></li>
+                <li><strong>Format:</strong> <span id="detail-info-format"></span></li>
+              </ul>
+            </div>
+
+            <button class="btn-primary" onclick="alert('Download-Funktion')">
+              <i class="fas fa-download"></i> Jetzt herunterladen
+            </button>
+
+            <div class="feedback-box">
+              <h3>Feedback</h3>
+              <p>Fehler gefunden oder Verbesserungsvorschläge?</p>
+              <button class="btn-secondary" onclick="alert('Feedback-Form wird geöffnet')">
+                Feedback geben
+              </button>
+            </div>
+          </aside>
+
           <!-- Main Content -->
           <main class="dataset-main">
             <section class="dataset-section">
@@ -385,30 +409,6 @@
               <div id="related-datasets" class="related-datasets"></div>
             </section>
           </main>
-
-          <!-- Sidebar -->
-          <aside class="dataset-sidebar">
-            <div class="info-box">
-              <h3>Informationen</h3>
-              <ul>
-                <li><strong>Typ:</strong> <span id="detail-info-type"></span></li>
-                <li><strong>Ebene:</strong> <span id="detail-info-level"></span></li>
-                <li><strong>Format:</strong> <span id="detail-info-format"></span></li>
-              </ul>
-            </div>
-
-            <button class="btn-primary" onclick="alert('Download-Funktion')">
-              <i class="fas fa-download"></i> Jetzt herunterladen
-            </button>
-
-            <div class="feedback-box">
-              <h3>Feedback</h3>
-              <p>Fehler gefunden oder Verbesserungsvorschläge?</p>
-              <button class="btn-secondary" onclick="alert('Feedback-Form wird geöffnet')">
-                Feedback geben
-              </button>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
