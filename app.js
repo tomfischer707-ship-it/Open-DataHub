@@ -10,7 +10,6 @@ let previousPage = null;
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
   loadData();
-  setupEventListeners();
 });
 
 // ===== Load Data =====
@@ -22,6 +21,7 @@ function loadData() {
       allMunicipalities = data.municipalities;
       dataLoaded = true;
       renderHomePage();
+      setupEventListeners();
     })
     .catch(err => console.error('Error loading data:', err));
 }
