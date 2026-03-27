@@ -101,7 +101,6 @@ body {
 }
 
 .sidebar-toggle {
-  display: none;
   background: none;
   border: none;
   color: var(--gray-600);
@@ -116,13 +115,21 @@ body {
 }
 
 .sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  border-right: none;
-  overflow: hidden;
+  width: 80px;
+  padding: 1rem 0;
+  border-right: 1px solid var(--gray-200);
+  overflow: visible;
 }
 
-.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed .sidebar-header {
+  padding: 0 0.5rem 1rem;
+  justify-content: center;
+}
+
+.sidebar.collapsed .sidebar-title {
+  display: none;
+}
+
 .sidebar.collapsed .sidebar-nav {
   display: none;
 }
@@ -168,7 +175,7 @@ body {
 }
 
 body.sidebar-closed .main-content {
-  margin-left: 0;
+  margin-left: 80px;
 }
 
 /* ===== HEADER ===== */
@@ -183,6 +190,17 @@ body.sidebar-closed .main-content {
   align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color var(--transition);
+  line-height: 1;
 }
 
 .header h1 {
@@ -598,15 +616,29 @@ body.sidebar-closed .main-content {
   .sidebar {
     width: 100%;
     height: auto;
-    position: static;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
     border-right: none;
-    border-bottom: 1px solid var(--gray-200);
-    padding: 1rem 0;
-    left: auto;
-    top: auto;
+    border-bottom: none;
+    padding: 2rem 0;
+    background: white;
+    transform: translateX(0);
+    transition: transform var(--transition);
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
   }
 
   .sidebar-toggle {
+    display: none;
+  }
+
+  .menu-toggle {
     display: block;
   }
 
@@ -624,15 +656,15 @@ body.sidebar-closed .main-content {
   }
 
   .sidebar.collapsed {
-    width: 100%;
-    padding: 1rem 0;
-    border-right: none;
-    border-bottom: 1px solid var(--gray-200);
-    overflow: visible;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
   }
 
   .sidebar.collapsed .sidebar-header {
-    display: flex;
+    display: none;
   }
 
   .sidebar.collapsed .sidebar-nav {

@@ -41,6 +41,9 @@ function setupEventListeners() {
   // Sidebar toggle
   document.getElementById('sidebar-toggle')?.addEventListener('click', toggleSidebar);
 
+  // Menu toggle (mobile)
+  document.getElementById('menu-toggle')?.addEventListener('click', openSidebar);
+
   // Event delegation for filters
   document.addEventListener('change', (e) => {
     if (e.target.classList.contains('theme-filter')) {
