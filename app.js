@@ -197,12 +197,14 @@ function navigateToPage(pageName) {
 }
 
 function navigateToDataset(datasetId) {
-  // Find dataset
   const dataset = allDatasets.find(d => d.id === datasetId);
   if (!dataset) return;
-
   currentDataset = dataset;
-  populateDatasetDetail(dataset);
+  try {
+    populateDatasetDetail(dataset);
+  } catch (e) {
+    console.error('Fehler beim Befüllen der Detailseite:', e);
+  }
   navigateToPage('dataset');
 }
 
@@ -313,18 +315,16 @@ function displayDatasets(datasets) {
   datasets.forEach(dataset => {
     const card = document.createElement('div');
     card.className = 'dataset-card';
-    card.onclick = () => navigateToDataset(dataset.id);
-
+    card.setAttribute('onclick', "navigateToDataset('" + dataset.id + "')");
     card.innerHTML = `
-      <div class="dataset-badge">${dataset.type === 'geospatial' ? 'Karte' : dataset.type === 'timeseries' ? 'Zeitreihe' : 'Datensatz'}</div>
+      <div class="dataset-badge">${TYPE_LABELS[dataset.type] || 'Datensatz'}</div>
       <h3>${dataset.title}</h3>
       <p>${dataset.description}</p>
       <div class="dataset-meta">
-        <span class="source-badge breitband" style="background: ${getSourceColor(dataset.source)}20; color: ${getSourceColor(dataset.source)};">${dataset.source}</span>
+        <span class="source-badge" style="background:${getSourceColor(dataset.source)}20;color:${getSourceColor(dataset.source)}">${dataset.source}</span>
         <span class="update-date">aktualisiert ${dataset.updated}</span>
       </div>
     `;
-
     resultsContainer.appendChild(card);
   });
 }
