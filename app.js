@@ -188,22 +188,72 @@ function resetFilters() {
   displayDatasets(allDatasets);
 }
 
+// ===== Type & Level Label Maps =====
+const TYPE_LABELS = {
+  'geospatial': 'Geodaten',
+  'timeseries': 'Zeitreihe',
+  'statistics': 'Statistik',
+  'heatmap': 'Heatmap',
+  'structure': 'Struktur'
+};
+
+const LEVEL_LABELS = {
+  'kreis': 'Kreisebene',
+  'gemeinde': 'Gemeindeebene'
+};
+
 // ===== Dataset Detail Page =====
 function populateDatasetDetail(dataset) {
+  // Header
   document.getElementById('detail-title').textContent = dataset.title;
-  document.getElementById('detail-source').textContent = dataset.source;
-  document.getElementById('detail-type').textContent = dataset.type;
+
+  const sourceEl = document.getElementById('detail-source');
+  sourceEl.textContent = dataset.source;
+  const srcColor = getSourceColor(dataset.source);
+  sourceEl.style.background = `${srcColor}20`;
+  sourceEl.style.color = srcColor;
+
+  const typeEl = document.getElementById('detail-type');
+  typeEl.textContent = TYPE_LABELS[dataset.type] || dataset.type;
+
   document.getElementById('detail-description').textContent = dataset.description;
+
+  // Tags
+  const tagsEl = document.getElementById('detail-tags');
+  if (dataset.tags && dataset.tags.length > 0) {
+    tagsEl.innerHTML = dataset.tags.map(tag => `<span class="detail-tag">${tag}</span>`).join('');
+  } else {
+    tagsEl.innerHTML = '';
+  }
+
+  // Metadata
   document.getElementById('detail-metadata-source').textContent = dataset.source;
+  document.getElementById('detail-metadata-period').textContent = dataset.period || '–';
   document.getElementById('detail-metadata-updated').textContent = dataset.updated;
   document.getElementById('detail-metadata-frequency').textContent = dataset.frequency;
   document.getElementById('detail-metadata-license').textContent = dataset.license;
   document.getElementById('detail-metadata-contact').textContent = dataset.contact;
 
   // Info box
-  document.getElementById('detail-info-type').textContent = dataset.type;
-  document.getElementById('detail-info-level').textContent = dataset.level.join(', ');
+  document.getElementById('detail-info-type').textContent = TYPE_LABELS[dataset.type] || dataset.type;
+  document.getElementById('detail-info-level').textContent = dataset.level.map(l => LEVEL_LABELS[l] || l).join(', ');
   document.getElementById('detail-info-format').textContent = dataset.download.join(', ');
+  document.getElementById('detail-info-period').textContent = dataset.period || '–';
+
+  // Data preview table
+  const previewSection = document.getElementById('detail-preview-section');
+  if (dataset.previewRows && dataset.previewRows.length > 0) {
+    previewSection.style.display = '';
+    const keys = Object.keys(dataset.previewRows[0]);
+    document.getElementById('detail-preview-thead').innerHTML =
+      `<tr>${keys.map(k => `<th>${k}</th>`).join('')}</tr>`;
+    document.getElementById('detail-preview-tbody').innerHTML =
+      dataset.previewRows.map(row =>
+        `<tr>${keys.map(k => `<td>${row[k] ?? '–'}</td>`).join('')}</tr>`
+      ).join('');
+  } else {
+    previewSection.style.display = 'none';
+  }
 
   // Downloads
   const downloadContainer = document.getElementById('detail-downloads');
@@ -211,18 +261,68 @@ function populateDatasetDetail(dataset) {
     `<button class="btn-secondary" onclick="alert('Download als ${format}')"><i class="fas fa-download"></i> ${format}</button>`
   ).join('');
 
+  // API & Grafana links
+  const apiSection = document.getElementById('detail-api-section');
+  const apiLinksEl = document.getElementById('detail-api-links');
+  const apiBox = document.getElementById('detail-api-box');
+  const apiCode = document.getElementById('detail-api-code');
+
+  const links = [];
+  if (dataset.apiEndpoint) {
+    links.push(`<a href="${dataset.apiEndpoint}" target="_blank" rel="noopener" class="api-link">
+      <i class="fas fa-code"></i> REST-API
+      <span class="api-link-url">${dataset.apiEndpoint}</span>
+    </a>`);
+    apiCode.textContent = dataset.apiEndpoint;
+    apiBox.style.display = '';
+  } else {
+    apiBox.style.display = 'none';
+  }
+  if (dataset.grafanaLink) {
+    links.push(`<a href="${dataset.grafanaLink}" target="_blank" rel="noopener" class="api-link api-link--grafana">
+      <i class="fas fa-chart-line"></i> Grafana-Dashboard
+      <span class="api-link-url">${dataset.grafanaLink}</span>
+    </a>`);
+  }
+
+  if (links.length > 0) {
+    apiSection.style.display = '';
+    apiLinksEl.innerHTML = links.join('');
+  } else {
+    apiSection.style.display = 'none';
+  }
+
   // Related datasets
   const relatedContainer = document.getElementById('related-datasets');
   const related = allDatasets
     .filter(d => d.id !== dataset.id && d.theme === dataset.theme)
     .slice(0, 3);
 
-  relatedContainer.innerHTML = related.map(d => `
-    <div class="dataset-card" onclick="navigateToDataset('${d.id}')">
-      <h4>${d.title}</h4>
-      <p>${d.description}</p>
-    </div>
-  `).join('');
+  if (related.length > 0) {
+    relatedContainer.innerHTML = related.map(d => `
+      <div class="dataset-card" onclick="navigateToDataset('${d.id}')">
+        <div class="dataset-badge">${TYPE_LABELS[d.type] || d.type}</div>
+        <h4>${d.title}</h4>
+        <p>${d.description}</p>
+        <div class="dataset-meta">
+          <span class="source-badge" style="background:${getSourceColor(d.source)}20;color:${getSourceColor(d.source)}">${d.source}</span>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    relatedContainer.innerHTML = '<p style="color:var(--gray-500)">Keine verwandten Datensätze vorhanden.</p>';
+  }
+}
+
+function copyApiEndpoint() {
+  const code = document.getElementById('detail-api-code').textContent;
+  if (code) {
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('#detail-api-box .btn-secondary');
+      btn.innerHTML = '<i class="fas fa-check"></i> Kopiert!';
+      setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Kopieren'; }, 2000);
+    });
+  }
 }
 
 // ===== Municipality Stats =====

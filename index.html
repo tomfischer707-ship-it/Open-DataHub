@@ -325,7 +325,9 @@
     <!-- DATASET DETAIL PAGE -->
     <section id="dataset-page" class="page">
       <div class="container dataset-detail-container">
-        <a href="#" onclick="navigateToPage('explore')" class="back-link">← Zurück</a>
+        <a href="#" onclick="navigateToPage('explore')" class="back-link">
+          <i class="fas fa-arrow-left"></i> Zurück zur Übersicht
+        </a>
 
         <div class="dataset-header">
           <h1 id="detail-title">Datensatztitel</h1>
@@ -333,6 +335,7 @@
             <span id="detail-source" class="source-badge"></span>
             <span id="detail-type" class="type-badge"></span>
           </div>
+          <div id="detail-tags" class="detail-tags"></div>
         </div>
 
         <div class="dataset-content-layout">
@@ -349,6 +352,10 @@
                 <tr>
                   <td><strong>Quelle:</strong></td>
                   <td id="detail-metadata-source"></td>
+                </tr>
+                <tr>
+                  <td><strong>Zeitraum:</strong></td>
+                  <td id="detail-metadata-period"></td>
                 </tr>
                 <tr>
                   <td><strong>Zuletzt aktualisiert:</strong></td>
@@ -369,9 +376,24 @@
               </table>
             </section>
 
+            <section class="dataset-section" id="detail-preview-section">
+              <h2>Datenvorschau</h2>
+              <div class="preview-table-wrapper">
+                <table class="preview-table" id="detail-preview-table">
+                  <thead id="detail-preview-thead"></thead>
+                  <tbody id="detail-preview-tbody"></tbody>
+                </table>
+              </div>
+            </section>
+
             <section class="dataset-section">
               <h2>Download</h2>
               <div class="download-buttons" id="detail-downloads"></div>
+            </section>
+
+            <section class="dataset-section" id="detail-api-section">
+              <h2>Schnittstellen &amp; Links</h2>
+              <div class="api-links" id="detail-api-links"></div>
             </section>
 
             <section class="dataset-section">
@@ -388,12 +410,22 @@
                 <li><strong>Typ:</strong> <span id="detail-info-type"></span></li>
                 <li><strong>Ebene:</strong> <span id="detail-info-level"></span></li>
                 <li><strong>Format:</strong> <span id="detail-info-format"></span></li>
+                <li><strong>Zeitraum:</strong> <span id="detail-info-period"></span></li>
               </ul>
             </div>
 
-            <button class="btn-primary" onclick="alert('Download-Funktion')">
+            <button class="btn-primary" id="detail-download-btn" onclick="alert('Download-Funktion')">
               <i class="fas fa-download"></i> Jetzt herunterladen
             </button>
+
+            <div class="api-box" id="detail-api-box">
+              <h3><i class="fas fa-code"></i> API-Zugang</h3>
+              <p>Direktzugang per REST-API</p>
+              <code id="detail-api-code" class="api-endpoint-code"></code>
+              <button class="btn-secondary" onclick="copyApiEndpoint()">
+                <i class="fas fa-copy"></i> Kopieren
+              </button>
+            </div>
 
             <div class="feedback-box">
               <h3>Feedback</h3>
