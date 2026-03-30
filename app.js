@@ -4,9 +4,8 @@ let currentDataset = null;
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
-  loadData();
   setupEventListeners();
-  initializeMunicipalitySelects();
+  loadData();
 });
 
 // ===== Load Data =====
@@ -15,7 +14,9 @@ function loadData() {
     .then(response => response.json())
     .then(data => {
       allDatasets = data.datasets;
+      displayDatasets(allDatasets);
       populateMunicipalityStats(data.municipalities);
+      populateMunicipalitySelects(data.municipalities);
     })
     .catch(err => console.error('Error loading data:', err));
 }
@@ -85,7 +86,7 @@ function setupEventListeners() {
   });
 
   // Municipality comparisons
-  document.getElementById('municipality-compare-1')?.addEventListener('change', compareeMunicipalities);
+  document.getElementById('municipality-compare-1')?.addEventListener('change', compareMunicipalities);
   document.getElementById('municipality-compare-2')?.addEventListener('change', compareMunicipalities);
 }
 
@@ -342,35 +343,22 @@ function populateMunicipalityStats(municipalities) {
   `).join('');
 }
 
-function initializeMunicipalitySelects() {
-  fetch('data.json')
-    .then(r => r.json())
-    .then(data => {
-      const municipalities = data.municipalities;
+function populateMunicipalitySelects(municipalities) {
+  const selects = [
+    document.getElementById('municipality-select'),
+    document.getElementById('municipality-compare-1'),
+    document.getElementById('municipality-compare-2')
+  ];
 
-      // Breitband page
-      const breitbandSelect = document.getElementById('municipality-select');
-      if (breitbandSelect) {
-        municipalities.forEach(m => {
-          const option = document.createElement('option');
-          option.value = m.name;
-          option.textContent = m.name;
-          breitbandSelect.appendChild(option);
-        });
-      }
-
-      // Demografie comparison
-      [document.getElementById('municipality-compare-1'), document.getElementById('municipality-compare-2')].forEach(select => {
-        if (select) {
-          municipalities.forEach(m => {
-            const option = document.createElement('option');
-            option.value = m.name;
-            option.textContent = m.name;
-            select.appendChild(option);
-          });
-        }
-      });
+  selects.forEach(select => {
+    if (!select) return;
+    municipalities.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m.name;
+      option.textContent = m.name;
+      select.appendChild(option);
     });
+  });
 }
 
 function compareMunicipalities() {
