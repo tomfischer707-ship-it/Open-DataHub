@@ -136,7 +136,7 @@ function displayDatasets(datasets) {
   const resultsContainer = document.getElementById('datasets-results');
   const infoContainer = document.getElementById('results-info');
 
-  if (!resultsContainer) return;
+  if (!resultsContainer || !infoContainer) return;
 
   // Info text
   infoContainer.textContent = `${datasets.length} Datensatz(e) gefunden`;
@@ -185,7 +185,8 @@ function resetFilters() {
   document.querySelectorAll('.theme-filter, .source-filter, .level-filter, .type-filter').forEach(cb => {
     cb.checked = false;
   });
-  document.getElementById('exploreSearch').value = '';
+  const exploreSearch = document.getElementById('exploreSearch');
+  if (exploreSearch) exploreSearch.value = '';
   displayDatasets(allDatasets);
 }
 
