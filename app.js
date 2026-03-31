@@ -133,6 +133,124 @@ function navigateToPage(pageName) {
   console.log('  ✅ navigateToPage abgeschlossen\n');
 }
 
+// ===== DATASET DETAIL VIEW HELPERS =====
+function renderTags(tags) {
+  if (!tags || tags.length === 0) return;
+  const container = document.getElementById('detail-tags');
+  const section = document.getElementById('detail-tags-section');
+  container.innerHTML = tags.map(tag => `<span class="tag-badge">${tag}</span>`).join('');
+  section.style.display = 'block';
+}
+
+function renderPreviewTable(previewRows) {
+  if (!previewRows || previewRows.length === 0) return;
+  const container = document.getElementById('detail-preview');
+  const section = document.getElementById('detail-preview-section');
+
+  const headers = Object.keys(previewRows[0]);
+  let html = '<table class="detail-preview-table"><thead><tr>';
+  headers.forEach(h => html += `<th>${h}</th>`);
+  html += '</tr></thead><tbody>';
+
+  previewRows.slice(0, 5).forEach(row => {
+    html += '<tr>';
+    headers.forEach(h => {
+      const val = row[h];
+      html += `<td>${typeof val === 'number' ? val.toLocaleString('de-DE') : val}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+
+  container.innerHTML = html;
+  section.style.display = 'block';
+}
+
+function renderExternalLinks(apiEndpoint, grafanaLink) {
+  const container = document.getElementById('detail-links');
+  const section = document.getElementById('detail-links-section');
+  let html = '';
+
+  if (apiEndpoint) {
+    html += `<a href="${apiEndpoint}" target="_blank" rel="noopener noreferrer">🔗 API Endpoint</a>`;
+  }
+  if (grafanaLink) {
+    html += `<a href="${grafanaLink}" target="_blank" rel="noopener noreferrer">📊 Grafana Dashboard</a>`;
+  }
+
+  if (html) {
+    container.innerHTML = html;
+    section.style.display = 'block';
+  }
+}
+
+function renderDownloadButtons(formats, dataset) {
+  if (!formats || formats.length === 0) return;
+  const container = document.getElementById('detail-downloads');
+  const section = document.getElementById('detail-downloads-section');
+
+  container.innerHTML = formats.map(fmt =>
+    `<button class="btn-secondary" onclick="handleDownload('${fmt}', '${dataset.title.replace(/'/g, "\\'")}')">⬇️ ${fmt}</button>`
+  ).join('');
+  section.style.display = 'block';
+}
+
+function handleDownload(format, title) {
+  const filename = title.toLowerCase().replace(/\s+/g, '_') + '.' + format.toLowerCase();
+  const message = `Download startet: ${filename}`;
+
+  const notification = document.createElement('div');
+  notification.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 1rem; border-radius: 8px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);';
+  notification.innerHTML = `✅ ${message}`;
+  document.body.appendChild(notification);
+
+  setTimeout(() => notification.remove(), 3000);
+  console.log(`Download: ${filename}`);
+}
+
+function handleFeedback(dataset) {
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 2000;';
+
+  const content = document.createElement('div');
+  content.style.cssText = 'background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: var(--shadow-lg);';
+
+  content.innerHTML = `
+    <h2 style="margin-top: 0; margin-bottom: 1rem; color: var(--gray-900);">Feedback zu "${dataset.title}"</h2>
+    <p style="color: var(--gray-600); margin-bottom: 1rem;">Teilen Sie Ihre Gedanken oder Verbesserungsvorschläge:</p>
+    <textarea id="feedback-text" style="width: 100%; height: 120px; padding: 10px; border: 1px solid var(--gray-300); border-radius: 6px; font-family: Arial, sans-serif; font-size: 0.9rem; resize: vertical;" placeholder="Ihr Feedback hier..."></textarea>
+    <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+      <button class="btn-primary" style="flex: 1; padding: 10px; cursor: pointer; border: none; border-radius: 6px; background: var(--primary); color: white; font-weight: 500;" onclick="submitFeedback('${dataset.id}', '${dataset.contact}')">Senden</button>
+      <button style="flex: 1; padding: 10px; cursor: pointer; border: 1px solid var(--gray-300); border-radius: 6px; background: white; color: var(--gray-800); font-weight: 500;" onclick="closeFeedbackModal()">Abbrechen</button>
+    </div>
+  `;
+
+  modal.appendChild(content);
+  modal.onclick = (e) => { if (e.target === modal) closeFeedbackModal(); };
+  document.body.appendChild(modal);
+  window.currentFeedbackModal = modal;
+  document.getElementById('feedback-text').focus();
+}
+
+function closeFeedbackModal() {
+  if (window.currentFeedbackModal) {
+    window.currentFeedbackModal.remove();
+    window.currentFeedbackModal = null;
+  }
+}
+
+function submitFeedback(datasetId, contact) {
+  const text = document.getElementById('feedback-text').value;
+  if (!text.trim()) {
+    alert('Bitte geben Sie Ihr Feedback ein.');
+    return;
+  }
+
+  console.log(`Feedback für ${datasetId}:`, text);
+  alert(`Vielen Dank für Ihr Feedback!\n\nSie können es auch direkt senden an: ${contact}`);
+  closeFeedbackModal();
+}
+
 // ===== DATASET DETAIL VIEW =====
 function getCurrentActivePage() {
   const active = document.querySelector('.page.active');
@@ -155,12 +273,13 @@ function showDatasetDetail(dataset) {
   previousPage = getCurrentActivePage();
   console.log('  Zurück zu:', previousPage);
 
-  // Update content mit Fehlerbehandlung
+  // Update basic content mit Fehlerbehandlung
   const elements = {
     'detail-title': `${dataset.icon} ${dataset.title}`,
     'detail-description': dataset.description,
     'detail-type': formatType(dataset.type),
     'detail-source': dataset.source,
+    'detail-period': dataset.period || '—',
     'detail-updated': dataset.updated,
     'detail-theme': dataset.theme,
     'detail-contact': dataset.contact || '—'
@@ -174,6 +293,40 @@ function showDatasetDetail(dataset) {
     } else {
       console.warn(`  ❌ Element mit ID '${id}' nicht gefunden!`);
     }
+  }
+
+  // Render tags
+  if (dataset.tags && dataset.tags.length > 0) {
+    renderTags(dataset.tags);
+  } else {
+    document.getElementById('detail-tags-section').style.display = 'none';
+  }
+
+  // Render preview table
+  if (dataset.previewRows && dataset.previewRows.length > 0) {
+    renderPreviewTable(dataset.previewRows);
+  } else {
+    document.getElementById('detail-preview-section').style.display = 'none';
+  }
+
+  // Render external links
+  if (dataset.apiEndpoint || dataset.grafanaLink) {
+    renderExternalLinks(dataset.apiEndpoint, dataset.grafanaLink);
+  } else {
+    document.getElementById('detail-links-section').style.display = 'none';
+  }
+
+  // Render download buttons
+  if (dataset.download && dataset.download.length > 0) {
+    renderDownloadButtons(dataset.download, dataset);
+  } else {
+    document.getElementById('detail-downloads-section').style.display = 'none';
+  }
+
+  // Attach feedback handler
+  const feedbackBtn = document.getElementById('detail-feedback-btn');
+  if (feedbackBtn) {
+    feedbackBtn.onclick = () => handleFeedback(dataset);
   }
 
   // Render related datasets
