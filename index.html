@@ -343,12 +343,21 @@
               <p id="detail-description"></p>
             </section>
 
+            <section class="dataset-section" id="detail-tags-section" style="display: none;">
+              <h2>Schlagwörter</h2>
+              <div id="detail-tags" class="tags-container"></div>
+            </section>
+
             <section class="dataset-section">
               <h2>Metadaten</h2>
               <table class="metadata-table">
                 <tr>
                   <td><strong>Quelle:</strong></td>
                   <td id="detail-metadata-source"></td>
+                </tr>
+                <tr>
+                  <td><strong>Zeitraum:</strong></td>
+                  <td id="detail-metadata-period"></td>
                 </tr>
                 <tr>
                   <td><strong>Zuletzt aktualisiert:</strong></td>
@@ -367,6 +376,16 @@
                   <td id="detail-metadata-contact"></td>
                 </tr>
               </table>
+            </section>
+
+            <section class="dataset-section" id="detail-preview-section" style="display: none;">
+              <h2>Datenvorschau</h2>
+              <div id="detail-preview" class="preview-container"></div>
+            </section>
+
+            <section class="dataset-section" id="detail-links-section" style="display: none;">
+              <h2>Externe Ressourcen</h2>
+              <div id="detail-links" class="external-links"></div>
             </section>
 
             <section class="dataset-section">

@@ -188,17 +188,167 @@ function resetFilters() {
   displayDatasets(allDatasets);
 }
 
+// ===== Helper Functions for Dataset Detail =====
+function createTagBadge(tagText) {
+  const badge = document.createElement('span');
+  badge.className = 'tag-badge';
+  badge.textContent = tagText;
+  return badge;
+}
+
+function createPreviewTable(previewRows) {
+  if (!previewRows || previewRows.length === 0) {
+    return '<p style="color: var(--gray-400);">Keine Vorschaudaten verfügbar</p>';
+  }
+
+  const firstRow = previewRows[0];
+  const headers = Object.keys(firstRow);
+
+  let html = '<table class="preview-table"><thead><tr>';
+  headers.forEach(header => {
+    html += `<th>${header}</th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  previewRows.slice(0, 5).forEach(row => {
+    html += '<tr>';
+    headers.forEach(header => {
+      const value = row[header];
+      html += `<td>${typeof value === 'number' ? value.toLocaleString('de-DE') : value}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  return html;
+}
+
+function createExternalLink(url, label, icon) {
+  if (!url) return '';
+  return `<a href="${url}" target="_blank" rel="noopener noreferrer"><i class="fas ${icon}"></i> ${label}</a>`;
+}
+
+function handleDownload(format, datasetTitle) {
+  const filename = datasetTitle.toLowerCase().replace(/\s+/g, '_') + '_.' + format.toLowerCase();
+  const message = `Download startet: ${filename}`;
+
+  // Create a simple notification
+  const notification = document.createElement('div');
+  notification.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 1rem; border-radius: 8px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);';
+  notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+  document.body.appendChild(notification);
+
+  setTimeout(() => notification.remove(), 3000);
+
+  // In a real app, this would trigger an actual download
+  console.log(`Download initiated: ${filename}`);
+}
+
+function handleFeedback(datasetId, contactEmail) {
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000;';
+
+  const modalContent = document.createElement('div');
+  modalContent.style.cssText = 'background: var(--blue-900); color: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; border: 1px solid rgba(59, 130, 246, 0.3);';
+
+  modalContent.innerHTML = `
+    <h2 style="margin-top: 0; margin-bottom: 1rem;">Feedback geben</h2>
+    <p style="color: var(--gray-300); margin-bottom: 1rem;">Teilen Sie uns Ihre Gedanken oder Verbesserungsvorschläge mit:</p>
+    <textarea id="feedback-text" style="width: 100%; height: 120px; padding: 10px; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 6px; background: rgba(37, 99, 235, 0.1); color: white; font-family: Arial, sans-serif; resize: vertical;" placeholder="Ihr Feedback hier..."></textarea>
+    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+      <button class="btn-primary" style="flex: 1;" onclick="submitFeedback('${datasetId}', '${contactEmail}')">Senden</button>
+      <button class="btn-secondary" style="flex: 1;" onclick="closeFeedbackModal()">Abbrechen</button>
+    </div>
+  `;
+
+  modal.appendChild(modalContent);
+  modal.onclick = (e) => {
+    if (e.target === modal) closeFeedbackModal();
+  };
+  document.body.appendChild(modal);
+  document.getElementById('feedback-text').focus();
+  window.currentFeedbackModal = modal;
+}
+
+function closeFeedbackModal() {
+  if (window.currentFeedbackModal) {
+    window.currentFeedbackModal.remove();
+    window.currentFeedbackModal = null;
+  }
+}
+
+function submitFeedback(datasetId, contactEmail) {
+  const text = document.getElementById('feedback-text').value;
+  if (!text.trim()) {
+    alert('Bitte geben Sie Ihr Feedback ein.');
+    return;
+  }
+
+  // In a real app, this would send the feedback to a server
+  console.log(`Feedback for dataset ${datasetId}:`, text);
+
+  const message = `Vielen Dank für Ihr Feedback! Sie können es auch an ${contactEmail} senden.`;
+  alert(message);
+  closeFeedbackModal();
+}
+
 // ===== Dataset Detail Page =====
 function populateDatasetDetail(dataset) {
+  currentDataset = dataset;
+
+  // Basic Information
   document.getElementById('detail-title').textContent = dataset.title;
   document.getElementById('detail-source').textContent = dataset.source;
   document.getElementById('detail-type').textContent = dataset.type;
   document.getElementById('detail-description').textContent = dataset.description;
+
+  // Metadata
   document.getElementById('detail-metadata-source').textContent = dataset.source;
+  document.getElementById('detail-metadata-period').textContent = dataset.period || 'N/A';
   document.getElementById('detail-metadata-updated').textContent = dataset.updated;
   document.getElementById('detail-metadata-frequency').textContent = dataset.frequency;
   document.getElementById('detail-metadata-license').textContent = dataset.license;
   document.getElementById('detail-metadata-contact').textContent = dataset.contact;
+
+  // Tags/Keywords
+  const tagsSection = document.getElementById('detail-tags-section');
+  const tagsContainer = document.getElementById('detail-tags');
+  if (dataset.tags && dataset.tags.length > 0) {
+    tagsContainer.innerHTML = '';
+    dataset.tags.forEach(tag => {
+      tagsContainer.appendChild(createTagBadge(tag));
+    });
+    tagsSection.style.display = 'block';
+  } else {
+    tagsSection.style.display = 'none';
+  }
+
+  // Preview Data Table
+  const previewSection = document.getElementById('detail-preview-section');
+  const previewContainer = document.getElementById('detail-preview');
+  if (dataset.previewRows && dataset.previewRows.length > 0) {
+    previewContainer.innerHTML = createPreviewTable(dataset.previewRows);
+    previewSection.style.display = 'block';
+  } else {
+    previewSection.style.display = 'none';
+  }
+
+  // External Links (API and Grafana)
+  const linksSection = document.getElementById('detail-links-section');
+  const linksContainer = document.getElementById('detail-links');
+  let linksHtml = '';
+  if (dataset.apiEndpoint) {
+    linksHtml += createExternalLink(dataset.apiEndpoint, 'API Endpoint', 'fa-code');
+  }
+  if (dataset.grafanaLink) {
+    linksHtml += createExternalLink(dataset.grafanaLink, 'Grafana Dashboard', 'fa-chart-line');
+  }
+  if (linksHtml) {
+    linksContainer.innerHTML = linksHtml;
+    linksSection.style.display = 'block';
+  } else {
+    linksSection.style.display = 'none';
+  }
 
   // Info box
   document.getElementById('detail-info-type').textContent = dataset.type;
@@ -208,8 +358,14 @@ function populateDatasetDetail(dataset) {
   // Downloads
   const downloadContainer = document.getElementById('detail-downloads');
   downloadContainer.innerHTML = dataset.download.map(format =>
-    `<button class="btn-secondary" onclick="alert('Download als ${format}')"><i class="fas fa-download"></i> ${format}</button>`
+    `<button class="btn-secondary" onclick="handleDownload('${format}', '${dataset.title.replace(/'/g, "\\'")}')"><i class="fas fa-download"></i> ${format}</button>`
   ).join('');
+
+  // Feedback button
+  const feedbackButton = document.querySelector('.feedback-box button');
+  if (feedbackButton) {
+    feedbackButton.onclick = () => handleFeedback(dataset.id, dataset.contact);
+  }
 
   // Related datasets
   const relatedContainer = document.getElementById('related-datasets');
