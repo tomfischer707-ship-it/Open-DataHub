@@ -258,7 +258,9 @@ function renderDataPreview(dataset) {
 
 function renderStatisticsPreview(dataset) {
   const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer || !dataset.previewRows || dataset.previewRows.length === 0) {
+  if (!previewContainer) return;
+
+  if (!dataset.previewRows || dataset.previewRows.length === 0) {
     previewContainer.innerHTML = '<p>Keine Datenvorschau verfügbar.</p>';
     return;
   }
@@ -289,18 +291,21 @@ function renderStatisticsPreview(dataset) {
 
 function renderTimeSeriesPreview(dataset) {
   const previewContainer = document.getElementById('data-preview');
+  if (!previewContainer) return;
   previewContainer.innerHTML = '<p><em>Zeitreihen-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
   renderStatisticsPreview(dataset);
 }
 
 function renderGeospatialPreview(dataset) {
   const previewContainer = document.getElementById('data-preview');
+  if (!previewContainer) return;
   previewContainer.innerHTML = '<p><em>Karten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
   renderStatisticsPreview(dataset);
 }
 
 function renderHeatmapPreview(dataset) {
   const previewContainer = document.getElementById('data-preview');
+  if (!previewContainer) return;
   previewContainer.innerHTML = '<p><em>Wärmekarten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
   renderStatisticsPreview(dataset);
 }
