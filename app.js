@@ -194,120 +194,19 @@ function populateDatasetDetail(dataset) {
   document.getElementById('detail-source').textContent = dataset.source;
   document.getElementById('detail-type').textContent = dataset.type;
   document.getElementById('detail-description').textContent = dataset.description;
-  document.getElementById('detail-metadata-source').textContent = dataset.source;
-  document.getElementById('detail-metadata-updated').textContent = dataset.updated;
-  document.getElementById('detail-metadata-frequency').textContent = dataset.frequency;
-  document.getElementById('detail-metadata-license').textContent = dataset.license;
-  document.getElementById('detail-metadata-contact').textContent = dataset.contact;
 
-  // Info box
-  document.getElementById('detail-info-type').textContent = dataset.type;
-  document.getElementById('detail-info-level').textContent = dataset.level.join(', ');
-  document.getElementById('detail-info-format').textContent = dataset.download.join(', ');
+  document.getElementById('detail-source-text').textContent = dataset.source;
+  document.getElementById('detail-type-text').textContent = dataset.type;
+  document.getElementById('detail-level-text').textContent = dataset.level.join(', ');
+  document.getElementById('detail-updated-text').textContent = dataset.updated;
+  document.getElementById('detail-frequency-text').textContent = dataset.frequency;
+  document.getElementById('detail-license-text').textContent = dataset.license;
 
   // Downloads
   const downloadContainer = document.getElementById('detail-downloads');
   downloadContainer.innerHTML = dataset.download.map(format =>
-    `<button class="btn-secondary" onclick="alert('Download als ${format}')"><i class="fas fa-download"></i> ${format}</button>`
+    `<a href="#" class="download-btn"><i class="fas fa-download"></i> ${format} herunterladen</a>`
   ).join('');
-
-  // Related datasets
-  const relatedContainer = document.getElementById('related-datasets');
-  const related = allDatasets
-    .filter(d => d.id !== dataset.id && d.theme === dataset.theme)
-    .slice(0, 3);
-
-  relatedContainer.innerHTML = related.map(d => `
-    <div class="dataset-card" onclick="navigateToDataset('${d.id}')">
-      <h4>${d.title}</h4>
-      <p>${d.description}</p>
-    </div>
-  `).join('');
-
-  // Render data preview based on dataset type
-  renderDataPreview(dataset);
-}
-
-// ===== Data Preview =====
-function renderDataPreview(dataset) {
-  const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer) return;
-
-  // Clear previous content
-  previewContainer.innerHTML = '';
-
-  // Render based on dataset type
-  switch (dataset.type) {
-    case 'statistics':
-    case 'structure':
-      renderStatisticsPreview(dataset);
-      break;
-    case 'timeseries':
-      renderTimeSeriesPreview(dataset);
-      break;
-    case 'geospatial':
-      renderGeospatialPreview(dataset);
-      break;
-    case 'heatmap':
-      renderHeatmapPreview(dataset);
-      break;
-    default:
-      renderStatisticsPreview(dataset);
-  }
-}
-
-function renderStatisticsPreview(dataset) {
-  const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer) return;
-
-  if (!dataset.previewRows || dataset.previewRows.length === 0) {
-    previewContainer.innerHTML = '<p>Keine Datenvorschau verfügbar.</p>';
-    return;
-  }
-
-  // Get column names from first row
-  const columns = Object.keys(dataset.previewRows[0]);
-
-  // Create table
-  let html = '<div class="table-wrapper"><table class="data-preview-table"><thead><tr>';
-  columns.forEach(col => {
-    html += `<th>${col}</th>`;
-  });
-  html += '</tr></thead><tbody>';
-
-  // Add rows
-  dataset.previewRows.forEach(row => {
-    html += '<tr>';
-    columns.forEach(col => {
-      const value = row[col];
-      html += `<td>${value}</td>`;
-    });
-    html += '</tr>';
-  });
-
-  html += '</tbody></table></div>';
-  previewContainer.innerHTML = html;
-}
-
-function renderTimeSeriesPreview(dataset) {
-  const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer) return;
-  previewContainer.innerHTML = '<p><em>Zeitreihen-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
-  renderStatisticsPreview(dataset);
-}
-
-function renderGeospatialPreview(dataset) {
-  const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer) return;
-  previewContainer.innerHTML = '<p><em>Karten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
-  renderStatisticsPreview(dataset);
-}
-
-function renderHeatmapPreview(dataset) {
-  const previewContainer = document.getElementById('data-preview');
-  if (!previewContainer) return;
-  previewContainer.innerHTML = '<p><em>Wärmekarten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
-  renderStatisticsPreview(dataset);
 }
 
 // ===== Municipality Stats =====

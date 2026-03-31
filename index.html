@@ -325,91 +325,56 @@
     <!-- DATASET DETAIL PAGE -->
     <section id="dataset-page" class="page">
       <div class="container dataset-detail-container">
-        <a href="#" onclick="navigateToPage('explore')" class="back-link">← Zurück</a>
+        <a href="#" onclick="navigateToPage('explore')" class="back-link">← Zurück zur Übersicht</a>
 
         <div class="dataset-header">
-          <h1 id="detail-title">Datensatztitel</h1>
+          <h1 id="detail-title"></h1>
           <div class="dataset-badges">
             <span id="detail-source" class="source-badge"></span>
             <span id="detail-type" class="type-badge"></span>
           </div>
         </div>
 
-        <div class="dataset-content-layout">
-          <!-- Main Content -->
-          <main class="dataset-main">
-            <section class="dataset-section">
-              <h2>Beschreibung</h2>
-              <p id="detail-description"></p>
-            </section>
+        <div class="dataset-content">
+          <div class="dataset-description">
+            <h2>Beschreibung</h2>
+            <p id="detail-description"></p>
+          </div>
 
-            <section class="dataset-section">
-              <h2>Metadaten</h2>
-              <table class="metadata-table">
-                <tr>
-                  <td><strong>Quelle:</strong></td>
-                  <td id="detail-metadata-source"></td>
-                </tr>
-                <tr>
-                  <td><strong>Zuletzt aktualisiert:</strong></td>
-                  <td id="detail-metadata-updated"></td>
-                </tr>
-                <tr>
-                  <td><strong>Aktualisierungsfrequenz:</strong></td>
-                  <td id="detail-metadata-frequency"></td>
-                </tr>
-                <tr>
-                  <td><strong>Lizenz:</strong></td>
-                  <td id="detail-metadata-license"></td>
-                </tr>
-                <tr>
-                  <td><strong>Kontakt:</strong></td>
-                  <td id="detail-metadata-contact"></td>
-                </tr>
-              </table>
-            </section>
-
-            <section class="dataset-section">
-              <h2>Download</h2>
-              <div class="download-buttons" id="detail-downloads"></div>
-            </section>
-
-            <section class="dataset-section">
-              <h2>Datenvorschau</h2>
-              <div id="data-preview">
-                <!-- Wird dynamisch gefüllt je nach Datentyp -->
+          <div class="dataset-info">
+            <h2>Informationen</h2>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Datenquelle:</strong>
+                <p id="detail-source-text"></p>
               </div>
-            </section>
-
-            <section class="dataset-section">
-              <h2>Verwandte Datensätze</h2>
-              <div id="related-datasets" class="related-datasets"></div>
-            </section>
-          </main>
-
-          <!-- Sidebar -->
-          <aside class="dataset-sidebar">
-            <div class="info-box">
-              <h3>Informationen</h3>
-              <ul>
-                <li><strong>Typ:</strong> <span id="detail-info-type"></span></li>
-                <li><strong>Ebene:</strong> <span id="detail-info-level"></span></li>
-                <li><strong>Format:</strong> <span id="detail-info-format"></span></li>
-              </ul>
+              <div class="info-item">
+                <strong>Datentyp:</strong>
+                <p id="detail-type-text"></p>
+              </div>
+              <div class="info-item">
+                <strong>Geografische Ebene:</strong>
+                <p id="detail-level-text"></p>
+              </div>
+              <div class="info-item">
+                <strong>Zuletzt aktualisiert:</strong>
+                <p id="detail-updated-text"></p>
+              </div>
+              <div class="info-item">
+                <strong>Aktualisierungsfrequenz:</strong>
+                <p id="detail-frequency-text"></p>
+              </div>
+              <div class="info-item">
+                <strong>Lizenz:</strong>
+                <p id="detail-license-text"></p>
+              </div>
             </div>
+          </div>
 
-            <button class="btn-primary" onclick="alert('Download-Funktion')">
-              <i class="fas fa-download"></i> Jetzt herunterladen
-            </button>
-
-            <div class="feedback-box">
-              <h3>Feedback</h3>
-              <p>Fehler gefunden oder Verbesserungsvorschläge?</p>
-              <button class="btn-secondary" onclick="alert('Feedback-Form wird geöffnet')">
-                Feedback geben
-              </button>
-            </div>
-          </aside>
+          <div class="dataset-downloads">
+            <h2>Download</h2>
+            <div class="download-formats" id="detail-downloads"></div>
+          </div>
         </div>
       </div>
     </section>
