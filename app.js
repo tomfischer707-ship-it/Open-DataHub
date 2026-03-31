@@ -200,7 +200,7 @@ function createDatasetCard(dataset) {
   return `
     <a href="detail.html?id=${dataset.id}" class="dataset-card-link">
       <div class="dataset-card">
-        <h3>${dataset.icon} ${dataset.title}</h3>
+        <h3>${dataset.title}</h3>
         <p>${dataset.description}</p>
         <div class="dataset-meta">
           <span class="dataset-badge">${dataset.type}</span>
