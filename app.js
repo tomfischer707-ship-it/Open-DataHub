@@ -223,6 +223,86 @@ function populateDatasetDetail(dataset) {
       <p>${d.description}</p>
     </div>
   `).join('');
+
+  // Render data preview based on dataset type
+  renderDataPreview(dataset);
+}
+
+// ===== Data Preview =====
+function renderDataPreview(dataset) {
+  const previewContainer = document.getElementById('data-preview');
+  if (!previewContainer) return;
+
+  // Clear previous content
+  previewContainer.innerHTML = '';
+
+  // Render based on dataset type
+  switch (dataset.type) {
+    case 'statistics':
+    case 'structure':
+      renderStatisticsPreview(dataset);
+      break;
+    case 'timeseries':
+      renderTimeSeriesPreview(dataset);
+      break;
+    case 'geospatial':
+      renderGeospatialPreview(dataset);
+      break;
+    case 'heatmap':
+      renderHeatmapPreview(dataset);
+      break;
+    default:
+      renderStatisticsPreview(dataset);
+  }
+}
+
+function renderStatisticsPreview(dataset) {
+  const previewContainer = document.getElementById('data-preview');
+  if (!previewContainer || !dataset.previewRows || dataset.previewRows.length === 0) {
+    previewContainer.innerHTML = '<p>Keine Datenvorschau verfügbar.</p>';
+    return;
+  }
+
+  // Get column names from first row
+  const columns = Object.keys(dataset.previewRows[0]);
+
+  // Create table
+  let html = '<div class="table-wrapper"><table class="data-preview-table"><thead><tr>';
+  columns.forEach(col => {
+    html += `<th>${col}</th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  // Add rows
+  dataset.previewRows.forEach(row => {
+    html += '<tr>';
+    columns.forEach(col => {
+      const value = row[col];
+      html += `<td>${value}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  previewContainer.innerHTML = html;
+}
+
+function renderTimeSeriesPreview(dataset) {
+  const previewContainer = document.getElementById('data-preview');
+  previewContainer.innerHTML = '<p><em>Zeitreihen-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
+  renderStatisticsPreview(dataset);
+}
+
+function renderGeospatialPreview(dataset) {
+  const previewContainer = document.getElementById('data-preview');
+  previewContainer.innerHTML = '<p><em>Karten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
+  renderStatisticsPreview(dataset);
+}
+
+function renderHeatmapPreview(dataset) {
+  const previewContainer = document.getElementById('data-preview');
+  previewContainer.innerHTML = '<p><em>Wärmekarten-Visualisierung wird noch implementiert. Datenvorschau:</em></p>';
+  renderStatisticsPreview(dataset);
 }
 
 // ===== Municipality Stats =====
