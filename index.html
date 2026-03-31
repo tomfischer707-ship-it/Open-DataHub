@@ -221,72 +221,181 @@
 
       <!-- DATASET DETAIL PAGE -->
       <div class="page" id="dataset-detail-page">
-        <div class="dataset-detail-header">
-          <button id="back-to-previous" class="back-button">
-            ← Zurück
-          </button>
-          <h2 id="detail-title">Datensatz-Title</h2>
+        <!-- HERO HEADER SECTION -->
+        <div class="dataset-detail-hero">
+          <button id="back-to-previous" class="back-button">← Zurück</button>
+
+          <!-- Badge Row -->
+          <div class="detail-badge-row" id="detail-badges-row">
+            <span id="detail-category-badge" class="category-badge"></span>
+            <span id="detail-format-badge" class="format-badge"></span>
+            <span id="detail-rating" class="star-rating"></span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="detail-title" id="detail-title">Datensatz-Title</h1>
+
+          <!-- Description -->
+          <p class="detail-description" id="detail-description">—</p>
+
+          <!-- Tags in Header -->
+          <div class="detail-tags-hero" id="detail-tags-hero" style="display: none;">
+            <div id="detail-tags-header" class="tags-container"></div>
+          </div>
+
+          <!-- Stats KPI Row -->
+          <div class="detail-stats-row" id="detail-stats-row" style="display: none;">
+            <div class="detail-stat-item">
+              <div class="detail-stat-value" id="stat-downloads">—</div>
+              <div class="detail-stat-label">Downloads</div>
+            </div>
+            <div class="detail-stat-item">
+              <div class="detail-stat-value" id="stat-views">—</div>
+              <div class="detail-stat-label">Aufrufe</div>
+            </div>
+            <div class="detail-stat-item">
+              <div class="detail-stat-value" id="stat-resources">—</div>
+              <div class="detail-stat-label">Ressourcen</div>
+            </div>
+            <div class="detail-stat-item">
+              <div class="detail-stat-value" id="stat-filesize">—</div>
+              <div class="detail-stat-label">Dateigröße</div>
+            </div>
+          </div>
         </div>
 
-        <div class="dataset-detail-layout">
-          <!-- Main Content -->
-          <div class="dataset-detail-content">
+        <!-- TWO-COLUMN LAYOUT -->
+        <div class="dataset-detail-wrapper">
+          <!-- MAIN CONTENT -->
+          <div class="dataset-detail-main">
+            <!-- Description Section -->
             <section class="detail-section">
               <h3>Beschreibung</h3>
-              <p id="detail-description">—</p>
+              <p id="detail-description-body">—</p>
             </section>
 
-            <section class="detail-section" id="detail-tags-section" style="display: none;">
-              <h3>Schlagwörter</h3>
-              <div id="detail-tags" class="tags-container"></div>
-            </section>
-
+            <!-- Information Section -->
             <section class="detail-section">
-              <h3>Informationen</h3>
-              <dl class="detail-info">
-                <dt>Typ:</dt>
-                <dd id="detail-type">—</dd>
-                <dt>Quelle:</dt>
-                <dd id="detail-source">—</dd>
-                <dt>Zeitraum:</dt>
-                <dd id="detail-period">—</dd>
-                <dt>Aktualisiert:</dt>
-                <dd id="detail-updated">—</dd>
-                <dt>Thema:</dt>
-                <dd id="detail-theme">—</dd>
-              </dl>
+              <h3>Metadaten</h3>
+              <table class="metadata-table">
+                <tr>
+                  <th>Feld</th>
+                  <th>Wert</th>
+                </tr>
+                <tr>
+                  <td><strong>Typ:</strong></td>
+                  <td id="detail-type">—</td>
+                </tr>
+                <tr>
+                  <td><strong>Quelle:</strong></td>
+                  <td id="detail-source">—</td>
+                </tr>
+                <tr>
+                  <td><strong>Zeitraum:</strong></td>
+                  <td id="detail-period">—</td>
+                </tr>
+                <tr>
+                  <td><strong>Aktualisiert:</strong></td>
+                  <td id="detail-updated">—</td>
+                </tr>
+                <tr>
+                  <td><strong>Thema:</strong></td>
+                  <td id="detail-theme">—</td>
+                </tr>
+                <tr>
+                  <td><strong>Kontakt:</strong></td>
+                  <td id="detail-contact">—</td>
+                </tr>
+              </table>
             </section>
 
-            <section class="detail-section">
-              <h3>Kontakt</h3>
-              <p id="detail-contact">—</p>
-            </section>
-
+            <!-- Preview Section -->
             <section class="detail-section" id="detail-preview-section" style="display: none;">
               <h3>Datenvorschau</h3>
               <div id="detail-preview" class="preview-table-container"></div>
             </section>
 
+            <!-- External Links Section -->
             <section class="detail-section" id="detail-links-section" style="display: none;">
               <h3>Externe Ressourcen</h3>
               <div id="detail-links" class="external-links"></div>
             </section>
 
-            <section class="detail-section" id="detail-downloads-section" style="display: none;">
-              <h3>Downloads</h3>
-              <div id="detail-downloads" class="detail-buttons"></div>
-            </section>
-
+            <!-- Feedback Section -->
             <section class="detail-section">
               <h3>Feedback</h3>
+              <p>Haben Sie Feedback oder Verbesserungsvorschläge?</p>
               <button id="detail-feedback-btn" class="btn-secondary">💬 Feedback geben</button>
             </section>
           </div>
 
-          <!-- Sidebar: Related Datasets -->
+          <!-- SIDEBAR -->
           <aside class="detail-sidebar">
-            <h3>Verwandte Datensätze</h3>
-            <div id="related-datasets" class="related-grid"></div>
+            <!-- Download Button -->
+            <div class="sidebar-section">
+              <button id="detail-download-btn" class="btn-download-primary">
+                <i class="fas fa-download"></i> Alle herunterladen
+              </button>
+            </div>
+
+            <!-- API URL -->
+            <div class="sidebar-section" id="detail-api-section" style="display: none;">
+              <div class="sidebar-section-title">
+                <i class="fas fa-code"></i> API
+              </div>
+              <div class="api-url-box">
+                <label class="api-url-label">API-URL</label>
+                <div class="api-url-input">
+                  <input type="text" id="detail-api-url" readonly style="border: none; background: transparent; flex: 1; font-family: monospace; font-size: 0.8rem;">
+                  <button id="api-copy-btn" style="padding: 4px 8px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Kopieren</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kurz Info Box -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                <i class="fas fa-info-circle"></i> KURZ INFO
+              </div>
+              <div class="kurz-info-grid">
+                <div class="kurz-info-item">
+                  <div class="kurz-info-label">Herausgeber</div>
+                  <div class="kurz-info-value" id="kurz-publisher">—</div>
+                </div>
+                <div class="kurz-info-item">
+                  <div class="kurz-info-label">Format</div>
+                  <div class="kurz-info-value" id="kurz-format">—</div>
+                </div>
+                <div class="kurz-info-item">
+                  <div class="kurz-info-label">Dateigröße</div>
+                  <div class="kurz-info-value" id="kurz-filesize">—</div>
+                </div>
+                <div class="kurz-info-item">
+                  <div class="kurz-info-label">Lizenz</div>
+                  <div class="kurz-info-value" id="kurz-license">—</div>
+                </div>
+                <div class="kurz-info-item">
+                  <div class="kurz-info-label">Aktualisiert</div>
+                  <div class="kurz-info-value" id="kurz-updated">—</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags Section -->
+            <div class="sidebar-section" id="detail-tags-sidebar-section" style="display: none;">
+              <div class="sidebar-section-title">
+                <i class="fas fa-tags"></i> TAGS
+              </div>
+              <div id="detail-tags-sidebar" class="tags-container"></div>
+            </div>
+
+            <!-- Related Datasets -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">
+                <i class="fas fa-link"></i> VERWANDTE DATENSÄTZE
+              </div>
+              <div id="related-datasets" class="related-grid"></div>
+            </div>
           </aside>
         </div>
       </div>

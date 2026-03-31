@@ -251,6 +251,122 @@ function submitFeedback(datasetId, contact) {
   closeFeedbackModal();
 }
 
+// ===== HERO HEADER & SIDEBAR RENDERING =====
+function renderDetailHero(dataset) {
+  // Category badge with color coding
+  const categoryBadge = document.getElementById('detail-category-badge');
+  categoryBadge.textContent = dataset.theme || '—';
+  categoryBadge.className = 'category-badge';
+  if (dataset.theme === 'Breitbandausbau') categoryBadge.classList.add('breitband');
+  else if (dataset.theme === 'Demografie') categoryBadge.classList.add('demografie');
+  else if (dataset.theme === 'Mobilität & Verkehr') categoryBadge.classList.add('mobilitat');
+
+  // Format badge
+  const formatBadge = document.getElementById('detail-format-badge');
+  if (dataset.format || dataset.download) {
+    const format = dataset.format || (dataset.download && dataset.download[0]) || 'Datei';
+    formatBadge.textContent = format;
+    formatBadge.style.display = 'inline-block';
+  } else {
+    formatBadge.style.display = 'none';
+  }
+
+  // Star rating
+  const ratingEl = document.getElementById('detail-rating');
+  if (dataset.rating) {
+    ratingEl.innerHTML = `⭐ ${dataset.rating}`;
+    ratingEl.style.display = 'inline-block';
+  } else {
+    ratingEl.style.display = 'none';
+  }
+
+  // Description in hero
+  document.getElementById('detail-description').textContent = dataset.description || '—';
+
+  // Tags in header
+  const tagsHeroSection = document.getElementById('detail-tags-hero');
+  if (dataset.tags && dataset.tags.length > 0) {
+    document.getElementById('detail-tags-header').innerHTML = dataset.tags
+      .map(tag => `<span class="detail-tag">${tag}</span>`)
+      .join('');
+    tagsHeroSection.style.display = 'block';
+  } else {
+    tagsHeroSection.style.display = 'none';
+  }
+
+  // Stats row
+  const statsRow = document.getElementById('detail-stats-row');
+  if (dataset.downloads || dataset.views || dataset.resources || dataset.fileSize) {
+    document.getElementById('stat-downloads').textContent = dataset.downloads ? dataset.downloads.toLocaleString('de-DE') : '—';
+    document.getElementById('stat-views').textContent = dataset.views ? dataset.views.toLocaleString('de-DE') : '—';
+    document.getElementById('stat-resources').textContent = dataset.resources || '—';
+    document.getElementById('stat-filesize').textContent = dataset.fileSize || '—';
+    statsRow.style.display = 'grid';
+  } else {
+    statsRow.style.display = 'none';
+  }
+}
+
+function renderDetailSidebar(dataset) {
+  // Download button
+  const downloadBtn = document.getElementById('detail-download-btn');
+  downloadBtn.onclick = () => showDownloadOptions(dataset);
+
+  // API URL section
+  const apiSection = document.getElementById('detail-api-section');
+  if (dataset.apiEndpoint) {
+    document.getElementById('detail-api-url').value = dataset.apiEndpoint;
+    document.getElementById('api-copy-btn').onclick = () => {
+      document.getElementById('detail-api-url').select();
+      document.execCommand('copy');
+      alert('API URL kopiert!');
+    };
+    apiSection.style.display = 'block';
+  } else {
+    apiSection.style.display = 'none';
+  }
+
+  // Kurz Info box
+  document.getElementById('kurz-publisher').textContent = dataset.source || '—';
+  document.getElementById('kurz-format').textContent = dataset.format || (dataset.download && dataset.download[0]) || '—';
+  document.getElementById('kurz-filesize').textContent = dataset.fileSize || '—';
+
+  const licenseEl = document.getElementById('kurz-license');
+  if (dataset.license) {
+    if (dataset.license.includes('CC')) {
+      licenseEl.innerHTML = `<span class="license-badge-green">${dataset.license}</span>`;
+    } else {
+      licenseEl.textContent = dataset.license;
+    }
+  } else {
+    licenseEl.textContent = '—';
+  }
+
+  document.getElementById('kurz-updated').textContent = dataset.updated || '—';
+
+  // Tags in sidebar
+  const tagsSidebarSection = document.getElementById('detail-tags-sidebar-section');
+  if (dataset.tags && dataset.tags.length > 0) {
+    document.getElementById('detail-tags-sidebar').innerHTML = dataset.tags
+      .map(tag => `<span class="detail-tag">${tag}</span>`)
+      .join('');
+    tagsSidebarSection.style.display = 'block';
+  } else {
+    tagsSidebarSection.style.display = 'none';
+  }
+}
+
+function showDownloadOptions(dataset) {
+  if (dataset.download && dataset.download.length > 0) {
+    const formats = dataset.download.join(', ');
+    const message = `Dateien verfügbar als: ${formats}`;
+    alert(message);
+    // In a real implementation, this would show a modal or dropdown with individual download buttons
+  } else {
+    alert('Keine Download-Optionen verfügbar');
+  }
+}
+
 // ===== DATASET DETAIL VIEW =====
 function getCurrentActivePage() {
   const active = document.querySelector('.page.active');
@@ -273,10 +389,13 @@ function showDatasetDetail(dataset) {
   previousPage = getCurrentActivePage();
   console.log('  Zurück zu:', previousPage);
 
-  // Update basic content mit Fehlerbehandlung
+  // Render hero header with badges, title, description, stats
+  renderDetailHero(dataset);
+  document.getElementById('detail-title').textContent = `${dataset.icon || '📊'} ${dataset.title}`;
+
+  // Update main content metadata table
   const elements = {
-    'detail-title': `${dataset.icon} ${dataset.title}`,
-    'detail-description': dataset.description,
+    'detail-description-body': dataset.description,
     'detail-type': formatType(dataset.type),
     'detail-source': dataset.source,
     'detail-period': dataset.period || '—',
@@ -295,16 +414,13 @@ function showDatasetDetail(dataset) {
     }
   }
 
-  // Render tags
-  if (dataset.tags && dataset.tags.length > 0) {
-    renderTags(dataset.tags);
-  } else {
-    document.getElementById('detail-tags-section').style.display = 'none';
-  }
+  // Render sidebar
+  renderDetailSidebar(dataset);
 
   // Render preview table
   if (dataset.previewRows && dataset.previewRows.length > 0) {
     renderPreviewTable(dataset.previewRows);
+    document.getElementById('detail-preview-section').style.display = 'block';
   } else {
     document.getElementById('detail-preview-section').style.display = 'none';
   }
@@ -312,15 +428,9 @@ function showDatasetDetail(dataset) {
   // Render external links
   if (dataset.apiEndpoint || dataset.grafanaLink) {
     renderExternalLinks(dataset.apiEndpoint, dataset.grafanaLink);
+    document.getElementById('detail-links-section').style.display = 'block';
   } else {
     document.getElementById('detail-links-section').style.display = 'none';
-  }
-
-  // Render download buttons
-  if (dataset.download && dataset.download.length > 0) {
-    renderDownloadButtons(dataset.download, dataset);
-  } else {
-    document.getElementById('detail-downloads-section').style.display = 'none';
   }
 
   // Attach feedback handler

@@ -6,24 +6,114 @@
     "lastUpdated": "2026-03-27"
   },
   "municipalities": [
-    { "name": "Allendorf (Lumda)", "population": 6800, "fiberCoverage": 85, "oepnvConnections": 12 },
-    { "name": "Biebertal", "population": 8200, "fiberCoverage": 72, "oepnvConnections": 8 },
-    { "name": "Buseck", "population": 7900, "fiberCoverage": 68, "oepnvConnections": 6 },
-    { "name": "Fernwald", "population": 5600, "fiberCoverage": 45, "oepnvConnections": 4 },
-    { "name": "Gießen", "population": 88500, "fiberCoverage": 95, "oepnvConnections": 35 },
-    { "name": "Grünberg", "population": 9100, "fiberCoverage": 78, "oepnvConnections": 10 },
-    { "name": "Heuchelheim", "population": 12300, "fiberCoverage": 88, "oepnvConnections": 14 },
-    { "name": "Hungen", "population": 11200, "fiberCoverage": 75, "oepnvConnections": 11 },
-    { "name": "Langgöns", "population": 10800, "fiberCoverage": 82, "oepnvConnections": 9 },
-    { "name": "Laubach", "population": 5400, "fiberCoverage": 52, "oepnvConnections": 5 },
-    { "name": "Lich", "population": 13200, "fiberCoverage": 86, "oepnvConnections": 12 },
-    { "name": "Linden", "population": 8900, "fiberCoverage": 79, "oepnvConnections": 7 },
-    { "name": "Lollar", "population": 16200, "fiberCoverage": 91, "oepnvConnections": 16 },
-    { "name": "Pohlheim", "population": 19500, "fiberCoverage": 93, "oepnvConnections": 18 },
-    { "name": "Rabenau", "population": 7100, "fiberCoverage": 65, "oepnvConnections": 6 },
-    { "name": "Reiskirchen", "population": 6900, "fiberCoverage": 58, "oepnvConnections": 5 },
-    { "name": "Staufenberg", "population": 9800, "fiberCoverage": 76, "oepnvConnections": 8 },
-    { "name": "Wettenberg", "population": 10400, "fiberCoverage": 84, "oepnvConnections": 10 }
+    {
+      "name": "Allendorf (Lumda)",
+      "population": 6800,
+      "fiberCoverage": 85,
+      "oepnvConnections": 12
+    },
+    {
+      "name": "Biebertal",
+      "population": 8200,
+      "fiberCoverage": 72,
+      "oepnvConnections": 8
+    },
+    {
+      "name": "Buseck",
+      "population": 7900,
+      "fiberCoverage": 68,
+      "oepnvConnections": 6
+    },
+    {
+      "name": "Fernwald",
+      "population": 5600,
+      "fiberCoverage": 45,
+      "oepnvConnections": 4
+    },
+    {
+      "name": "Gießen",
+      "population": 88500,
+      "fiberCoverage": 95,
+      "oepnvConnections": 35
+    },
+    {
+      "name": "Grünberg",
+      "population": 9100,
+      "fiberCoverage": 78,
+      "oepnvConnections": 10
+    },
+    {
+      "name": "Heuchelheim",
+      "population": 12300,
+      "fiberCoverage": 88,
+      "oepnvConnections": 14
+    },
+    {
+      "name": "Hungen",
+      "population": 11200,
+      "fiberCoverage": 75,
+      "oepnvConnections": 11
+    },
+    {
+      "name": "Langgöns",
+      "population": 10800,
+      "fiberCoverage": 82,
+      "oepnvConnections": 9
+    },
+    {
+      "name": "Laubach",
+      "population": 5400,
+      "fiberCoverage": 52,
+      "oepnvConnections": 5
+    },
+    {
+      "name": "Lich",
+      "population": 13200,
+      "fiberCoverage": 86,
+      "oepnvConnections": 12
+    },
+    {
+      "name": "Linden",
+      "population": 8900,
+      "fiberCoverage": 79,
+      "oepnvConnections": 7
+    },
+    {
+      "name": "Lollar",
+      "population": 16200,
+      "fiberCoverage": 91,
+      "oepnvConnections": 16
+    },
+    {
+      "name": "Pohlheim",
+      "population": 19500,
+      "fiberCoverage": 93,
+      "oepnvConnections": 18
+    },
+    {
+      "name": "Rabenau",
+      "population": 7100,
+      "fiberCoverage": 65,
+      "oepnvConnections": 6
+    },
+    {
+      "name": "Reiskirchen",
+      "population": 6900,
+      "fiberCoverage": 58,
+      "oepnvConnections": 5
+    },
+    {
+      "name": "Staufenberg",
+      "population": 9800,
+      "fiberCoverage": 76,
+      "oepnvConnections": 8
+    },
+    {
+      "name": "Wettenberg",
+      "population": 10400,
+      "fiberCoverage": 84,
+      "oepnvConnections": 10
+    }
   ],
   "datasets": [
     {
@@ -35,7 +125,31 @@
       "type": "tabular",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "🌐"
+      "icon": "🌐",
+      "rating": 4.779400850413709,
+      "downloads": 7942,
+      "views": 53261,
+      "resources": 2,
+      "fileSize": "3.3 MB",
+      "format": "CSV, JSON",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Breitband",
+        "Infrastruktur",
+        "Verfügbarkeit",
+        "Netzwerk"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "ftth-001",
@@ -46,7 +160,31 @@
       "type": "geospatial",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "📡"
+      "icon": "📡",
+      "rating": 4.51825718556629,
+      "downloads": 8137,
+      "views": 39946,
+      "resources": 2,
+      "fileSize": "2.1 MB",
+      "format": "GeoJSON, Shapefile",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Breitband",
+        "Infrastruktur",
+        "Verfügbarkeit",
+        "Netzwerk"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "mobilfunk-001",
@@ -57,7 +195,31 @@
       "type": "geospatial",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "📱"
+      "icon": "📱",
+      "rating": 4.686989321990725,
+      "downloads": 6672,
+      "views": 50738,
+      "resources": 2,
+      "fileSize": "3.6 MB",
+      "format": "GeoJSON, Shapefile",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Breitband",
+        "Infrastruktur",
+        "Verfügbarkeit",
+        "Netzwerk"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "bevoelkerung-001",
@@ -68,7 +230,31 @@
       "type": "tabular",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "👥"
+      "icon": "👥",
+      "rating": 4.751316397999923,
+      "downloads": 12342,
+      "views": 37060,
+      "resources": 2,
+      "fileSize": "2.7 MB",
+      "format": "CSV, JSON",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Bevölkerung",
+        "Statistik",
+        "Gesellschaft",
+        "Entwicklung"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "altersstruktur-001",
@@ -79,7 +265,31 @@
       "type": "tabular",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "📊"
+      "icon": "📊",
+      "rating": 4.6297461030813105,
+      "downloads": 2987,
+      "views": 7955,
+      "resources": 1,
+      "fileSize": "4.4 MB",
+      "format": "CSV, JSON",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Bevölkerung",
+        "Statistik",
+        "Gesellschaft",
+        "Entwicklung"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "zuwanderung-001",
@@ -90,7 +300,31 @@
       "type": "timeseries",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "🌍"
+      "icon": "🌍",
+      "rating": 4.939650484053383,
+      "downloads": 7412,
+      "views": 12985,
+      "resources": 3,
+      "fileSize": "4.5 MB",
+      "format": "CSV, JSON",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Bevölkerung",
+        "Statistik",
+        "Gesellschaft",
+        "Entwicklung"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "verkehr-001",
@@ -101,7 +335,29 @@
       "type": "geospatial",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "🚗"
+      "icon": "🚗",
+      "rating": 4.585608626937209,
+      "downloads": 8420,
+      "views": 30463,
+      "resources": 5,
+      "fileSize": "2.3 MB",
+      "format": "GeoJSON, Shapefile",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Daten",
+        "Landkreis"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     },
     {
       "id": "oepnv-001",
@@ -112,7 +368,29 @@
       "type": "tabular",
       "updated": "März 2026",
       "contact": "datahub@landkreis-giessen.de",
-      "icon": "🚌"
+      "icon": "🚌",
+      "rating": 4.883876886243382,
+      "downloads": 13057,
+      "views": 37130,
+      "resources": 3,
+      "fileSize": "3.4 MB",
+      "format": "CSV, JSON",
+      "license": "CC-BY 4.0",
+      "period": "2020–2026",
+      "tags": [
+        "Daten",
+        "Landkreis"
+      ],
+      "previewRows": [
+        {
+          "Feld 1": "Beispiel 1",
+          "Feld 2": "Daten 1"
+        },
+        {
+          "Feld 1": "Beispiel 2",
+          "Feld 2": "Daten 2"
+        }
+      ]
     }
   ]
 }
