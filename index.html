@@ -3,326 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Data Hub Landkreis Gießen</title>
+  <title>Open Data Hub - Landkreis Gießen</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Leaflet für GIS-Karte -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <!-- Chart.js für Grafiken -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
-  <!-- NAVIGATION -->
-  <header>
-    <nav class="navbar">
-      <div class="nav-brand">
-        <span class="brand-icon">&#128061;</span>
-        <span class="brand-name">Open DataHub Gießen</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#" data-page="dashboard">Dashboard</a></li>
-        <li><a href="#" data-page="explore">Explore</a></li>
-        <li><a href="#" data-page="breitband">Breitbandausbau</a></li>
-        <li><a href="#" data-page="demografie">Demografie</a></li>
-        <li><a href="#" data-page="about">Info</a></li>
-      </ul>
-      <div class="search-bar">
-        <input
-          type="text"
-          id="globalSearch"
-          class="search-input"
-          placeholder="Daten suchen..."
-        />
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-icon">📊</span>
+      <span class="sidebar-title">DataHub</span>
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-page="home">Startseite</a>
+      <a href="#" class="nav-link" data-page="explore">Datensätze</a>
+      <a href="#" class="nav-link" data-page="breitband">Breitband</a>
+      <a href="#" class="nav-link" data-page="demografie">Demografie</a>
+      <a href="#" class="nav-link" data-page="mobilität">Mobilität</a>
+      <a href="#" class="nav-link" data-page="about">Über</a>
     </nav>
-  </header>
+  </aside>
 
-  <!-- PAGES CONTAINER -->
-  <main class="pages-container">
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- HEADER -->
+    <header class="header">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <h1>Open Data Hub</h1>
+      <input type="text" id="globalSearch" class="search-input" placeholder="Datensätze durchsuchen..." />
+    </header>
 
-    <!-- DASHBOARD PAGE -->
-    <section id="dashboard-page" class="page active">
-      <div class="hero-section">
-        <div class="hero-content">
-          <h1>Open Data Hub Landkreis Gießen</h1>
-          <p>Daten für Verwaltung, Politik und Bürger:innen – transparent und offen.</p>
-          <button class="btn-primary" onclick="navigateToPage('explore')">Daten durchsuchen</button>
-        </div>
-      </div>
+    <!-- PAGES CONTAINER -->
+    <div class="pages-container">
+      <!-- HOME PAGE -->
+      <div class="page active" id="home-page">
+        <section class="hero">
+          <h2>Willkommen im Open Data Hub</h2>
+          <p>Entdecken Sie Offene Daten des Landkreises Gießen</p>
+        </section>
 
-      <div class="container">
-        <!-- KPI Cards -->
         <section class="kpi-section">
-          <h2>Aktuelle Kennzahlen</h2>
+          <h3>Überblick</h3>
           <div class="kpi-grid">
             <div class="kpi-card">
-              <div class="kpi-icon">📊</div>
-              <div class="kpi-value">256.000</div>
-              <div class="kpi-label">Einwohner</div>
-              <div class="kpi-change">+1,2% seit 2020</div>
+              <div class="kpi-number">18</div>
+              <div class="kpi-label">Gemeinden</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-icon">🌐</div>
-              <div class="kpi-value">48%</div>
-              <div class="kpi-label">FTTH-Abdeckung</div>
-              <div class="kpi-change">↑ +8% in 2024</div>
+              <div class="kpi-number" id="total-population">—</div>
+              <div class="kpi-label">Gesamtbevölkerung</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-icon">📈</div>
-              <div class="kpi-value">44,5</div>
-              <div class="kpi-label">Durchschnittsalter</div>
-              <div class="kpi-change">↑ Leicht ansteigend</div>
+              <div class="kpi-number" id="avg-fiber">—</div>
+              <div class="kpi-label">Ø Glasfaser-Ausbau</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-icon">📦</div>
-              <div class="kpi-value">6</div>
-              <div class="kpi-label">Datensätze verfügbar</div>
-              <div class="kpi-change">Kontinuierlich aktualisiert</div>
+              <div class="kpi-number" id="largest-municipality">—</div>
+              <div class="kpi-label">Größte Gemeinde</div>
             </div>
           </div>
         </section>
 
-        <!-- Featured Datasets -->
         <section class="featured-section">
-          <h2>Beliebte Datensätze</h2>
-          <div class="dataset-grid">
-            <div class="dataset-card" onclick="navigateToDataset('breitband-001')">
-              <div class="dataset-badge">Aktuell</div>
-              <h3>Breitbandverfügbarkeit 2024</h3>
-              <p>Aktuelle Verfügbarkeitskarten auf Gemeindeebene</p>
-              <div class="dataset-meta">
-                <span class="source-badge breitband">BürgerGIS</span>
-                <span class="update-date">vor 5 Tagen aktualisiert</span>
-              </div>
-            </div>
-
-            <div class="dataset-card" onclick="navigateToDataset('bevoelkerung-001')">
-              <div class="dataset-badge">Trend</div>
-              <h3>Bevölkerungsentwicklung</h3>
-              <p>Daten von 1990 bis 2024 mit Prognosen</p>
-              <div class="dataset-meta">
-                <span class="source-badge stat">Statistisches Landesamt</span>
-                <span class="update-date">vor 2 Monaten aktualisiert</span>
-              </div>
-            </div>
-
-            <div class="dataset-card" onclick="navigateToDataset('ftth-001')">
-              <div class="dataset-badge">Zeitreihe</div>
-              <h3>FTTH-Ausbaufortschritt</h3>
-              <p>Glasfaserausbau 2020-2024 nach Gemeinde</p>
-              <div class="dataset-meta">
-                <span class="source-badge breitband">INGRADA</span>
-                <span class="update-date">vor 3 Wochen aktualisiert</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Quick Links -->
-        <section class="quick-links">
-          <h2>Schnellzugriff</h2>
-          <div class="links-grid">
-            <a href="#" onclick="navigateToPage('breitband')" class="quick-link">
-              <i class="fas fa-wifi"></i> Breitbandausbau erkunden
-            </a>
-            <a href="#" onclick="navigateToPage('demografie')" class="quick-link">
-              <i class="fas fa-users"></i> Demografische Daten
-            </a>
-            <a href="#" onclick="navigateToPage('explore')" class="quick-link">
-              <i class="fas fa-search"></i> Erweiterte Suche
-            </a>
-            <a href="#" class="quick-link">
-              <i class="fas fa-download"></i> Alle Downloads
-            </a>
-          </div>
+          <h3>Empfohlene Datensätze</h3>
+          <div class="dataset-grid" id="featured-datasets"></div>
         </section>
       </div>
-    </section>
 
-    <!-- EXPLORE PAGE -->
-    <section id="explore-page" class="page">
-      <div class="container explore-container">
-        <h1>Datensätze durchsuchen</h1>
-
-        <!-- Search Bar -->
-        <div class="search-section">
-          <input
-            type="text"
-            id="exploreSearch"
-            class="search-input-large"
-            placeholder="Suchbegriff eingeben..."
-          />
-          <button class="btn-secondary" onclick="resetFilters()">Filter zurücksetzen</button>
+      <!-- EXPLORE PAGE -->
+      <div class="page" id="explore-page">
+        <div class="explore-header">
+          <h2>Alle Datensätze</h2>
+          <div class="filters">
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Breitbandausbau" /> Breitbandausbau
+            </label>
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Demografie" /> Demografie
+            </label>
+            <label class="filter-label">
+              <input type="checkbox" class="theme-filter" value="Mobilität & Verkehr" /> Mobilität & Verkehr
+            </label>
+          </div>
         </div>
-
-        <!-- Filters & Results Layout -->
-        <div class="explore-layout">
-          <!-- Left: Filters -->
-          <aside class="filter-panel">
-            <h3>Filter</h3>
-
-            <div class="filter-group">
-              <h4>Themenbereich</h4>
-              <label><input type="checkbox" value="Breitbandausbau" class="theme-filter"> Breitbandausbau</label>
-              <label><input type="checkbox" value="Demografie" class="theme-filter"> Demografie</label>
-            </div>
-
-            <div class="filter-group">
-              <h4>Datenquelle</h4>
-              <label><input type="checkbox" value="BürgerGIS" class="source-filter"> BürgerGIS</label>
-              <label><input type="checkbox" value="INGRADA" class="source-filter"> INGRADA</label>
-              <label><input type="checkbox" value="The Things Network" class="source-filter"> The Things Network</label>
-              <label><input type="checkbox" value="Hessisches Statistisches Landesamt" class="source-filter"> HSL</label>
-              <label><input type="checkbox" value="Ausländerbehörde" class="source-filter"> Ausländerbehörde</label>
-            </div>
-
-            <div class="filter-group">
-              <h4>Geografische Ebene</h4>
-              <label><input type="checkbox" value="kreis" class="level-filter"> Kreisebene</label>
-              <label><input type="checkbox" value="gemeinde" class="level-filter"> Gemeindeebene</label>
-            </div>
-
-            <div class="filter-group">
-              <h4>Datentyp</h4>
-              <label><input type="checkbox" value="geospatial" class="type-filter"> Geodaten</label>
-              <label><input type="checkbox" value="timeseries" class="type-filter"> Zeitreihe</label>
-              <label><input type="checkbox" value="statistics" class="type-filter"> Statistik</label>
-              <label><input type="checkbox" value="heatmap" class="type-filter"> Heatmap</label>
-            </div>
-          </aside>
-
-          <!-- Right: Results -->
-          <main class="results-panel">
-            <div id="results-info" class="results-info"></div>
-            <div id="datasets-results" class="datasets-results"></div>
-          </main>
-        </div>
+        <input type="text" id="exploreSearch" class="search-input" placeholder="Nach Name oder Beschreibung suchen..." />
+        <div id="results-info" class="results-info"></div>
+        <div class="dataset-grid" id="datasets-results"></div>
       </div>
-    </section>
 
-    <!-- BREITBANDAUSBAU PAGE -->
-    <section id="breitband-page" class="page">
-      <div class="container">
-        <h1>Breitbandausbau im Landkreis Gießen</h1>
-
+      <!-- BREITBAND PAGE -->
+      <div class="page" id="breitband-page">
+        <h2>Breitbandausbau</h2>
+        <p>Übersicht zum Ausbaustand von Breitbandinfrastruktur in den Gemeinden des Landkreises Gießen</p>
         <div class="theme-layout">
-          <!-- Map & Stats -->
-          <div class="theme-main">
-            <div class="map-placeholder">
-              <div class="placeholder-text">
-                <i class="fas fa-map"></i>
-                <p>Interaktive Karte: Breitbandverfügbarkeit nach Gemeinde</p>
-                <small>(Visualisierung mit Leaflet.js)</small>
-              </div>
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="breitband-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <div class="chart-container">
+              <h3>Glasfaser-Abdeckung nach Gemeinde</h3>
+              <div id="breitband-map" class="gis-map"></div>
             </div>
-
-            <!-- Municipality Stats -->
-            <div class="municipality-stats">
-              <h3>FTTH-Abdeckung nach Gemeinde</h3>
-              <div class="stats-table-wrapper">
-                <table class="stats-table">
-                  <thead>
-                    <tr>
-                      <th>Gemeinde</th>
-                      <th>Einwohner</th>
-                      <th>FTTH-Abdeckung</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="municipality-tbody">
-                    <!-- Populated by JS -->
-                  </tbody>
-                </table>
-              </div>
+            <div class="chart-container" style="margin-top: 2rem;">
+              <h3>Gemeinden Übersicht</h3>
+              <table class="municipalities-table">
+                <thead>
+                  <tr>
+                    <th>Gemeinde</th>
+                    <th>Einwohner</th>
+                    <th>Glasfaser %</th>
+                    <th>Fortschritt</th>
+                  </tr>
+                </thead>
+                <tbody id="breitband-table"></tbody>
+              </table>
             </div>
           </div>
-
-          <!-- Right Sidebar -->
-          <aside class="theme-sidebar">
-            <div class="info-box">
-              <h3>Übersicht</h3>
-              <ul>
-                <li><strong>Landkreisweite Abdeckung:</strong> 48%</li>
-                <li><strong>Ausbau 2024:</strong> +8%</li>
-                <li><strong>Geplante Projekte:</strong> 5</li>
-              </ul>
-            </div>
-
-            <div class="filter-box">
-              <h3>Nach Gemeinde filtern</h3>
-              <select id="municipality-select">
-                <option value="">-- Alle Gemeinden --</option>
-              </select>
-            </div>
-
-            <div class="info-box">
-              <h3>Technologien</h3>
-              <ul>
-                <li>🔵 FTTH (Fiber-to-the-Home)</li>
-                <li>🟢 FTTC (Fiber-to-the-Cabinet)</li>
-                <li>🟡 DSL</li>
-                <li>🔴 LTE/5G</li>
-              </ul>
-            </div>
-          </aside>
         </div>
       </div>
-    </section>
 
-    <!-- DEMOGRAFIE PAGE -->
-    <section id="demografie-page" class="page">
-      <div class="container">
-        <h1>Demografische Entwicklung</h1>
-
+      <!-- DEMOGRAFIE PAGE -->
+      <div class="page" id="demografie-page">
+        <h2>Demografie</h2>
+        <p>Demografische Entwicklungen und Bevölkerungsstatistiken</p>
         <div class="theme-layout">
-          <!-- Charts & Stats -->
-          <div class="theme-main">
-            <div class="chart-placeholder">
-              <div class="placeholder-text">
-                <i class="fas fa-chart-line"></i>
-                <p>Bevölkerungsentwicklung 1990-2024</p>
-                <small>(Interaktive Grafik mit Chart.js)</small>
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="demografie-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <div class="chart-container">
+              <h3>Bevölkerung nach Gemeinde</h3>
+              <div style="position: relative; height: 400px;">
+                <canvas id="population-chart"></canvas>
               </div>
             </div>
-
-            <div class="comparison-box">
-              <h3>Gemeinde-Vergleich</h3>
-              <div class="comparison-controls">
-                <select id="municipality-compare-1">
-                  <option value="">Gemeinde 1 wählen...</option>
-                </select>
-                <span>vs.</span>
-                <select id="municipality-compare-2">
-                  <option value="">Gemeinde 2 wählen...</option>
-                </select>
-              </div>
-              <div class="comparison-result">
-                <div id="comparison-text" class="comparison-text"></div>
-              </div>
+            <div class="chart-container" style="margin-top: 2rem;">
+              <h3>Gemeinden Übersicht</h3>
+              <table class="municipalities-table">
+                <thead>
+                  <tr>
+                    <th>Gemeinde</th>
+                    <th>Einwohner</th>
+                    <th>Trend</th>
+                    <th>Anteil</th>
+                  </tr>
+                </thead>
+                <tbody id="demografie-table"></tbody>
+              </table>
             </div>
           </div>
-
-          <!-- Right Sidebar -->
-          <aside class="theme-sidebar">
-            <div class="info-box">
-              <h3>Landkreis-Kennzahlen</h3>
-              <ul>
-                <li><strong>Bevölkerung:</strong> 256.000</li>
-                <li><strong>Durchschnittsalter:</strong> 44,5 Jahre</li>
-                <li><strong>Veränderung:</strong> +1,2% seit 2020</li>
-                <li><strong>Progr. 2030:</strong> -2%</li>
-              </ul>
-            </div>
-
-            <div class="filter-box">
-              <h3>Altersgruppen</h3>
-              <label><input type="checkbox" checked> 0-20 Jahre</label>
-              <label><input type="checkbox" checked> 20-40 Jahre</label>
-              <label><input type="checkbox" checked> 40-65 Jahre</label>
-              <label><input type="checkbox" checked> 65+ Jahre</label>
-            </div>
-          </aside>
         </div>
       </div>
-    </section>
 
-    <!-- DATASET DETAIL PAGE -->
+      <!-- MOBILITÄT PAGE -->
+      <div class="page" id="mobilität-page">
+        <h2>Mobilität & Verkehr</h2>
+        <p>Verkehrsinfrastruktur und Öffentliche Verkehrsmittel</p>
+        <div class="theme-layout">
+          <div class="theme-sidebar">
+            <h3>Datensätze</h3>
+            <div id="mobilität-datasets" class="dataset-grid"></div>
+          </div>
+          <div class="theme-content">
+            <h3>Gemeinden</h3>
+            <table class="municipalities-table">
+              <thead>
+                <tr>
+                  <th>Gemeinde</th>
+                  <th>Einwohner</th>
+                  <th>ÖPNV Verbindungen</th>
+                  <th>Erreichbarkeit</th>
+                </tr>
+              </thead>
+              <tbody id="mobilität-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT PAGE -->
+      <div class="page" id="about-page">
+        <h2>Über diesen Hub</h2>
+        <div class="about-content">
+          <h3>Was ist der Open Data Hub?</h3>
+          <p>Der Open Data Hub des Landkreises Gießen macht öffentliche Daten zentral zugänglich und trägt zur Transparenz und Teilhabe bei.</p>
+
+          <h3>Thematische Bereiche</h3>
+          <ul>
+            <li><strong>Breitbandausbau:</strong> Aktuelle Informationen zur Glasfaser- und Mobilfunkabdeckung</li>
+            <li><strong>Demografie:</strong> Bevölkerungsstatistiken und Entwicklungstrends</li>
+            <li><strong>Mobilität & Verkehr:</strong> Verkehrsinfrastruktur und öffentliche Verkehrsmittel</li>
+          </ul>
+
+          <h3>Kontakt</h3>
+          <p>E-Mail: <a href="mailto:datahub@landkreis-giessen.de">datahub@landkreis-giessen.de</a></p>
+        </div>
+      </div>
+    
+
+      <!-- DATASET DETAIL PAGE -->
     <section id="dataset-page" class="page">
       <div class="container dataset-detail-container">
         <a href="#" onclick="navigateToPage('explore')" class="back-link">← Zurück zur Übersicht</a>
@@ -380,55 +278,9 @@
     </section>
 
     <!-- ABOUT PAGE -->
-    <section id="about-page" class="page">
-      <div class="container">
-        <h1>Über diesen Open Data Hub</h1>
 
-        <div class="about-content">
-          <section class="about-section">
-            <h2>Ziel</h2>
-            <p>Der Open Data Hub Landkreis Gießen macht Daten transparent und zugänglich für Verwaltung, Politik und Bürger:innen. Unser Fokus liegt auf den Themenbereichen Breitbandausbau und Demografie.</p>
-          </section>
-
-          <section class="about-section">
-            <h2>Datenquellen</h2>
-            <ul>
-              <li><strong>BürgerGIS</strong> - Geografische Daten</li>
-              <li><strong>INGRADA</strong> - Netzausbau und Infrastruktur</li>
-              <li><strong>The Things Network</strong> - IoT und Funkabdeckung</li>
-              <li><strong>Hessisches Statistisches Landesamt</strong> - Demografische Statistiken</li>
-              <li><strong>Ausländerbehörde</strong> - Migrationsdaten</li>
-              <li><strong>Grafana-Dashboards</strong> - Live-Monitoring</li>
-            </ul>
-          </section>
-
-          <section class="about-section">
-            <h2>Lizenzen</h2>
-            <p>Die meisten Datensätze sind unter CC-BY-4.0 oder CC0 verfügbar – Sie dürfen sie frei nutzen, weiterverarbeiten und weitergeben.</p>
-          </section>
-
-          <section class="about-section">
-            <h2>Kontakt</h2>
-            <p>Fragen oder Anregungen? Schreiben Sie an: <strong>opendatahub@landkreis-giessen.de</strong></p>
-          </section>
-        </div>
       </div>
-    </section>
-
   </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <span class="brand-name">Open DataHub Gießen</span>
-      <span class="footer-links">
-        <a href="#" onclick="navigateToPage('about')">Über uns</a> |
-        <a href="#">Datenschutz</a> |
-        <a href="#">Impressum</a>
-      </span>
-      <span class="footer-copy">&copy; 2024 Landkreis Gießen</span>
-    </div>
-  </footer>
 
   <script src="app.js"></script>
 </body>
