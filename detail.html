@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datensatz Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-icon">📊</span>
+      <span class="sidebar-title">DataHub</span>
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link">← Zurück zu Datensätze</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- HEADER -->
+    <header class="header">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <h1 id="detail-title">Datensatz laden...</h1>
+      <input type="text" class="search-input" placeholder="Datensätze durchsuchen..." disabled />
+    </header>
+
+    <!-- DETAIL CONTENT -->
+    <div class="pages-container">
+      <div class="page active">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+          <a href="index.html" style="color: #60a5fa; margin-bottom: 2rem; display: inline-block;">← Zurück</a>
+
+          <h1 id="detail-heading" style="color: white; margin-bottom: 1rem;"></h1>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div style="background: #112240; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2rem;">
+              <h2 style="color: white; margin-bottom: 1rem;">Beschreibung</h2>
+              <p id="detail-description" style="color: #cbd5e1;"></p>
+            </div>
+
+            <div style="background: #112240; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2rem;">
+              <h2 style="color: white; margin-bottom: 1rem;">Informationen</h2>
+              <div style="display: grid; gap: 1rem;">
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Datenquelle:</strong>
+                  <p id="detail-source" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Datentyp:</strong>
+                  <p id="detail-type" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Geografische Ebene:</strong>
+                  <p id="detail-level" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Zuletzt aktualisiert:</strong>
+                  <p id="detail-updated" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Aktualisierungsfrequenz:</strong>
+                  <p id="detail-frequency" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+                <div>
+                  <strong style="color: #60a5fa; text-transform: uppercase; font-size: 0.9rem;">Lizenz:</strong>
+                  <p id="detail-license" style="color: #cbd5e1; margin: 0.5rem 0 0 0;"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #112240; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 2rem; margin-top: 2rem;">
+            <h2 style="color: white; margin-bottom: 1rem;">Download</h2>
+            <div id="detail-downloads" style="display: flex; flex-wrap: wrap; gap: 1rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Load dataset from URL parameter
+    function loadDataset() {
+      const params = new URLSearchParams(window.location.search);
+      const datasetId = params.get('id');
+
+      if (!datasetId) {
+        document.getElementById('detail-heading').textContent = 'Fehler: Keine Datensatz-ID in der URL';
+        return;
+      }
+
+      // Fetch and parse data.json
+      fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+          const datasets = data.datasets || [];
+          const dataset = datasets.find(d => d.id === datasetId);
+
+          if (!dataset) {
+            document.getElementById('detail-heading').textContent = 'Datensatz nicht gefunden';
+            return;
+          }
+
+          // Fill in the details
+          document.getElementById('detail-title').textContent = dataset.title;
+          document.getElementById('detail-heading').textContent = dataset.title;
+          document.getElementById('detail-description').textContent = dataset.description;
+          document.getElementById('detail-source').textContent = dataset.source;
+          document.getElementById('detail-type').textContent = dataset.type;
+          document.getElementById('detail-level').textContent = dataset.level.join(', ');
+          document.getElementById('detail-updated').textContent = dataset.updated;
+          document.getElementById('detail-frequency').textContent = dataset.frequency;
+          document.getElementById('detail-license').textContent = dataset.license;
+
+          // Downloads
+          const downloadContainer = document.getElementById('detail-downloads');
+          downloadContainer.innerHTML = dataset.download.map(format =>
+            `<a href="#" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 12px 20px; background: #1e4080; color: white; border-radius: 6px; font-weight: 600; text-decoration: none;"><span>📥</span> ${format}</a>`
+          ).join('');
+        })
+        .catch(err => {
+          console.error('Error loading data:', err);
+          document.getElementById('detail-heading').textContent = 'Fehler beim Laden der Daten';
+        });
+    }
+
+    // Sidebar toggle
+    document.getElementById('sidebar-toggle')?.addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-closed');
+    });
+
+    // Load on page load
+    document.addEventListener('DOMContentLoaded', loadDataset);
+  </script>
+</body>
+</html>

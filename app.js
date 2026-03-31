@@ -198,15 +198,17 @@ function renderThemePage(theme, datasets) {
 // ===== DATASET CARD =====
 function createDatasetCard(dataset) {
   return `
-    <div class="dataset-card">
-      <h3>${dataset.icon} ${dataset.title}</h3>
-      <p>${dataset.description}</p>
-      <div class="dataset-meta">
-        <span class="dataset-badge">${dataset.type}</span>
-        <span class="source-badge">${dataset.source}</span>
-        <span class="update-date">${dataset.updated}</span>
+    <a href="detail.html?id=${dataset.id}" class="dataset-card-link">
+      <div class="dataset-card">
+        <h3>${dataset.icon} ${dataset.title}</h3>
+        <p>${dataset.description}</p>
+        <div class="dataset-meta">
+          <span class="dataset-badge">${dataset.type}</span>
+          <span class="source-badge">${dataset.source}</span>
+          <span class="update-date">${dataset.updated}</span>
+        </div>
       </div>
-    </div>
+    </a>
   `;
 }
 

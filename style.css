@@ -376,6 +376,12 @@ body.sidebar-closed .main-content {
   gap: 1.5rem;
 }
 
+.dataset-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .dataset-card {
   background: white;
   padding: 1.5rem;
